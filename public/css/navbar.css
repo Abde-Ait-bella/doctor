@@ -1,0 +1,23 @@
+.bar{
+    background-color: #F2F6F6;
+    /* position: fixed; */
+    display: block;
+    width: 100%;
+    z-index: 9999;
+    box-shadow: inherit;
+    text-decoration: none;
+}
+.btn_login{
+    min-width: 87px;
+    color: #ffffff;
+    background-color: #0E82FD;
+    border: 1px solid #0E82FD;
+    box-shadow: inset 0 0 0 0 #ffffff;
+    padding: 7px 8px !important;
+    border-radius: 6px;
+    border: 1px solid #0E82FD;
+    transition: 0.7s;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 17px;
+}
