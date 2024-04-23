@@ -155,15 +155,15 @@
                         <div class="separat_search"></div>
                         <div class="ps-2">
                             <i class="fa-solid fa-location-dot"></i>
-                            {{-- <input type="hidden" name="from" value="js">
+                             {{-- <input type="hidden" name="from" value="js"> --}}
                             <input type="search" class="border border-0" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" placeholder="{{ __('Set your location') }}">
-                            <input type="hidden" name="doc_lat">
+                            {{-- <input type="hidden" name="doc_lat">
                             <input type="hidden" name="doc_lang"> --}}
-                            <div class="">
+                            {{-- <div class="">
                                 <label for="search_place">Search Place:</label>
                                 <input type="text" class="form-control" id="search_place" name="doc_lat" placeholder="Enter a location">
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="separat_search"></div>
                         <div class="ps-2">
