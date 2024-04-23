@@ -6720,7 +6720,7 @@ input:checked + .toggle-bg{
 }
 
 .card-body img {
-  width: 251px;
+  width: 170px;
   height: 165px;
   border-radius: 10px;
 }
@@ -6842,6 +6842,7 @@ input:checked + .toggle-bg{
 
 .doctor-profile-widget.doc-grid .doc-pro-img .doctor-profile-img img {
   border-radius: 10px;
+  height: 226px;
 }
 
 doctor-profile-widget.doc-grid .doc-pro-img .reviews-ratings {
@@ -6963,10 +6964,10 @@ doctor-profile-widget.doc-grid .doc-pro-img .reviews-ratings {
 /* profile doctor */
 
 .doctor-img {
-  -ms-flex: 0 0 150px;
-  flex: 0 0 150px;
-  margin-right: 20px;
-  width: 150px;
+  /* -ms-flex: 0 0 150px; */
+  /* flex: 0 0 150px; */
+  /* margin-right: 20px; */
+  width: 190px;
 }
 .doctor-widget .doc-name {
   font-size: 20px;

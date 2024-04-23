@@ -45,7 +45,7 @@
                         <i class="fa-solid fa-location-dot"></i>
                     </div>
                     <input type="hidden" name="from" value="js">
-                    <input type="search" onFocus="geolocate()" id="autocomplete"
+                    <input type="search" id="autocomplete"
                         class="block p-2 pl-10 text-sm text-black-700 bg-white-50 border border-white-light 2xl:w-96 xmd:w-72 !sm:w-32 msm:w-40 h-12"
                         placeholder="{{ __('Set your location') }}">
                     <input type="hidden" name="doc_lat">

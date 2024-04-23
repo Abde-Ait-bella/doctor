@@ -135,7 +135,7 @@
                                     <ul class="clinic-gallery">
                                         <li>
                                             <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery">
-                                                <img src="https://media.lesechos.com/api/v1/images/view/636a35936c7f0a323d425176/1280x720/0702727334137-web-tete.jpg"
+                                                <img src="{{ $doctor->category['fullImage'] }}"
                                                     alt="Feature">
                                             </a>
                                         </li>
@@ -195,8 +195,7 @@
                             </div>
                             <div class="clinic-booking">
                                 <a class="apt-btn"
-                                    href="https://doccure.dreamstechnologies.com/laravel/template/public/booking">Book
-                                    Appointment</a>
+                                href="{{ url('booking/' . $doctor->id . '/' . Str::slug($doctor->name)) }}">{{ __('Make Appointment') }}</a>
                             </div>
                         </div>
                     </div>
