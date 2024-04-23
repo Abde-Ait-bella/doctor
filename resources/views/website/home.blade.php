@@ -133,7 +133,7 @@
                             class="header-icon" alt="header-icon">
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
                         <div class="d-flex mb-5">
-                            <div class="xxsm:relative xsm:relative sm:absolute">
+                            <div class="xxsm:relative xsm:relative">
                                 <a class="btn btn-link text-center mt-0 rounded-none bg-primary text-white font-normal font-fira-sans text-sm py-3.5 px-7"
                                     target="_blank" href="{{ $setting->banner_url }}"
                                     role="button">{{ __('Make Appointment') }}</a>
@@ -168,6 +168,7 @@
                         </div>
                     </form>
                 </div>
+                
                 <div class="col-lg-6">
                     <div class="banner-img aos" data-aos="fade-up">
                         <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/banner-img.png"
@@ -187,18 +188,136 @@
                     </div>
                 </div>
             </div>
+            <div class="row icons_categoey">
+                <div class="slick-slider-spec" dir="ltr">
+    
+                    <div class="specialities"
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        <div class="specialities" style="display: flex; flex-direction: column; align-items: center; ">
+                            <div class="specialities-img ">
+                                <span
+                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
+                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-01.svg"
+                                        alt="heart-image"></span>
+                            </div>
+                            <p>Cardiology</p>
+                        </div>
+                    </div>
+    
+                    <div class="specialities"
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        <div class="specialities-item"
+                            style="display: flex; flex-direction: column; align-items: center; ">
+                            <div class="specialities-img">
+                                <span
+                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
+                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-02.svg"
+                                        alt="brain-image"></span>
+                            </div>
+                            <p>Neurology</p>
+                        </div>
+                    </div>
+    
+                    <div class="specialities"
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        <div class="specialities-item"
+                            style="display: flex; flex-direction: column; align-items: center; ">
+                            <div class="specialities-img">
+                                <span
+                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
+                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-03.svg"
+                                        alt="kidney-image"></span>
+                            </div>
+                            <p>Urology</p>
+                        </div>
+                    </div>
+    
+                    <div class="specialities"
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        <div class="specialities-item"
+                            style="display: flex; flex-direction: column; align-items: center; ">
+                            <div class="specialities-img">
+                                <span
+                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
+                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-04.svg"
+                                        alt="bone-image"></span>
+                            </div>
+                            <p>Orthopedic</p>
+                        </div>
+                    </div>
+    
+                    <div class="specialities"
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        <div class="specialities-item"
+                            style="display: flex; flex-direction: column; align-items: center; ">
+                            <div class="specialities-img">
+                                <span
+                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
+                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-05.svg"
+                                        alt="dentist"></span>
+                            </div>
+                            <p>Dentist</p>
+                        </div>
+                    </div>
+    
+                    <div class="specialities"
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        <div class="specialities-item"
+                            style="display: flex; flex-direction: column; align-items: center; ">
+                            <div class="specialities-img">
+                                <span
+                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
+                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-06.svg"
+                                        alt="eye-image"></span>
+                            </div>
+                            <p>Ophthalmology</p>
+                        </div>
+                    </div>
+    
+                    <div class="specialities"
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        <div class="specialities-item"
+                            style="display: flex; flex-direction: column; align-items: center; ">
+                            <div class="specialities-img">
+                                <span
+                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
+                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-02.svg"
+                                        alt="brain-image"></span>
+                            </div>
+                            <p>Neurology</p>
+                        </div>
+                    </div>
+    
+                    <div class="specialities"
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        <div class="specialities-item"
+                            style="display: flex; flex-direction: column; align-items: center; ">
+                            <div class="specialities-img">
+                                <span
+                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
+                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-02.svg"
+                                        alt="brain-image"></span>
+                            </div>
+                            <p>Neurology</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        {{-- <div class="container">
+        </div> --}}
         {{-- <h1 >Lorem ipsum dolor sit amet co nsectetur adipisicing elit. Accusantium illo nobis culpa ullam deserunt id inventore fugiat ut saepe dignissimos minima facilis, dolores modi sit nam, porro excepturi quam perferendis debitis numquam magnam, eaque ducimus architecto vel? Fugiat, maiores eos odio qui, reprehenderit fugit quo incidunt doloribus adipisci commodi labore, hic magni. Ipsa deserunt excepturi quam, ut quisquam repudiandae eos rerum animi. Eaque atque illo vero at quidem, sequi quis quia tenetur voluptas praesentium itaque. Minima repudiandae atque quidem voluptatibus veritatis nam vero quisquam maiores laudantium hic, culpa illum! Accusantium ipsum repudiandae, tempore qui minus nobis adipisci quam debitis atque odit itaque facere nemo consectetur ut aliquam incidunt ab. Voluptas consequuntur praesentium cumque eos debitis dolorem quis temporibus quibusdam hic reiciendis, alias neque perferendis, ipsum molestiae eligendi soluta. Suscipit quam, eligendi quae harum eveniet sit obcaecati error ea. Cum repellendus velit autem ex est eaque consequuntur illum tenetur, sequi laboriosam incidunt! Eum harum quod neque, sunt veritatis tempore ad, alias voluptas nemo et impedit, sint unde reprehenderit molestias nobis expedita architecto temporibus vero facere molestiae inventore. Laboriosam alias voluptatibus neque error nihil animi corrupti consequatur necessitatibus, eveniet culpa consequuntur eligendi odio, facere, aperiam ab repellendus reprehenderit architecto delectus est saepe. Qui consectetur, vero repudiandae omnis exercitationem adipisci tempore laboriosam natus sunt, nisi saepe recusandae veritatis eaque, explicabo sit tenetur. Tempora quo sint deleniti in laudantium, quia odit expedita ut molestias aliquid corrupti praesentium eaque quidem placeat totam labore autem facilis libero! Iste, sed accusamus fugiat rerum laboriosam similique molestiae nisi unde quos odit. Eaque nulla, veniam aperiam ipsa ea, nihil doloribus suscipit recusandae tempore iure necessitatibus laudantium, fugiat reprehenderit exercitationem fuga sapiente voluptate non? Neque quasi doloremque dicta natus, incidunt necessitatibus vel magni iusto voluptate voluptatum. Expedita soluta labore ducimus, rem velit repellendus dolorem quasi accusamus id perferendis, dolorum adipisci. Cumque quod reiciendis suscipit fuga modi eum itaque atque iure, provident beatae minus excepturi saepe aperiam alias illo maxime ullam culpa nemo ipsam nihil unde sed corrupti delectus. Iure distinctio maiores inventore aliquam, hic incidunt quo est facilis voluptatum rerum explicabo veniam soluta consequatur! Sint expedita tenetur ipsum. Explicabo quisquam natus sit consequatur voluptatem itaque placeat totam culpa similique dolorem autem cum illum sapiente necessitatibus sed temporibus dolore, unde dolor iure voluptatibus nostrum voluptatum optio vel eveniet. Tenetur culpa quisquam commodi in, alias necessitatibus? Autem reiciendis natus deserunt id quisquam eligendi quis itaque, iure fugiat nam. Cum eos, earum facilis soluta odio sequi explicabo quam voluptatem quaerat autem obcaecati voluptate incidunt placeat eveniet aspernatur laudantium aliquid maiores, illum totam ut. Ratione mollitia natus, atque voluptates doloremque hic architecto doloribus officiis quas consequuntur consectetur tenetur, alias culpa illo molestias repellendus itaque laborum aliquam ducimus. Consectetur eum itaque, adipisci, commodi quaerat amet, quas quis cum sapiente omnis rerum dolores. Cum quas esse, minus necessitatibus reprehenderit nisi. Consectetur, maiores esse rem tempore delectus excepturi velit repellendus temporibus! Enim explicabo recusandae quidem porro sed nobis minus inventore, officia commodi. Sapiente, voluptas cum? Saepe atque ratione doloremque qui! Asperiores unde recusandae nulla sit! Voluptates, voluptatum.</h1> --}}
         {{-- </div> --}}
 
     </div>
     <!-- <div class="w-full bg-cover bg-no-repeat" style="height:1000px;background-image: url({{ asset('/assets/image/Banner.png') }})">
-                                                                                                                        <div class="xlg:mx-20 xxsm:mx-4 xsm:mx-5 pt-20">
-                                                                                                                            <h1 class="font-fira-sans text-black font-normal text-6xl !1xl:w-2/4 2xl:w-1/3 md:w-3/4 xxsm:w-full leading-snug mb-10">Skip Travelling Online <span class="text-blue-600/100">Consultation</span> is the Future</h1>
-                                                                                                                            <p class="font-fira-sans font-normal text-lg text-gray mb-10">Private consultation available on Audio & Video Call</p>
-                                                                                                                           <a class="btn btn-link text-center mt-0 rounded-none bg-primary px-6 py-3 md:px-3 md:py-3  text-white font-normal font-fira-sans text-sm" target="_blank" href="{{ $setting->banner_url }}" role="button">{{ __('Make Appointment') }}</a>
-                                                                                                                        </div>
-                                                                                                                    </div> -->
+                                                                                                                                                <div class="xlg:mx-20 xxsm:mx-4 xsm:mx-5 pt-20">
+                                                                                                                                                    <h1 class="font-fira-sans text-black font-normal text-6xl !1xl:w-2/4 2xl:w-1/3 md:w-3/4 xxsm:w-full leading-snug mb-10">Skip Travelling Online <span class="text-blue-600/100">Consultation</span> is the Future</h1>
+                                                                                                                                                    <p class="font-fira-sans font-normal text-lg text-gray mb-10">Private consultation available on Audio & Video Call</p>
+                                                                                                                                                   <a class="btn btn-link text-center mt-0 rounded-none bg-primary px-6 py-3 md:px-3 md:py-3  text-white font-normal font-fira-sans text-sm" target="_blank" href="{{ $setting->banner_url }}" role="button">{{ __('Make Appointment') }}</a>
+                                                                                                                                                </div>
+                                                                                                                                            </div> -->
     <div class="xxsm:mx-5 xl:mx-0 2xl:mx-0">
         {{-- body --}}
 
@@ -241,7 +360,7 @@
                 @endif
             </div>
             @if (count($doctors) > 0)
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xlg:grid-cols-4 lg:grid-cols-3">
+                {{-- <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xlg:grid-cols-4 lg:grid-cols-3">
                     @foreach ($doctors as $doctor)
                         <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
                             <div class="border border-white-light p-10">
@@ -263,7 +382,57 @@
                                     ({{ $doctor['review'] }} {{ __('reviews') }})
                                 </p>
                             </div>
+
                         </a>
+                    @endforeach
+                </div> --}}
+                <div class="row mt-4">
+                    @foreach ($doctors as $doctor)
+                        <div class="col-xl-3 col-lg-3 col-md-6 d-flex">
+                            <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
+                                <div class="doctor-profile-widget doc-grid">
+                                    <div class="doc-pro-img">
+                                        <a
+                                            href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
+                                            <div class="doctor-profile-img">
+                                                <img src="{{ url($doctor->fullImage) }}" class="img-fluid"
+                                                    alt="John Doe">
+                                            </div>
+                                        </a>
+                                        <div class="reviews-ratings">
+                                            <p>
+                                                <span><i class="fas fa-star"></i> {{ $doctor['rate'] }}
+                                                    ({{ $doctor['review'] }} {{ __('reviews') }})
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="favourite-btn">
+                                            <a href="javascript:void(0)" class="favourite-icon">
+                                                <i class="fas fa-heart"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="doc-content">
+                                        <div class="doc-pro-info">
+                                            <div class="doc-pro-name">
+                                                <h4><a href="">{{ $doctor->name }}</a><i
+                                                        class="fas fa-circle-check"></i></h4>
+                                                <p>{{ $doctor['expertise']['name'] }}</p>
+                                            </div>
+                                            <div class="review-price ">
+                                                <p class="mt-2">$1100.00<span>/hr</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="doc-pro-location">
+                                            <p><i class="fa-solid fa-location-dot"></i> <span>0.9</span> mi - New York, USA
+                                            </p>
+                                            <p><i class="fa-solid fa-certificate"></i> <span>15</span> Years of Experience
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     @endforeach
                 </div>
             @else
@@ -274,166 +443,52 @@
 
         </div>
 
+
+
         <!-- {{-- our doctor --}}
-                                                                                                                        <div class="xsm:mx-5 xxsm:mx-5 justify-between flex sm:flex-row xxsm:flex-col 2xl:mt-28 mb-8 xxsm:mt-10">
-                                                                                                                            <div class="sm:py-3 md:py-0 msm:py-3 xsm:py-3 xxsm:py-3">
-                                                                                                                                <h2 class="font-medium 2xl:text-4xl xl:text-4xl xlg:text-4xl lg:text-4xl xmd:text-4xl md:text-4xl msm:text-4xl sm:text-4xl xsm:text-4xl xxsm:text-2xl leading-10 font-fira-sans text-black">
-                                                                                                                                    {{ __('Our Doctors') }}
-                                                                                                                                </h2>
-                                                                                                                            </div>
-                                                                                                                            @if (count($doctors) > 0)
+                                                                                                                                                <div class="xsm:mx-5 xxsm:mx-5 justify-between flex sm:flex-row xxsm:flex-col 2xl:mt-28 mb-8 xxsm:mt-10">
+                                                                                                                                                    <div class="sm:py-3 md:py-0 msm:py-3 xsm:py-3 xxsm:py-3">
+                                                                                                                                                        <h2 class="font-medium 2xl:text-4xl xl:text-4xl xlg:text-4xl lg:text-4xl xmd:text-4xl md:text-4xl msm:text-4xl sm:text-4xl xsm:text-4xl xxsm:text-2xl leading-10 font-fira-sans text-black">
+                                                                                                                                                            {{ __('Our Doctors') }}
+                                                                                                                                                        </h2>
+                                                                                                                                                    </div>
+                                                                                                                                                    @if (count($doctors) > 0)
     <div class="sm:py-3 md:py-0 msm:py-3 xsm:py-3 xxsm:py-3">
-                                                                                                                                <a href="{{ url('show-doctors') }}" class="lg:px-4 text-sm font-normal font-fira-sans leading-4 lg:py-2 md:text-sm xmd:py-2 xmd:px-3 md:px-3 md:py-2 sm:py-2 sm:px-3 msm:px-3 msm:py-2 xsm:px-3 xsm:py-2 xxsm:px-3 xxsm:py-2 text-primary border border-primary text-center">{{ __('View
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    All Doctors') }}</a>
-                                                                                                                            </div>
+                                                                                                                                                        <a href="{{ url('show-doctors') }}" class="lg:px-4 text-sm font-normal font-fira-sans leading-4 lg:py-2 md:text-sm xmd:py-2 xmd:px-3 md:px-3 md:py-2 sm:py-2 sm:px-3 msm:px-3 msm:py-2 xsm:px-3 xsm:py-2 xxsm:px-3 xxsm:py-2 text-primary border border-primary text-center">{{ __('View
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        All Doctors') }}</a>
+                                                                                                                                                    </div>
 @else
     @endif
-                                                                                                                        </div>
+                                                                                                                                                </div>
 
-                                                                                                                        <div class="xsm:mx-5 xxsm:mx-5">
-                                                                                                                            @if (count($doctors) > 0)
+                                                                                                                                                <div class="xsm:mx-5 xxsm:mx-5">
+                                                                                                                                                    @if (count($doctors) > 0)
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xlg:grid-cols-4 lg:grid-cols-3">
-                                                                                                                                @foreach ($doctors as $doctor)
+                                                                                                                                                        @foreach ($doctors as $doctor)
     <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
-                                                                                                                                    <div class="border border-white-light p-10 1xl:h-[350px] xxmd:h-[300px] xmd:h-[300px] msm:h-[300px]">
-                                                                                                                                        <img class="2xl:w-28 2xl:h-28 xlg:h-24 xlg:w-24 xl:h-24 xl:w-24 lg:h-24 lg:w-24 xxmd:w-24 xxmd:h-24 md:h-20 md:w-20 sm:h-20 sm:w-20 xsm:h-16 xsm:w-16 msm:h-24
+                                                                                                                                                            <div class="border border-white-light p-10 1xl:h-[350px] xxmd:h-[300px] xmd:h-[300px] msm:h-[300px]">
+                                                                                                                                                                <img class="2xl:w-28 2xl:h-28 xlg:h-24 xlg:w-24 xl:h-24 xl:w-24 lg:h-24 lg:w-24 xxmd:w-24 xxmd:h-24 md:h-20 md:w-20 sm:h-20 sm:w-20 xsm:h-16 xsm:w-16 msm:h-24
                 msm:w-24 xxsm:h-14 xxsm:w-14 1xl:mt-8 msm:mt-2 xsm:mt-0 xxsm:mt-0 border border-primary rounded-full p-0.5 m-auto mt-12 object-cover bg-cover" src="{{ url($doctor->fullImage) }}" alt="" />
-                                                                                                                                        <h5 class="font-fira-sans font-normal text-lg leading-6 text-black text-center md:text-md pt-5">
-                                                                                                                                            {{ $doctor->name }}
-                                                                                                                                        </h5>
-                                                                                                                                        <p class="font-normal leading-4 text-sm text-primary text-center font-fira-sans md:text-md py-2">
-                                                                                                                                            {{ $doctor['expertise']['name'] }}
-                                                                                                                                        </p>
-                                                                                                                                        <p class="font-normal leading-4 text-sm text-gray text-center md:text-md"><i class="fa-solid fa-star text-yellow"></i> {{ $doctor['rate'] }} ({{ $doctor['review'] }} {{ __('reviews') }})</p>
-                                                                                                                                    </div>
-                                                                                                                                </a>
+                                                                                                                                                                <h5 class="font-fira-sans font-normal text-lg leading-6 text-black text-center md:text-md pt-5">
+                                                                                                                                                                    {{ $doctor->name }}
+                                                                                                                                                                </h5>
+                                                                                                                                                                <p class="font-normal leading-4 text-sm text-primary text-center font-fira-sans md:text-md py-2">
+                                                                                                                                                                    {{ $doctor['expertise']['name'] }}
+                                                                                                                                                                </p>
+                                                                                                                                                                <p class="font-normal leading-4 text-sm text-gray text-center md:text-md"><i class="fa-solid fa-star text-yellow"></i> {{ $doctor['rate'] }} ({{ $doctor['review'] }} {{ __('reviews') }})</p>
+                                                                                                                                                            </div>
+                                                                                                                                                        </a>
     @endforeach
-                                                                                                                            </div>
+                                                                                                                                                    </div>
 @else
     <div class="flex justify-center mt-44 font-fira-sans font-normal text-base text-gray">
-                                                                                                                                {{ __('No Data Avalaible') }}
-                                                                                                                            </div>
+                                                                                                                                                        {{ __('No Data Avalaible') }}
+                                                                                                                                                    </div>
     @endif
-                                                                                                                        </div> -->
+                                                                                                                                                </div> -->
         {{-- Browse by Specialities --}}
 
-        <div class="container">
-            <div class="row">
-                <div class="slick-slider-spec" dir="ltr">
-
-                    <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
-                        <div class="specialities" style="display: flex; flex-direction: column; align-items: center; ">
-                            <div class="specialities-img ">
-                                <span
-                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
-                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-01.svg"
-                                        alt="heart-image"></span>
-                            </div>
-                            <p>Cardiology</p>
-                        </div>
-                    </div>
-
-                    <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
-                        <div class="specialities-item"
-                            style="display: flex; flex-direction: column; align-items: center; ">
-                            <div class="specialities-img">
-                                <span
-                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
-                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-02.svg"
-                                        alt="brain-image"></span>
-                            </div>
-                            <p>Neurology</p>
-                        </div>
-                    </div>
-
-                    <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
-                        <div class="specialities-item"
-                            style="display: flex; flex-direction: column; align-items: center; ">
-                            <div class="specialities-img">
-                                <span
-                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
-                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-03.svg"
-                                        alt="kidney-image"></span>
-                            </div>
-                            <p>Urology</p>
-                        </div>
-                    </div>
-
-                    <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
-                        <div class="specialities-item"
-                            style="display: flex; flex-direction: column; align-items: center; ">
-                            <div class="specialities-img">
-                                <span
-                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
-                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-04.svg"
-                                        alt="bone-image"></span>
-                            </div>
-                            <p>Orthopedic</p>
-                        </div>
-                    </div>
-
-                    <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
-                        <div class="specialities-item"
-                            style="display: flex; flex-direction: column; align-items: center; ">
-                            <div class="specialities-img">
-                                <span
-                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
-                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-05.svg"
-                                        alt="dentist"></span>
-                            </div>
-                            <p>Dentist</p>
-                        </div>
-                    </div>
-
-                    <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
-                        <div class="specialities-item"
-                            style="display: flex; flex-direction: column; align-items: center; ">
-                            <div class="specialities-img">
-                                <span
-                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
-                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-06.svg"
-                                        alt="eye-image"></span>
-                            </div>
-                            <p>Ophthalmology</p>
-                        </div>
-                    </div>
-
-                    <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
-                        <div class="specialities-item"
-                            style="display: flex; flex-direction: column; align-items: center; ">
-                            <div class="specialities-img">
-                                <span
-                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
-                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-02.svg"
-                                        alt="brain-image"></span>
-                            </div>
-                            <p>Neurology</p>
-                        </div>
-                    </div>
-
-                    <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
-                        <div class="specialities-item"
-                            style="display: flex; flex-direction: column; align-items: center; ">
-                            <div class="specialities-img">
-                                <span
-                                    style="background: #f2f6f6; border: 1px solid #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
-                                    <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-02.svg"
-                                        alt="brain-image"></span>
-                            </div>
-                            <p>Neurology</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <div class="p-5 w-full mb-10" style="background-color: aliceblue;">
             <div class="xl:w-3/4 mx-auto pt-20 pb-20">
                 <div

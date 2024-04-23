@@ -12,7 +12,7 @@
     <div class="xxsm:mx-5 xl:mx-0 2xl:mx-0">
         <div
             class="xl:w-3/4 mx-auto flex justify-center 2xl:flex-row xl:flex-row xlg:flex-row lg:flex-row xmd:flex-row md:flex-row sm:flex-row msm:flex-col xsm:flex-col xxsm:flex-col msm:pt-5 mt-10">
-            <div
+            {{-- <div
                 class="flex w-full 2xl:flex-row xl:flex-row xlg:flex-row lg:flex-row xmd:flex-row  md:flex-col sm:flex-col msm:flex-col xsm:flex-col xxsm:flex-col border border-white-light justify-between">
                 <div
                     class="flex 2xl:flex-row xl:flex-row xlg:flex-row lg:flex-row xmd:flex-row md:flex-row sm:flex-row msm:flex-row xsm:flex-col xxsm:flex-col">
@@ -71,7 +71,7 @@
                                 class="2xl:px-10 xl:px-10 xlg:px-10 lg:px-10 xmd:px-10 md:px-10 xxsm:px-5 lg:mt-10 md:mt-5 sm:mt-5 msm:mt-6 xsm:mt-6 xxsm:mt-6">
                                 <a href="{{ url('booking/' . $doctor->id . '/' . Str::slug($doctor->name)) }}"
                                     class="lg:px-1 lg:w-44 xsm:w-36 md:px-2 text-sm xl:py-2 xlg:py-2 xl:px-4 xlg:px-4 lg:py-2 xmd:py-1 md:py-2 sm:py-2 sm:px-2 msm:py-2 msm:px-3 xsm:px-3 xsm:py-2 xxsm:py-2 xxsm:px-3 text-white bg-primary hover:bg-primary text-center">{{ __('Make
-                                                                Appointment') }}</a>
+                                                                                                                                                                                                                Appointment') }}</a>
                             </div>
                         </div>
                     </div>
@@ -104,9 +104,104 @@
                         </div>
                     </div>
                 </div>
+            </div> --}}
+
+            <div class="card mb-3 w-100">
+                <div class="card-body">
+                    <div class="doctor-widget justify-content-between">
+                        <div class="doc-info-left">
+                            <div class="doctor-img">
+                                <img src="{{ $doctor->full_image }}" class="img-fluid" alt="User Image">
+                            </div>
+                            <div class="doc-info-cont">
+                                <h4 class="doc-name">{{ $doctor->name }}</h4>
+                                <p class="doc-speciality">BDS, MDS - Oral & Maxillofacial Surgery</p>
+                                <p class="doc-department"><img
+                                        src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/specialities/specialities-05.png"
+                                        class="img-fluid" alt="Speciality">{{ $doctor->expertise['name'] }}</p>
+                                <div class="rating">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="d-inline-block average-rating">(35)</span>
+                                </div>
+                                <div class="clinic-details">
+                                    @foreach ($doctor->hospital as $hospital)
+                                        <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{ $hospital->address }}
+                                            <a href="javascript:void(0);" style="color: #09e5ab;">Get Directions</a></p>
+                                    @endforeach
+                                    <ul class="clinic-gallery">
+                                        <li>
+                                            <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery">
+                                                <img src="https://media.lesechos.com/api/v1/images/view/636a35936c7f0a323d425176/1280x720/0702727334137-web-tete.jpg"
+                                                    alt="Feature">
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery">
+                                                <img src="https://france3-regions.francetvinfo.fr/image/L33LogEHsjSiZw5rpREBP1C4n3Q/1200x900/regions/2022/09/21/632b13ec179f1_geriatrie-hospi-senior-13web-chu-angers-credit-c-jouannet.jpg"
+                                                    alt="Feature Image">
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery">
+                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRWnhTTv3bLiER9RzVf9iXD3pWDO9Z1LySuuxlm8x6TA&s"
+                                                    alt="Feature">
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery">
+                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzGRXUIQhnpkjWIFKFjP84G-vc5SyS1SupFdnJuIBDrg&s"
+                                                    alt="Feature">
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clinic-services">
+                                    <span>Dental Fillings</span>
+                                    <span>Teeth Whitneing</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="doc-info-right">
+                            <div class="clini-infos">
+                                <ul>
+                                    <li><i class="far fa-thumbs-up"></i> 99%</li>
+                                    <li><i class="far fa-comment"></i> 35 Feedback</li>
+                                    @foreach ($doctor->hospital as $hospital)
+                                        <li><i class="fas fa-map-marker-alt"></i> {{ $hospital->address }}</li>
+                                    @endforeach
+                                    <li><i class="far fa-money-bill-alt"></i>
+                                        {{ $currency }}{{ $doctor->appointment_fees }} </li>
+                                </ul>
+                            </div>
+                            <div class="doctor-action">
+                                <a href="javascript:void(0)" class="btn btn-white fav-btn">
+                                    <i class="far fa-bookmark"></i>
+                                </a>
+                                <a href="mailto:{{ $doctor->user['email'] }}" class="btn btn-white msg-btn">
+                                    <i class="far fa-comment-alt"></i>
+                                </a>
+                                <a href="tel:{{ $doctor->phone }}" class="btn btn-white call-btn" data-bs-toggle="modal"
+                                    data-bs-target="#voice_call">
+                                    <i class="fas fa-phone"></i>
+                                </a>
+                                <a href="javascript:void(0)" class="btn btn-white call-btn" data-bs-toggle="modal"
+                                    data-bs-target="#video_call">
+                                    <i class="fas fa-video"></i>
+                                </a>
+                            </div>
+                            <div class="clinic-booking">
+                                <a class="apt-btn"
+                                    href="https://doccure.dreamstechnologies.com/laravel/template/public/booking">Book
+                                    Appointment</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
         </div>
 
         {{-- main container --}}
@@ -121,14 +216,16 @@
                         <p class="leading-4 font-fira-sans font-normal text-sm text-gray">{{ $doctor->desc }}</p>
                     </div>
                     <div class="border-b border-white-light pb-6">
-                        <h1 class="text-xl font-medium leading-6 font-fira-sans text-black pt-6">{{ __('Education') }}</h1>
+                        <h1 class="text-xl font-medium leading-6 font-fira-sans text-black pt-6">{{ __('Education') }}
+                        </h1>
                         @foreach (json_decode($doctor->education) as $education)
                             <div class="flex pt-4">
                                 <div>
                                     <img src="{{ asset('assets/image/Education.png') }}" class="" alt="">
                                 </div>
                                 <div class="mx-5">
-                                    <h1 class="font-normal text-sm font-fira-sans leading-4">{{ $education->college }}</h1>
+                                    <h1 class="font-normal text-sm font-fira-sans leading-4">{{ $education->college }}
+                                    </h1>
                                     <p class="font-fira-sans font-normal leading-3 text-xs text-gray py-1">
                                         {{ $education->degree }}
                                     </p>
@@ -176,14 +273,15 @@
                                 @else
                                     <strong
                                         class="text-red-600 text-bs text-center w-100">{{ __('At this time doctor is not
-                                                                    availabel') }}</strong>
+                                                                                                                                                                                                                                                                                                                    availabel') }}</strong>
                                 @endif
                             </div>
                         </div>
 
                         <h1 class="font-fira-sans leading-5 text-base font-medium text-black pt-4 mt-2">
                             {{ __('Tomorrow’s
-                                                Available Slots') }}</h1>
+                                                                                                                                                                                                                        Available Slots') }}
+                        </h1>
                         <div class="flex flex-wrap h-48 overflow-hidden	overflow-y-scroll mt-5">
                             <div class="flex flex-wrap">
                                 @foreach ($tomorrow_timeslots as $tomorrow_timeslot)
@@ -257,12 +355,16 @@
                                 <p class="font-fira-sans font-normal text-sm text-black leading-5 py-1"><i
                                         class="fa-solid fa-location-dot"></i> {{ $hospital->address }}</p>
                                 @php
-                                    $url = 'https://www.google.com/maps/dir/?api=1&destination=' . $hospital->lat . ',' . $hospital->lng;
+                                    $url =
+                                        'https://www.google.com/maps/dir/?api=1&destination=' .
+                                        $hospital->lat .
+                                        ',' .
+                                        $hospital->lng;
                                 @endphp
 
                                 <a href="{{ $url }}" target="_blank"
                                     class="font-fira-sans text-sm font-medium text-primary leading-5 py-2">{{ __('Get
-                                                            Directions') }}</a>
+                                                                                                                                                                                                                                                                                    Directions') }}</a>
 
                                 <div class="flex space-x-1 mb-5">
                                     @foreach ($hospital->hospital_gallery as $gallery)

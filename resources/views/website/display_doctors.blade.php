@@ -8,8 +8,7 @@
             $data = $doctors;
         @endphp
     @endif
-    @foreach ($data as $doctor)
-        <div class="mainDiv">
+    {{-- <div class="mainDiv">
             <div
                 class="mainDiv1 p-10 h-full border border-white-light 1xl:h-[350px] xxmd:h-[300px] xmd:h-[300px] msm:h-[300px]">
                 <img class="1xl:mt-8 msm:mt-2 xsm:mt-0 xxsm:mt-0 border-2 border-primary rounded-full p-0.5 m-auto mt-12 object-cover w-36 h-36"
@@ -85,7 +84,51 @@
                     </div>
                 </div>
             </div>
+        </div> --}}
+
+    @foreach ($data as $doctor)
+        <div class="col-xl-12 col-lg-3 col-md-6 d-flex">
+            <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
+                <div class="doctor-profile-widget doc-grid">
+                    <div class="doc-pro-img">
+                        <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
+                            <div class="doctor-profile-img">
+                                <img src="{{ url($doctor['fullImage']) }}" class="img-fluid" alt="John Doe">
+                            </div>
+                        </a>
+                        <div class="reviews-ratings">
+                            <p>
+                                <span><i class="fas fa-star"></i> {{ $doctor['rate'] }}
+                                    ({{ $doctor['review'] }}{{ __(' reviews') }})
+                                </span>
+                            </p>
+                        </div>
+                        <div class="favourite-btn">
+                            <a href="javascript:void(0)" class="favourite-icon">
+                                <i class="fas fa-heart"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="doc-content">
+                        <div class="doc-pro-info">
+                            <div class="doc-pro-name">
+                                <h4><a href="">{{ $doctor['name'] }}</a><i class="fas fa-circle-check"></i></h4>
+                                <p>{{ $doctor['treatment']['name'] }}</p>
+                            </div>
+                            <div class="review-price ">
+                                <p class="mt-2">$1100.00<span>/hr</span></p>
+                            </div>
+                        </div>
+                        <div class="doc-pro-location">
+                            <p><i class="fa-solid fa-location-dot"></i> <span>0.9</span> mi - New York, USA
+                            </p>
+                            <p><i class="fa-solid fa-certificate"></i> <span>15</span> Years of Experience
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
+    @endforeach
     </div>
-@endforeach
 @endif
