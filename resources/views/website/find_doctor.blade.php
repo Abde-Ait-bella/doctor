@@ -37,7 +37,7 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                     <input type="search" name="search_doctor"
-                        class="block p-2 pl-10 text-sm text-black-700 bg-white-50 border border-white-light 2xl:w-96 xmd:w-72 !sm:w-32 msm:w-40 h-12"
+                        class="block p-2 pl-10 text-sm text-black-700 bg-white-50 border border-white-light 2xl:w-96 xmd:w-72 !sm:w-32 msm:w-40 h-12 ps-5"
                         placeholder="{{ __('Search Doctor...') }}">
                 </div>
                 <div class="relative">
@@ -46,7 +46,7 @@
                     </div>
                     <input type="hidden" name="from" value="js">
                     <input type="search" onFocus="geolocate()" id="autocomplete"
-                        class="block p-2 pl-10 text-sm text-black-700 bg-white-50 border border-white-light 2xl:w-96 xmd:w-72 !sm:w-32 msm:w-40 h-12"
+                        class="block p-2 pl-10 text-sm text-black-700 bg-white-50 border border-white-light 2xl:w-96 xmd:w-72 !sm:w-32 msm:w-40 h-12 ps-5"
                         placeholder="{{ __('Set your location') }}">
                     <input type="hidden" name="doc_lat">
                     <input type="hidden" name="doc_lang">
@@ -123,78 +123,76 @@
                         @include('website.display_doctors', ['doctor' => $doctors])
                     </div>
                 @else
-                    {{-- <div class="flex justify-center mt-10 font-fira-sans font-normal text-base text-gray">
+                    <div class="flex justify-center mt-10 font-fira-sans font-normal text-base text-gray">
                         {{ __('No Data Avalaible') }}
-                    </div> --}}
-
-
-                    @endif
-                </div>
+                    </div>
+                @endif
             </div>
+        </div>
 
-            <div class="card doctor-card">
-                <div class="card-body">
-                    <div class="doctor-widget-one" style="padding: 10px 10px 0 10px;">
-                        <div class="doctor-img">
-                            <a href="">
-                                <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/doctors/doctor-13.jpg"
-                                    class="img-fluid" alt="John Doe">
+        <div class="card doctor-card">
+            <div class="card-body">
+                <div class="doctor-widget-one" style="padding: 10px 10px 0 10px;">
+                    <div class="doctor-img">
+                        <a href="">
+                            <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/doctors/doctor-13.jpg"
+                                class="img-fluid" alt="John Doe">
+                        </a>
+                        <div class="favourite-btn">
+                            <a href="javascript:void(0)" class="favourite-icon">
+                                <i class="fas fa-heart"></i>
                             </a>
-                            <div class="favourite-btn">
-                                <a href="javascript:void(0)" class="favourite-icon">
-                                    <i class="fas fa-heart"></i>
-                                </a>
-                            </div>
                         </div>
-                        <div class="doc-info-cont">
-                            <h4 class="doc-name">
-                                <a href="">Dr.John
-                                    Doe</a>
-                                <i class="fas fa-circle-check"></i>
-                            </h4>
-                            <p class="doc-speciality">MBBS, Dentist</p>
-                            <div class="clinic-details">
-                                <p class="doc-location">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <span>0.9</span> mi - Newyork, USA <a href="javascript:void(0);">Get
-                                        Direction</a>
-                                </p>
-                                <p class="doc-location">
-                                    <i class="fa-solid fa-certificate"></i> <span>20</span> Years of
-                                    Experience
-                                </p>
-                            </div>
-                            <div class="reviews-ratings">
-                                <p>
-                                    <span><i class="fas fa-star"></i> 4.5</span> (35 Reviews)
-                                </p>
-                            </div>
+                    </div>
+                    <div class="doc-info-cont">
+                        <h4 class="doc-name">
+                            <a href="">Dr.John
+                                Doe</a>
+                            <i class="fas fa-circle-check"></i>
+                        </h4>
+                        <p class="doc-speciality">MBBS, Dentist</p>
+                        <div class="clinic-details">
+                            <p class="doc-location">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>0.9</span> mi - Newyork, USA <a href="javascript:void(0);">Get
+                                    Direction</a>
+                            </p>
+                            <p class="doc-location">
+                                <i class="fa-solid fa-certificate"></i> <span>20</span> Years of
+                                Experience
+                            </p>
                         </div>
-                        <div class="doc-info-right">
-                            <div class="clini-infos">
-                                <ul>
-                                    <li>
-                                        <i class="fa-regular fa-clock available-icon"></i>
-                                        <span class="available-date available-today">Available
-                                            Today</span>
-                                    </li>
-                                    <li><i class="fa-solid fa-thumbs-up available-icon"></i> 98% <span
-                                            class="votes">(252 Votes)</span></li>
-                                    <li><i class="fa-solid fa-dollar-sign available-icon"></i> $1500 <i
-                                            class="fa-solid fa-circle-info available-icon"></i></li>
-                                </ul>
-                            </div>
-                            <div class="clinic-booking book-appoint">
-                                <a class="btn btn-primary" href="">Book
-                                    Appointment</a>
-                                <a class="btn btn-outline-primary mt-2" href="">Book
-                                    Online
-                                    Consultation</a>
-                            </div>
+                        <div class="reviews-ratings">
+                            <p>
+                                <span><i class="fas fa-star"></i> 4.5</span> (35 Reviews)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="doc-info-right">
+                        <div class="clini-infos">
+                            <ul>
+                                <li>
+                                    <i class="fa-regular fa-clock available-icon"></i>
+                                    <span class="available-date available-today">Available
+                                        Today</span>
+                                </li>
+                                <li><i class="fa-solid fa-thumbs-up available-icon"></i> 98% <span class="votes">(252
+                                        Votes)</span></li>
+                                <li><i class="fa-solid fa-dollar-sign available-icon"></i> $1500 <i
+                                        class="fa-solid fa-circle-info available-icon"></i></li>
+                            </ul>
+                        </div>
+                        <div class="clinic-booking book-appoint">
+                            <a class="btn btn-primary" href="">Book
+                                Appointment</a>
+                            <a class="btn btn-outline-primary mt-2" href="">Book
+                                Online
+                                Consultation</a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
         @if (count($doctors) > 0)
             @if ($doctors['current_page'] != $doctors['last_page'])

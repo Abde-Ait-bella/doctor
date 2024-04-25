@@ -8,6 +8,11 @@
             $data = $doctors;
         @endphp
     @endif
+    @php
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+    @endphp
     {{-- <div class="mainDiv">
             <div
                 class="mainDiv1 p-10 h-full border border-white-light 1xl:h-[350px] xxmd:h-[300px] xmd:h-[300px] msm:h-[300px]">

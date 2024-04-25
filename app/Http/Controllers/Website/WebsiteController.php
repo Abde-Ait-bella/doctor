@@ -184,6 +184,20 @@ class WebsiteController extends Controller
         $categories = Category::whereStatus(1)->get();
         $doctor = Doctor::with(['treatment', 'category', 'expertise'])->whereStatus(1)->where('is_filled', 1)->whereSubscriptionStatus(1);
         $data = $request->all();
+
+
+
+        // foreach ($doctorDispo as $doctorDis) {
+        //     $doctorIds[] = $doctorDis->id;
+        // }
+        // echo "<pre>";
+        // print_r($doctor);
+        // echo "</pre>";
+
+
+
+
+
         $getSet = 0;
         if (isset($data['doc_lat']) && isset($data['doc_lang']) && $data['doc_lang'] != '' && $data['doc_lat'] != '') {
             $radius = $setting->radius;
@@ -194,12 +208,21 @@ class WebsiteController extends Controller
             //     $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
             //     $doctor->hospital = (new CustomController)->getHospital($doctor['id']);
             // }
+
+
         } elseif (isset($data['search_doctor']) && $data['search_doctor'] != '') {
             $doctor->where('name', 'LIKE', '%' . $data['search_doctor'] . "%");
         } elseif (isset($data['gender_type']) && $data['gender_type'] != '') {
             $doctor->where('gender', $data['gender_type']);
         } elseif (isset($data['category'])) {
             $doctor->whereIn('category_id', $data['category']);
+        } elseif (isset($data['date'])) {
+            $date = Carbon::parse($data['date'])->dayName;
+            $doctorWorkHour = WorkingHour::where('day_index', $date)->where('status', 1)->get();
+            foreach ($doctorWorkHour as $workinghour) {
+                $doctorDispIds[] = $workinghour->doctor_id;
+            }
+            $doctor->whereIn('id', $doctorDispIds)->get();
         }
         if (isset($data['treatment_id'])) {
             $doctor->where('treatment_id', $data['treatment_id']);
@@ -217,6 +240,9 @@ class WebsiteController extends Controller
                 $doctor = $doctor->where('is_popular', 1);
             }
         }
+
+
+
         if (isset($data['from'])) {
             if (!$getSet) {
                 $doctors = $doctor->get()->values()->all();
@@ -226,14 +252,15 @@ class WebsiteController extends Controller
                 $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
                 $doctor->hospital = (new CustomController)->getHospital($doctor['id']);
             }
-            $view = view('website.display_doctors', compact('doctors', 'currency', 'categories'))->render();
+
+            $view = view('website.display_doctors', compact('doctors', 'currency', 'categories' ))->render();
             return response()->json(['html' => $view, 'count' => count($doctors), 'meta' => $doctors, 'success' => true]);
         }
+
         $doctors = $doctor->paginate(5);
         $doctors = $doctors->toArray();
-        // echo "<pre>";
-        // print_r($doctors);
-        // echo "</pre>";
+
+
         foreach ($doctors['data'] as &$doctor) {
             $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
             $doctor['hospital'] = (new CustomController)->getHospital($doctor['id']);
@@ -321,6 +348,8 @@ class WebsiteController extends Controller
                 $currently_open = 1;
             }
         }
+
+
         if ($request->ajax()) {
             return response(['success' => true, 'data' => $doctor]);
         }
