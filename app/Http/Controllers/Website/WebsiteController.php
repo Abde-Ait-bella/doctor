@@ -190,10 +190,10 @@ class WebsiteController extends Controller
             $hospital = Hospital::whereStatus(1)->GetByDistance($data['doc_lat'], $data['doc_lang'], $radius)->get(['id']);
             $doctor->whereIn('hospital_id', $hospital);
             $doctors = $doctor->get()->values()->all();
-            foreach ($doctors as $doctor) {
-                $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
-                $doctor->hospital = (new CustomController)->getHospital($doctor['id']);
-            }
+            // foreach ($doctors as $doctor) {
+            //     $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
+            //     $doctor->hospital = (new CustomController)->getHospital($doctor['id']);
+            // }
         } elseif (isset($data['search_doctor']) && $data['search_doctor'] != '') {
             $doctor->where('name', 'LIKE', '%' . $data['search_doctor'] . "%");
         } elseif (isset($data['gender_type']) && $data['gender_type'] != '') {
@@ -231,6 +231,9 @@ class WebsiteController extends Controller
         }
         $doctors = $doctor->paginate(5);
         $doctors = $doctors->toArray();
+        // echo "<pre>";
+        // print_r($doctors);
+        // echo "</pre>";
         foreach ($doctors['data'] as &$doctor) {
             $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
             $doctor['hospital'] = (new CustomController)->getHospital($doctor['id']);

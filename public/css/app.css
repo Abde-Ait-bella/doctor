@@ -6723,6 +6723,7 @@ input:checked + .toggle-bg{
   width: 170px;
   height: 165px;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .card-body h4 a {
@@ -6843,6 +6844,7 @@ input:checked + .toggle-bg{
 .doctor-profile-widget.doc-grid .doc-pro-img .doctor-profile-img img {
   border-radius: 10px;
   height: 226px;
+  object-fit: cover;
 }
 
 doctor-profile-widget.doc-grid .doc-pro-img .reviews-ratings {

@@ -127,27 +127,27 @@
             <div class="hidden items-center justify-between w-full md:flex md:w-auto md:order-1"
                 id="mobile-menu-language-select">
                 <ul
-                    class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
+                    class="flex flex-col mt-3 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
                     <li>
                         <a href="{{ url('/show-doctors') }}"
-                            class="{{ $activePage == 'doctors' ? 'text-primary' : 'text-black' }} font-fira-sans block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0"
+                            class="{{ $activePage == 'doctors' ? 'text-primary' : 'text-black' }} font-fira-sans block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-decoration-none"
                             aria-current="page">{{ __('Find Doctors') }}</a>
                     </li>
                     <li>
                         <a href="{{ url('/all-pharmacies') }}"
-                            class="{{ $activePage == 'pharmacy' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">{{ __('Pharmacy') }}</a>
+                            class="{{ $activePage == 'pharmacy' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 text-decoration-none">{{ __('Pharmacy') }}</a>
                     </li>
                     <li>
                         <a href="{{ url('/all-labs') }}"
-                            class="{{ $activePage == 'labs' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">{{ __('Lab Tests') }}</a>
+                            class="{{ $activePage == 'labs' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 text-decoration-none">{{ __('Lab Tests') }}</a>
                     </li>
                     <li>
                         <a href="{{ url('/our-offers') }}"
-                            class="{{ $activePage == 'offers' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">{{ __('Offers') }}</a>
+                            class="{{ $activePage == 'offers' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 text-decoration-none">{{ __('Offers') }}</a>
                     </li>
                     <li>
                         <a href="{{ url('/our_blogs') }}"
-                            class="{{ $activePage == 'ourblogs' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">{{ __('Blog') }}</a>
+                            class="{{ $activePage == 'ourblogs' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 text-decoration-none">{{ __('Blog') }}</a>
                     </li>
                 </ul>
             </div>

@@ -131,7 +131,7 @@
                     @endif
                 </div>
             </div>
-            
+
             <div class="card doctor-card">
                 <div class="card-body">
                     <div class="doctor-widget-one" style="padding: 10px 10px 0 10px;">

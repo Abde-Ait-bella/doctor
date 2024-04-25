@@ -113,7 +113,7 @@
                         <div class="doc-pro-info">
                             <div class="doc-pro-name">
                                 <h4><a href="">{{ $doctor['name'] }}</a><i class="fas fa-circle-check"></i></h4>
-                                <p>{{ $doctor['treatment']['name'] }}</p>
+                                <p>{{ @$doctor['treatment']['name'] }}</p>
                             </div>
                             <div class="review-price ">
                                 <p class="mt-2">$1100.00<span>/hr</span></p>

@@ -86,6 +86,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.js"></script>
 <script src="{{ url('assets/js/custom.js') }}"></script>
 <script src="{{ url('js/app.js') }}"></script>
+{{-- <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initAutocomplete&libraries=places&v=weekly"
+    defer></script> --}}
 @yield('js')
 </body>
 
