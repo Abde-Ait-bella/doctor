@@ -202,7 +202,7 @@
             <div class="row icons_categoey">
                 <div class="slick-slider-spec" dir="ltr">
                     <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer; display: flex; flex-direction: column; justify-content: center;">
                         <div class="specialities" style="display: flex; flex-direction: column; align-items: center; ">
                             <div class="specialities-img">
                                 <span style="background: #f2f6f6; width: 90px; height: 90px; border-radius: 50%;">
@@ -214,7 +214,7 @@
                     </div>
 
                     <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer; display: flex; flex-direction: column; justify-content: center;">
                         <div class="specialities-item"
                             style="display: flex; flex-direction: column; align-items: center; ">
                             <div class="specialities-img">
@@ -227,7 +227,7 @@
                     </div>
 
                     <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer; display: flex; flex-direction: column; justify-content: center;">
                         <div class="specialities-item"
                             style="display: flex; flex-direction: column; align-items: center; ">
                             <div class="specialities-img">
@@ -240,7 +240,7 @@
                     </div>
 
                     <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer; display: flex; flex-direction: column; justify-content: center;">
                         <div class="specialities-item"
                             style="display: flex; flex-direction: column; align-items: center; ">
                             <div class="specialities-img">
@@ -253,7 +253,7 @@
                     </div>
 
                     <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer; display: flex; flex-direction: column; justify-content: center;">
                         <div class="specialities-item"
                             style="display: flex; flex-direction: column; align-items: center; ">
                             <div class="specialities-img">
@@ -266,7 +266,7 @@
                     </div>
 
                     <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer; display: flex; flex-direction: column; justify-content: center;">
                         <div class="specialities-item"
                             style="display: flex; flex-direction: column; align-items: center; ">
                             <div class="specialities-img">
@@ -279,7 +279,7 @@
                     </div>
 
                     <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer; display: flex; flex-direction: column; justify-content: center;">
                         <div class="specialities-item"
                             style="display: flex; flex-direction: column; align-items: center; ">
                             <div class="specialities-img">
@@ -292,7 +292,7 @@
                     </div>
 
                     <div class="specialities"
-                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer;">
+                        style="height: 196px; font-size: 16px; color: #2f353c; margin-right: 24px; width: 166px; font-weight: 600; background: #ffffff; border: 1px solid #E6E6E6; border-radius: 8px;  padding: 30px; cursor: pointer; display: flex; flex-direction: column; justify-content: center;">
                         <div class="specialities-item"
                             style="display: flex; flex-direction: column; align-items: center; ">
                             <div class="specialities-img">

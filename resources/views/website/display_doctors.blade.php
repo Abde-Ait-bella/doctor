@@ -8,11 +8,6 @@
             $data = $doctors;
         @endphp
     @endif
-    @php
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
-    @endphp
     {{-- <div class="mainDiv">
             <div
                 class="mainDiv1 p-10 h-full border border-white-light 1xl:h-[350px] xxmd:h-[300px] xmd:h-[300px] msm:h-[300px]">
@@ -118,16 +113,19 @@
                         <div class="doc-pro-info">
                             <div class="doc-pro-name">
                                 <h4><a href="">{{ $doctor['name'] }}</a><i class="fas fa-circle-check"></i></h4>
-                                <p>{{ @$doctor['treatment']['name'] }}</p>
+                                <p>{{ $doctor['category']['name'] }}</p>
                             </div>
                             <div class="review-price ">
                                 <p class="mt-2">$1100.00<span>/hr</span></p>
                             </div>
                         </div>
-                        <div class="doc-pro-location">
-                            <p><i class="fa-solid fa-location-dot"></i> <span>0.9</span> mi - New York, USA
-                            </p>
-                            <p><i class="fa-solid fa-certificate"></i> <span>15</span> Years of Experience
+                        <div class="doc-pro-location text-wrap">
+                            @foreach ($doctor['hospital'] as $hospital)
+                                <p class="text-wrap" style="width: 273px;"><i class="fa-solid fa-location-dot"></i> {{ $hospital['address'] }}
+                                </p>
+                            @endforeach
+
+                            <p><i class="fa-solid fa-certificate"></i> <span>{{ date('Y') - $doctor['experience'] }}</span> Ans d'expérience
                             </p>
                         </div>
                     </div>
