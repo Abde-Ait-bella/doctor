@@ -1,9 +1,8 @@
 .banner-section {
     background: #F2F6F6;
-    padding: 100px 0 30px;
+    padding: 5px 0 30px;
     position: relative;
     overflow: hidden;
-    z-index: ;
 }
 .container{
     max-width: 1140px;
@@ -26,10 +25,44 @@
     min-width: 833px;
     z-index: 2;
     position: relative;
+    top: -35px;
 }
 
 .search-box .separat_search{
     width: 1px;
     height: 39px;
     background-color: #E3E4E8;
+}
+
+.specialities-img img{
+    height: 51px;
+}
+
+/* icons_categoey */
+.icons_categoey {
+    top: 408px ;
+    width: 100%;
+}
+
+.arrow-prev{
+    position: absolute;
+    top: -42px;
+    left: 1044px;
+    font-size: x-large;
+    color: #1084fc;
+    cursor: pointer;
+}
+
+.arrow-next{
+    position: absolute;
+    top: -42px;
+    left: 1080px;
+    font-size: x-large;
+    color: #1084fc;
+    cursor: pointer;
+    z-index: 99;
+}
+
+#map-doc{
+    position: sticky !important;
 }

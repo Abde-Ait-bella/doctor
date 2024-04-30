@@ -1,3 +1,14 @@
+{{-- @php
+
+    echo ' <pre>';
+    // foreach ($doctor as $doct) {
+    // foreach ($doct['hospital'] as $hospital) {
+    print_r($markers);
+    // }
+    // }
+    echo '<pre>';
+@endphp --}}
+
 @extends('layout.mainlayout', ['activePage' => 'doctors'])
 
 @section('css')
@@ -37,32 +48,32 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                     <input type="search" name="search_doctor"
-                        class="block p-2 pl-10 text-sm text-black-700 bg-white-50 border border-white-light 2xl:w-96 xmd:w-72 !sm:w-32 msm:w-40 h-12 ps-5"
+                        class="block p-2 pl-10 text-sm text-black-700 bg-white-50 border border-white-light 2xl:w-96 xmd:w-72 !sm:w-32 msm:w-40 h-12 ps-5 rounded"
                         placeholder="{{ __('Search Doctor...') }}">
                 </div>
                 <div class="relative">
                     <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                         <i class="fa-solid fa-location-dot"></i>
                     </div>
-                    <input type="hidden" name="from" value="js">
-                    <input type="search" onFocus="geolocate()" id="autocomplete"
-                        class="block p-2 pl-10 text-sm text-black-700 bg-white-50 border border-white-light 2xl:w-96 xmd:w-72 !sm:w-32 msm:w-40 h-12 ps-5"
+                    {{-- <input type="hidden" name="from" value="js"> --}}
+                    <input id="pac-input" type="search" onFocus="geolocate()"
+                        class="block p-2 pl-10 text-sm text-black-700 bg-white-50 border border-white-light 2xl:w-96 xmd:w-72 !sm:w-32 msm:w-40 h-12 ps-5 rounded"
                         placeholder="{{ __('Set your location') }}">
-                    <input type="hidden" name="doc_lat">
-                    <input type="hidden" name="doc_lang">
+                    <input type="hidden" name="doc_lat" id="doc_lat" value="{{ request()->get('doc_lat') }}">
+                    <input type="hidden" name="doc_lang" id="doc_lang" value="{{ request()->get('doc_lang') }}">
                 </div>
                 <button type="button" onclick="searchDoctor()" data-te-ripple-init data-te-ripple-color="light"
-                    class="text-white bg-primary text-center px-6 py-2 text-base font-normal leading-5 font-fira-sans sm:w-32 msm:w-32 xsm:w-32 xxsm:w-32 h-12"><i
-                        class="fa-solid fa-magnifying-glass"></i> {{ __('Search') }}</button>
+                    class="text-white bg-primary text-center px-6 py-2 text-base font-normal leading-5 font-fira-sans sm:w-32 msm:w-32 xsm:w-32 xxsm:w-32 h-12 rounded"><i
+                        class="fa-solid fa-magnifying-glass pe-2"></i> {{ __('Search') }}</button>
             </div>
         </form>
     </div>
 
-    <div class="xl:w-3/4 mx-auto">
+    <div class="mx-auto">
         <div
             class="flex pt-5 2xl:flex-row xl:flex-row xlg:flex-row lg:flex-row xmd:flex-row md:flex-row sm:flex-row xsm:flex-col xxsm:flex-col">
             {{-- side bar --}}
-            <div class="2xl:w-1/4 xl:w-1/4 xlg:w-1/4 lg:w-1/4 sm:w-72 px-4 py-5">
+            <div class="2xl:w-1/4 xl:w-1/4 xlg:w-1/4 lg:w-1/4 sm:w-72 px-4 py-5 d-none">
                 <form id="filter_form" method="post">
                     <div class="flex justify-center">
                         <div class="w-full">
@@ -119,8 +130,11 @@
             <div class="w-full">
                 @if (count($doctors['data']) > 0)
                     <div
-                        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xlg:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 dispDoctor">
+                        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xlg:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 dispDoctor ms-4">
                         @include('website.display_doctors', ['doctor' => $doctors])
+                    </div>
+                    <div class="col-6">
+                        @include('website.display_maps', ['doctor' => $doctors])
                     </div>
                 @else
                     <div class="flex justify-center mt-10 font-fira-sans font-normal text-base text-gray">
@@ -130,7 +144,7 @@
             </div>
         </div>
 
-        <div class="card doctor-card">
+        {{-- <div class="card doctor-card">
             <div class="card-body">
                 <div class="doctor-widget-one" style="padding: 10px 10px 0 10px;">
                     <div class="doctor-img">
@@ -192,7 +206,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         @if (count($doctors) > 0)
             @if ($doctors['current_page'] != $doctors['last_page'])
@@ -208,9 +222,15 @@
         @endif
     </div>
 @endsection
+
 @section('js')
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key={{ App\Models\Setting::first()->map_key }}&sensor=false&libraries=places">
+    <script>
+        var markers = @json(@$markers);
+        console.log(markers);
     </script>
+    <script src="{{ url('assets_admin/js/doctor_map.js') }}"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{ App\Models\Setting::first()->map_key }}&callback=initAutocomplete&libraries=places&v=weekly"
+        async></script>
     <script src="{{ url('assets/js/doctor_list.js') }}"></script>
 @endsection

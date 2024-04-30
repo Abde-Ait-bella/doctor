@@ -72,7 +72,7 @@
         </script>
     @endif
 @endif
-<div class="main_content overflow-hidden">
+<div class="main_content">
     @yield('content')
 </div>
 @include('layout.partials.footer')

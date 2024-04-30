@@ -1,3 +1,23 @@
+@php
+    echo '<pre>';
+    // $doctors = $doctor->toArray();
+    // print_r($treatments);
+
+    // foreach ($treatments as $treatment)
+    //     foreach ($hospital->hospital_gallery as $hospital_gallery) {
+    // print_r($treatment)
+    // }
+    // }
+    // endforeach
+
+    // foreach ($doctors['hospital'] as $hospital) {
+    //     foreach ($hospital->hospital_gallery as $hospital_gallery) {
+    //         print_r($hospital_gallery['image']);
+    //     }
+    // }
+    echo '</pre>';
+@endphp
+
 @extends('layout.mainlayout', ['activePage' => 'doctors'])
 
 @if (App\Models\Setting::first()->map_key)
@@ -7,7 +27,6 @@
 @endif
 
 @section('content')
-
     {{-- Doctor Profile --}}
     <div class="xxsm:mx-5 xl:mx-0 2xl:mx-0">
         <div
@@ -115,7 +134,9 @@
                             </div>
                             <div class="doc-info-cont">
                                 <h4 class="doc-name">{{ $doctor->name }}</h4>
-                                <p class="doc-speciality">BDS, MDS - Oral & Maxillofacial Surgery</p>
+                                @foreach ($treatments as $treatment)
+                                    <p class="doc-speciality">{{ $treatment->name }}</p>
+                                @endforeach
                                 <p class="doc-department"><img src="{{ $doctor->category['fullImage'] }}" class="img-fluid"
                                         alt="Speciality">{{ $doctor->category['name'] }}</p>
                                 <div class="rating">
@@ -134,29 +155,17 @@
                                         </p>
                                     @endforeach
                                     <ul class="clinic-gallery">
-                                        <li>
-                                            <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery">
-                                                <img src="{{ $doctor->category['fullImage'] }}" alt="Feature">
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery">
-                                                <img src="https://france3-regions.francetvinfo.fr/image/L33LogEHsjSiZw5rpREBP1C4n3Q/1200x900/regions/2022/09/21/632b13ec179f1_geriatrie-hospi-senior-13web-chu-angers-credit-c-jouannet.jpg"
-                                                    alt="Feature Image">
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRWnhTTv3bLiER9RzVf9iXD3pWDO9Z1LySuuxlm8x6TA&s"
-                                                    alt="Feature">
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzGRXUIQhnpkjWIFKFjP84G-vc5SyS1SupFdnJuIBDrg&s"
-                                                    alt="Feature">
-                                            </a>
-                                        </li>
+                                        {{-- $doctors = $doctor->toArray(); --}}
+                                        {{-- @foreach ($doctors['hospital'] as $hospital)
+                                            @foreach ($hospital->hospital_gallery as $hospital_gallery)
+                                                <li>
+                                                    <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery">
+                                                        <img src="{{ asset('/images/upload/' . $hospital_gallery['image']) }}"
+                                                            alt="Feature">
+                                                    </a>
+                                                </li>
+                                            @endforeach --}}
+                                        {{-- @endforeach --}}
                                     </ul>
                                 </div>
                                 <div class="clinic-services">
@@ -272,14 +281,14 @@
                                 @else
                                     <strong
                                         class="text-red-600 text-bs text-center w-100">{{ __('At this time doctor is not
-                                                                                                                                                                                                                                                                                                                                                            availabel') }}</strong>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    availabel') }}</strong>
                                 @endif
                             </div>
                         </div>
 
                         <h1 class="font-fira-sans leading-5 text-base font-medium text-black pt-4 mt-2">
                             {{ __('Tomorrow’s
-                                                                                                                                                                                                                                                    Available Slots') }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Available Slots') }}
                         </h1>
                         <div class="flex flex-wrap h-48 overflow-hidden	overflow-y-scroll mt-5">
                             <div class="flex flex-wrap">
@@ -363,7 +372,7 @@
 
                                 <a href="{{ $url }}" target="_blank"
                                     class="font-fira-sans text-sm font-medium text-primary leading-5 py-2">{{ __('Get
-                                                                                                                                                                                                                                                                                                                        Directions') }}</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Directions') }}</a>
 
                                 <div class="flex space-x-1 mb-5">
                                     @foreach ($hospital->hospital_gallery as $gallery)
