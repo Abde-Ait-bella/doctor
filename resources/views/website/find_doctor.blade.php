@@ -3,10 +3,10 @@
     echo ' <pre>';
     // foreach ($doctor as $doct) {
     // foreach ($doct['hospital'] as $hospital) {
-    print_r($markers);
+    print_r(@$mapsShow);
     // }
     // }
-    echo '<pre>';
+    echo '</pre>';
 @endphp --}}
 
 @extends('layout.mainlayout', ['activePage' => 'doctors'])
@@ -56,24 +56,23 @@
                         <i class="fa-solid fa-location-dot"></i>
                     </div>
                     {{-- <input type="hidden" name="from" value="js"> --}}
-                    <input id="pac-input" type="search" onFocus="geolocate()"
+                    <input {{-- id="pac-input" --}} id="autocomplete" type="search" onFocus="geolocate()"
                         class="block p-2 pl-10 text-sm text-black-700 bg-white-50 border border-white-light 2xl:w-96 xmd:w-72 !sm:w-32 msm:w-40 h-12 ps-5 rounded"
                         placeholder="{{ __('Set your location') }}">
                     <input type="hidden" name="doc_lat" id="doc_lat" value="{{ request()->get('doc_lat') }}">
                     <input type="hidden" name="doc_lang" id="doc_lang" value="{{ request()->get('doc_lang') }}">
                 </div>
-                <button type="button" onclick="searchDoctor()" data-te-ripple-init data-te-ripple-color="light"
+                <button type="submit" {{-- onclick="searchDoctor()" --}} data-te-ripple-init data-te-ripple-color="light"
                     class="text-white bg-primary text-center px-6 py-2 text-base font-normal leading-5 font-fira-sans sm:w-32 msm:w-32 xsm:w-32 xxsm:w-32 h-12 rounded"><i
                         class="fa-solid fa-magnifying-glass pe-2"></i> {{ __('Search') }}</button>
             </div>
         </form>
     </div>
 
-    <div class="mx-auto">
+    <div class="mx-auto  @if (@$mapsShow === true) '' @elseif(@$mapsShow === false) container  @endif @isset($mapsShow) '' @else container @endisset">
         <div
             class="flex pt-5 2xl:flex-row xl:flex-row xlg:flex-row lg:flex-row xmd:flex-row md:flex-row sm:flex-row xsm:flex-col xxsm:flex-col">
-            {{-- side bar --}}
-            <div class="2xl:w-1/4 xl:w-1/4 xlg:w-1/4 lg:w-1/4 sm:w-72 px-4 py-5 d-none">
+            <div class="2xl:w-1/4 xl:w-1/4 xlg:w-1/4 lg:w-1/4 sm:w-72 px-4 py-5  @if (@$mapsShow === true) d-none @elseif(@$mapsShow === false)  d-block @endif">
                 <form id="filter_form" method="post">
                     <div class="flex justify-center">
                         <div class="w-full">
@@ -133,7 +132,8 @@
                         class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xlg:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 dispDoctor ms-4">
                         @include('website.display_doctors', ['doctor' => $doctors])
                     </div>
-                    <div class="col-6">
+                    <div
+                        class="col-6 @if (@$mapsShow === true) d-block  @elseif(@$mapsShow === false) d-none @endif @isset($mapsShow) '' @else d-none @endisset">
                         @include('website.display_maps', ['doctor' => $doctors])
                     </div>
                 @else
@@ -143,83 +143,22 @@
                 @endif
             </div>
         </div>
+    </div>
 
-        {{-- <div class="card doctor-card">
-            <div class="card-body">
-                <div class="doctor-widget-one" style="padding: 10px 10px 0 10px;">
-                    <div class="doctor-img">
-                        <a href="">
-                            <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/doctors/doctor-13.jpg"
-                                class="img-fluid" alt="John Doe">
-                        </a>
-                        <div class="favourite-btn">
-                            <a href="javascript:void(0)" class="favourite-icon">
-                                <i class="fas fa-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="doc-info-cont">
-                        <h4 class="doc-name">
-                            <a href="">Dr.John
-                                Doe</a>
-                            <i class="fas fa-circle-check"></i>
-                        </h4>
-                        <p class="doc-speciality">MBBS, Dentist</p>
-                        <div class="clinic-details">
-                            <p class="doc-location">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span>0.9</span> mi - Newyork, USA <a href="javascript:void(0);">Get
-                                    Direction</a>
-                            </p>
-                            <p class="doc-location">
-                                <i class="fa-solid fa-certificate"></i> <span>20</span> Years of
-                                Experience
-                            </p>
-                        </div>
-                        <div class="reviews-ratings">
-                            <p>
-                                <span><i class="fas fa-star"></i> 4.5</span> (35 Reviews)
-                            </p>
-                        </div>
-                    </div>
-                    <div class="doc-info-right">
-                        <div class="clini-infos">
-                            <ul>
-                                <li>
-                                    <i class="fa-regular fa-clock available-icon"></i>
-                                    <span class="available-date available-today">Available
-                                        Today</span>
-                                </li>
-                                <li><i class="fa-solid fa-thumbs-up available-icon"></i> 98% <span class="votes">(252
-                                        Votes)</span></li>
-                                <li><i class="fa-solid fa-dollar-sign available-icon"></i> $1500 <i
-                                        class="fa-solid fa-circle-info available-icon"></i></li>
-                            </ul>
-                        </div>
-                        <div class="clinic-booking book-appoint">
-                            <a class="btn btn-primary" href="">Book
-                                Appointment</a>
-                            <a class="btn btn-outline-primary mt-2" href="">Book
-                                Online
-                                Consultation</a>
-                        </div>
-                    </div>
+
+
+    @if (count($doctors) > 0)
+        @if ($doctors['current_page'] != $doctors['last_page'])
+            <div
+                class="flex justify-center pt-8 pb-32 2xl:ml-64 xl:ml-72 xlg:ml-64 lg:ml-54 xmd:ml-44 sm:ml-20 xsm:ml-5 xxsm:ml-4">
+                <div class="sm:py-3 md:py-0 msm:py-3 xsm:py-3 xxsm:py-3" id="">
+                    <button id="more-doctor" type="button" data-te-ripple-init data-te-ripple-color="light"
+                        class="text-sm font-normal font-fira-sans leading-4 md:text-sm text-primary border border-primary text-center py-3.5 px-6">{{ __('View More') }}</button>
                 </div>
             </div>
-        </div> --}}
-
-        @if (count($doctors) > 0)
-            @if ($doctors['current_page'] != $doctors['last_page'])
-                <div
-                    class="flex justify-center pt-8 pb-32 2xl:ml-64 xl:ml-72 xlg:ml-64 lg:ml-54 xmd:ml-44 sm:ml-20 xsm:ml-5 xxsm:ml-4">
-                    <div class="sm:py-3 md:py-0 msm:py-3 xsm:py-3 xxsm:py-3" id="">
-                        <button id="more-doctor" type="button" data-te-ripple-init data-te-ripple-color="light"
-                            class="text-sm font-normal font-fira-sans leading-4 md:text-sm text-primary border border-primary text-center py-3.5 px-6">{{ __('View More') }}</button>
-                    </div>
-                </div>
-            @endif
-        @else
         @endif
+    @else
+    @endif
     </div>
 @endsection
 
@@ -228,9 +167,9 @@
         var markers = @json(@$markers);
         console.log(markers);
     </script>
+    <script src="{{ url('assets/js/doctor_list.js') }}"></script>
     <script src="{{ url('assets_admin/js/doctor_map.js') }}"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{ App\Models\Setting::first()->map_key }}&callback=initAutocomplete&libraries=places&v=weekly"
         async></script>
-    <script src="{{ url('assets/js/doctor_list.js') }}"></script>
 @endsection

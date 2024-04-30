@@ -46,8 +46,8 @@
 
 .arrow-prev{
     position: absolute;
-    top: -42px;
-    left: 1044px;
+    top: -65px;
+    right: 40px;
     font-size: x-large;
     color: #1084fc;
     cursor: pointer;
@@ -55,8 +55,8 @@
 
 .arrow-next{
     position: absolute;
-    top: -42px;
-    left: 1080px;
+    top: -65px;
+    right: 0px;
     font-size: x-large;
     color: #1084fc;
     cursor: pointer;

@@ -218,11 +218,14 @@ class WebsiteController extends Controller
             return view('website.find_doctor', compact('doctors', 'currency', 'categories'));
         } else {
             $getSet = 0;
+            $mapsShow = false; 
             if (isset($data['doc_lat']) && isset($data['doc_lang']) && $data['doc_lang'] != '' && $data['doc_lat'] != '') {
                 $radius = $setting->radius;
                 $hospital = Hospital::whereStatus(1)->GetByDistance($data['doc_lat'], $data['doc_lang'], $radius)->get(['id']);
                 $doctor->whereIn('hospital_id', $hospital);
                 $doctors = $doctor->get()->values()->all();
+                $mapsShow = true;
+                
                 // foreach ($doctors as $doctor) {
                 //     $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
                 //     $doctor->hospital = (new CustomController)->getHospital($doctor['id']);
@@ -271,6 +274,15 @@ class WebsiteController extends Controller
                 foreach ($doctors as $doctor) {
                     $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
                     $doctor->hospital = (new CustomController)->getHospital($doctor['id']);
+                    foreach ($doctor->hospital as $hospital) {
+                        $markers[] = [
+                            "name" => $doctor['name'],
+                            "hpitalName" => $hospital->name,
+                            "address" => $hospital->address,
+                            "lng" => $hospital->lng,
+                            "lat" => $hospital->lat,
+                        ];
+                    };
 
                 }
 
@@ -278,7 +290,7 @@ class WebsiteController extends Controller
                 print_r($markers);
                 echo '</pre>';
 
-                $view = view('website.display_doctors', compact('doctors', 'currency', 'categories'))->render();
+                $view = view('website.display_doctors', compact('doctors', 'currency', 'categories', 'markers'))->render();
                 return response()->json(['html' => $view, 'count' => count($doctors), 'meta' => $doctors, 'success' => true]);
             }
             $doctors = $doctor->paginate(5);
@@ -302,7 +314,7 @@ class WebsiteController extends Controller
                 $view = view('website.display_doctors', compact('doctors', 'currency', 'categories', 'markers'))->render();
                 return response()->json(['html' => $view, 'count' => count($doctors), 'meta' => $doctors, 'success' => true]);
             }
-            return view('website.find_doctor', compact('doctors', 'currency', 'categories', 'markers'));
+            return view('website.find_doctor', compact('doctors', 'currency', 'categories', 'markers', 'mapsShow'));
         }
     }
 

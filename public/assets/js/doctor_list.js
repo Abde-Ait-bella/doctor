@@ -80,6 +80,18 @@ function geolocate() {
         $('input[name=doc_lat]').val(lat);
         $('input[name=doc_lang]').val(lang);
     });
+
+    // setTimeout(() => {
+    //     document.getElementById('doc_lat').value = '';
+    //     document.getElementById('doc_lang').value = '';
+    // }, 10000);
+}
+
+function clearInput() {
+     setTimeout(() => {
+        document.getElementById('doc_lat').value = '';
+        document.getElementById('doc_lang').value = '';
+    }, 4000);
 }
 
 
@@ -102,3 +114,4 @@ function searchDoctor() {
         }
     });
 }
+
