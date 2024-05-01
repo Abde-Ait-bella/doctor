@@ -218,14 +218,14 @@ class WebsiteController extends Controller
             return view('website.find_doctor', compact('doctors', 'currency', 'categories'));
         } else {
             $getSet = 0;
-            $mapsShow = false; 
+            $mapsShow = false;
             if (isset($data['doc_lat']) && isset($data['doc_lang']) && $data['doc_lang'] != '' && $data['doc_lat'] != '') {
                 $radius = $setting->radius;
                 $hospital = Hospital::whereStatus(1)->GetByDistance($data['doc_lat'], $data['doc_lang'], $radius)->get(['id']);
                 $doctor->whereIn('hospital_id', $hospital);
                 $doctors = $doctor->get()->values()->all();
                 $mapsShow = true;
-                
+
                 // foreach ($doctors as $doctor) {
                 //     $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
                 //     $doctor->hospital = (new CustomController)->getHospital($doctor['id']);
@@ -278,12 +278,12 @@ class WebsiteController extends Controller
                         $markers[] = [
                             "name" => $doctor['name'],
                             "hpitalName" => $hospital->name,
+                            "image" => $doctor['fullImage'],
                             "address" => $hospital->address,
                             "lng" => $hospital->lng,
                             "lat" => $hospital->lat,
                         ];
                     };
-
                 }
 
                 echo '<pre>';
@@ -302,8 +302,11 @@ class WebsiteController extends Controller
                 $doctor['hospital'] = (new CustomController)->getHospital($doctor['id']);
                 foreach ($doctor['hospital'] as $hospital) {
                     $markers[] = [
+                        "id" => $doctor['id'],  
                         "name" => $doctor['name'],
                         "hpitalName" => $hospital->name,
+                        "image" => $doctor['fullImage'],
+                        "category" => $doctor['category']['name'],
                         "address" => $hospital->address,
                         "lng" => $hospital->lng,
                         "lat" => $hospital->lat,

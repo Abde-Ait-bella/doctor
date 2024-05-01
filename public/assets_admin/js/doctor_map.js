@@ -11,14 +11,42 @@ function initAutocomplete() {
         mapTypeId: "roadmap",
     });
 
-    const markerOptions = markerss.map((m) => ({
-        position: new google.maps.LatLng(m.lat, m.lng),
-        icon: "http://localhost/doctor_test/doctor/assets/image/marker.png",
-    }));
+    const infoWindow = new google.maps.InfoWindow();
+    console.log(markerss)
 
-    const marker = markerOptions.map((mark) => new google.maps.Marker(mark));
+    markerss = markerss.map(function (item) {
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(item.lat, item.lng),
+            icon: "http://localhost/doctor/assets/image/marker.png",
+        })
+        marker.setMap(map);
+        google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.setContent(`
+            <div class="d-flex flex-column" style="max-height: 240px; height: 240px !importent;">
+            <a class="text-decoration-none" href="${'doctor-profile/' + item.id + '/' + item['name']}" >
+                <img style="height: 130px; margin-bottom: 5px; border-radius: 10px;" src="${item['image']}">
+                <h5 class="mt-1 mb-1 text-capitalize text-dark text-center">${item.name}</h5>
+                <div class="text-dark">
+                    <p class="mb-1 text-capitalize">${item['category']}</p>
+                    <span></i> ${item.hpitalName}</span>
+                    <div class="d-flex mt-1">
+                        <p class="mb-0 mt-1"><i class="fa-solid fa-location-dot"></i></p>
+                        <p class="text-wrap mb-1 mt-1 text-capitalize ms-2 text-secondary" style="width: 185px;">  ${item.address}</p>
+                    </div>
+                </div>
+            </div>
+            `)
 
-    console.log("markerOptions", marker);
+            console.log("markerOptions", infoWindow);
+            const infoWindowOpenOptions = {
+                map: map,
+                // shouldFocus: true,
+                anchor: marker,
+            };
+            infoWindow.open(infoWindowOpenOptions);
+        })
+    })
+
 
     // const marker04 = new google.maps.Marker(markerOptions04)
 
@@ -26,36 +54,17 @@ function initAutocomplete() {
     //     document.getElementById('info').innerHTML = 'kkkk';
     // })
 
-    marker.map((m) => {
-        m.setMap(map);
-    });
+    // const infoWindowOptions = {
+    //     position: { lat: 30.4737131, lng: -8.8759107 },
+    //     pixelOffset: new google.maps.Size(0, -43),
+    //     maxWidth: 200
+    // };
 
-    $("#doc_lat").val("");
-    $("#doc_lang").val("");
 
-    const infoWindowOptions = {
-        position: { lat: 30.4737131, lng: -8.8759107 },
-        pixelOffset: new google.maps.Size(0, -43),
-        maxWidth: 200
-    };
 
-    const infoWindow = new google.maps.InfoWindow(infoWindowOptions);
 
-    infoWindow.setContent(`
-    <div class="d-flex flex-column text-center">
-    <img style="height: 130px" src="http://localhost/doctor_test/doctor/assets/image/ensemble-simple-dicône-de-tête-dhomme.webp">
-        <h4>abdessamad</h4>
-        <span>Elmoukhtar ssousi</span>
-    </div>
-    `)
 
-    const infoWindowOpenOptions = {
-        map: map,
-        // shouldFocus: true,
-        anchor: marker,
-    };
-
-    infoWindow.open(infoWindowOpenOptions);
+    //infoWindow.open(infoWindowOpenOptions);
 
     // const a = new google.maps.Marker({
     //     position: {
@@ -65,7 +74,7 @@ function initAutocomplete() {
     //     map,
 
     // });
-    const input = document.getElementById("pac-input");
+    // const input = document.getElementById("pac-input");
 
     // const searchBox = new google.maps.places.SearchBox(input);
     // map.addListener("bounds_changed", () => {
