@@ -62,7 +62,7 @@
                     <input type="hidden" name="doc_lat" id="doc_lat" value="{{ request()->get('doc_lat') }}">
                     <input type="hidden" name="doc_lang" id="doc_lang" value="{{ request()->get('doc_lang') }}">
                 </div>
-                <button type="submit" {{-- onclick="searchDoctor()" --}} data-te-ripple-init data-te-ripple-color="light"
+                <button type="submit" {{-- onclick="searchDoctor()" --}} onclick="clearInput()" data-te-ripple-init data-te-ripple-color="light"
                     class="text-white bg-primary text-center px-6 py-2 text-base font-normal leading-5 font-fira-sans sm:w-32 msm:w-32 xsm:w-32 xxsm:w-32 h-12 rounded"><i
                         class="fa-solid fa-magnifying-glass pe-2"></i> {{ __('Search') }}</button>
             </div>
@@ -129,7 +129,7 @@
             <div class="w-full">
                 @if (count($doctors['data']) > 0)
                     <div
-                        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xlg:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 dispDoctor ms-4">
+                        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xlg:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-3 dispDoctor ms-1">
                         @include('website.display_doctors', ['doctor' => $doctors])
                     </div>
                     <div

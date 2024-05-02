@@ -88,10 +88,11 @@ function geolocate() {
 }
 
 function clearInput() {
-     setTimeout(() => {
+    setTimeout(() => {
+         console.log('clear input')
         document.getElementById('doc_lat').value = '';
         document.getElementById('doc_lang').value = '';
-    }, 4000);
+    }, 1000);
 }
 
 

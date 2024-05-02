@@ -87,7 +87,7 @@
         </div> --}}
 
     @foreach ($data as $doctor)
-        <div class="col-xl-12 col-lg-3 col-md-6 d-flex">
+        <div class="col-xl-12 col-lg-3 col-md-6 d-flex px-1">
             <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
                 <div class="doctor-profile-widget doc-grid">
                     <div class="doc-pro-img">
@@ -112,7 +112,7 @@
                     <div class="doc-content">
                         <div class="doc-pro-info">
                             <div class="doc-pro-name">
-                                <h4><a href="">{{ $doctor['name'] }}</a><i class="fas fa-circle-check"></i></h4>
+                                <h4><a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">{{ $doctor['name'] }}</a><i class="fas fa-circle-check"></i></h4>
                                 <p>{{ $doctor['category']['name'] }}</p>
                             </div>
                             <div class="review-price ">
@@ -121,8 +121,8 @@
                         </div>
                         <div class="doc-pro-location text-wrap">
                             @foreach ($doctor['hospital'] as $hospital)
-                                <p class="text-wrap" style="width: 273px;"><i class="fa-solid fa-location-dot"></i> {{ $hospital['address'] }}
-                                </p>
+                                    <p class="text-wrap" style="width: 213px;"><i class="fa-solid fa-location-dot"></i> {{ $hospital['address'] }}
+                                    </p>
                             @endforeach
 
                             <p><i class="fa-solid fa-certificate"></i> <span>{{ date('Y') - $doctor['experience'] }}</span> Ans d'expérience
