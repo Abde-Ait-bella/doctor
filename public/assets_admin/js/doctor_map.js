@@ -43,7 +43,7 @@ function initAutocomplete() {
 
     infoWindow.setContent(`
     <div class="d-flex flex-column text-center">
-    <img style="height: 130px" src="http://localhost/doctor_test/doctor/assets/image/ensemble-simple-dicône-de-tête-dhomme.webp">
+    <img style="height: 130px; margin-bottom: 8px;" src="http://localhost/doctor_test/doctor/assets/image/ensemble-simple-dicône-de-tête-dhomme.webp">
         <h4>abdessamad</h4>
         <span>Elmoukhtar ssousi</span>
     </div>
