@@ -4,3 +4,53 @@
     object-fit: cover;
     border-radius: 4px;
 }
+
+.header-booking-table .date{
+    display: block;
+    color: #757575;
+    font-size: 14px;
+}
+
+.header-booking-table label{
+display: block;
+font-size: 16px;
+text-transform: uppercase;
+}
+
+.timing {
+    background-color: #e9e9e9;
+    color: #757575;
+    font-size: 14px;
+        padding: 4px 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.timing:hover {
+    background-color: #fff;
+    transition: 0.3s;
+}
+
+.arow-left{
+    position: absolute;
+    left: 13px;
+    top: 18px;
+    cursor: pointer;
+}
+
+.arow-right{
+    position: absolute;
+    right: 13px;
+    top: 18px;
+    cursor: pointer;
+}
+
+.timing.selected {
+    background-color: #42c0fb;
+    border: 1px solid #42c0fb;
+    color: #ffffff;
+}
+
+.timing .btn_time.selected {
+    color: #ffffff;
+}

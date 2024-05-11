@@ -11,37 +11,37 @@ function initAutocomplete() {
         mapTypeId: "roadmap",
     });
 
+
+    document.getElementById('doc_lat').value = '';
+    document.getElementById('doc_lang').value = '';
+
     const infoWindow = new google.maps.InfoWindow();
     console.log(markerss);
 
     markerss = markerss.map(function (item) {
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(item.lat, item.lng),
-            icon: "http://localhost/doctor_test/doctor/assets//image/marker.png",
+            icon: "/doctor/assets/image/marker.png",
         });
         marker.setMap(map);
         google.maps.event.addListener(marker, "click", function () {
             infoWindow.setContent(`
             <div class="d-flex flex-column" style="max-height: 240px; height: 240px !importent;">
-            <a class="text-decoration-none" href="${
-                "doctor-profile/" + item.id + "/" + item["name"]
-            }" >
+            <a class="text-decoration-none" href="${"doctor-profile/" + item.id + "/" + item["name"]
+                }" >
             <div class="d-flex justify-content-center">
-            <img style="height: 130px; margin-bottom: 5px; border-radius: 10px;" src="${
-                item["image"]
-            }">
+            <img style="height: 130px; margin-bottom: 5px; border-radius: 10px;" src="${item["image"]
+                }">
             </div>
-                <h5 class="mt-1 mb-1 text-capitalize text-dark text-center">${
-                    item.name
+                <h5 class="mt-1 mb-1 text-capitalize text-dark text-center">${item.name
                 }</h5>
-                <div class="text-dark">
+                <div class="text-dark" style="max-width: 195px;">
                     <p class="mb-1 text-capitalize">${item["category"]}</p>
                     <span></i> ${item.hpitalName}</span>
                     <div class="d-flex mt-1">
                         <p class="mb-0 mt-1"><i class="fa-solid fa-location-dot"></i></p>
-                        <p class="text-wrap mb-1 mt-1 text-capitalize ms-2 text-secondary" style="width: 156px;">  ${
-                            item.address
-                        }</p>
+                        <p class="text-wrap mb-1 mt-1 text-capitalize ms-2 text-secondary">  ${item.address
+                }</p>
                     </div>
                 </div>
             </div>
@@ -56,6 +56,8 @@ function initAutocomplete() {
             infoWindow.open(infoWindowOpenOptions);
         });
     });
+
+
 
     // const marker04 = new google.maps.Marker(markerOptions04)
 

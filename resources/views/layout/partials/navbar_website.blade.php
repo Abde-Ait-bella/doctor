@@ -9,7 +9,7 @@
                         alt="Doctro Logo" />
                 @endif
             </a>
-            <div class="flex items-center md:order-2 d-flex justify-content-between" style="width: 22%">
+            <div class="flex items-center md:order-2 d-flex justify-content-between" style="width: 30%">
                 @php
                     if (Auth::check()) {
                         if (auth()->user()->language) {
@@ -126,7 +126,7 @@
             <div class="hidden items-center justify-between w-full md:flex md:w-auto md:order-1"
                 id="mobile-menu-language-select">
                 <ul
-                    class="flex flex-col mt-3 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
+                    class="flex flex-col mt-3 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 ps-0">
                     <li>
                         <a href="{{ url('/show-doctors') }}"
                             class="{{ $activePage == 'doctors' ? 'text-primary' : 'text-black' }} font-fira-sans block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-decoration-none"

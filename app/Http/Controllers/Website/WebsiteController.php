@@ -75,9 +75,6 @@ class WebsiteController extends Controller
         foreach ($doctors as &$doctor) {
             $doctor['hospital'] = (new CustomController)->getHospital($doctor['id']);
         }
-        // echo '<pre>';
-        // print_r($doctors);
-        // echo '</pre>';
 
         return view('website.home', compact('banners', 'doctors', 'treatments', 'setting', 'reviews', 'blogs', 'category'));
     }
@@ -91,7 +88,7 @@ class WebsiteController extends Controller
                 'dob' => 'bail|required|before_or_equal:today|date_format:Y-m-d',
                 'gender' => 'bail|required',
                 'phone' => 'bail|required|numeric',
-                'password' => 'bail|required|min:6'
+                'password' => 'bail|required|min:6',
             ]
         );
         $data = $request->all();
@@ -200,10 +197,6 @@ class WebsiteController extends Controller
         $doctor = Doctor::with(['treatment', 'category', 'expertise'])->whereStatus(1)->where('is_filled', 1)->whereSubscriptionStatus(1);
         $data = $request->all();
 
-        // echo "<pre>";
-        // print_r($doctor);
-        // echo "</pre>";
-
         if ($id !== null) {
 
             $doctor->where('category_id', $id);
@@ -232,13 +225,13 @@ class WebsiteController extends Controller
                 // }
 
 
-            } elseif (isset($data['search_doctor']) && $data['search_doctor'] != '') {
+            } if (isset($data['search_doctor']) && $data['search_doctor'] != '') {
                 $doctor->where('name', 'LIKE', '%' . $data['search_doctor'] . "%");
             } elseif (isset($data['gender_type']) && $data['gender_type'] != '') {
                 $doctor->where('gender', $data['gender_type']);
             } elseif (isset($data['category'])) {
                 $doctor->whereIn('category_id', $data['category']);
-            } elseif (isset($data['date'])) {
+            } if (isset($data['date'])) {
                 $date = Carbon::parse($data['date'])->dayName;
                 $doctorWorkHour = WorkingHour::where('day_index', $date)->where('status', 1)->get();
                 foreach ($doctorWorkHour as $workinghour) {
@@ -248,7 +241,7 @@ class WebsiteController extends Controller
             }
             if (isset($data['treatment_id'])) {
                 $doctor->where('treatment_id', $data['treatment_id']);
-            } elseif (isset($data['sort_by']) && $data['sort_by'] != '') {
+            } if (isset($data['sort_by']) && $data['sort_by'] != '') {
                 $reqData = $request->all();
                 if ($reqData['sort_by'] == 'rating') {
                     $doctor = $doctor->get();
@@ -286,10 +279,6 @@ class WebsiteController extends Controller
                     };
                 }
 
-                echo '<pre>';
-                print_r($markers);
-                echo '</pre>';
-
                 $view = view('website.display_doctors', compact('doctors', 'currency', 'categories', 'markers'))->render();
                 return response()->json(['html' => $view, 'count' => count($doctors), 'meta' => $doctors, 'success' => true]);
             }
@@ -302,7 +291,7 @@ class WebsiteController extends Controller
                 $doctor['hospital'] = (new CustomController)->getHospital($doctor['id']);
                 foreach ($doctor['hospital'] as $hospital) {
                     $markers[] = [
-                        "id" => $doctor['id'],  
+                        "id" => $doctor['id'],
                         "name" => $doctor['name'],
                         "hpitalName" => $hospital->name,
                         "image" => $doctor['fullImage'],
@@ -314,10 +303,12 @@ class WebsiteController extends Controller
                 }
             }
             if ($request->ajax()) {
+
+
                 $view = view('website.display_doctors', compact('doctors', 'currency', 'categories', 'markers'))->render();
                 return response()->json(['html' => $view, 'count' => count($doctors), 'meta' => $doctors, 'success' => true]);
             }
-            return view('website.find_doctor', compact('doctors', 'currency', 'categories', 'markers', 'mapsShow'));
+            return view('website.find_doctor', compact('doctors', 'currency', 'categories', 'markers', 'mapsShow', 'data'));
         }
     }
 
@@ -468,8 +459,9 @@ class WebsiteController extends Controller
         return response(['success' => true]);
     }
 
-    public function booking($id, $name)
+    public function booking(Request $request, $id, $name)
     {
+
         $doctor = Doctor::with(['category', 'expertise'])->find($id);
         $patient_addressess = UserAddress::where('user_id', auth()->user()->id)->get();
         $today_timeslots = (new CustomController)->timeSlot($id, Carbon::today(env('timezone'))->format('Y-m-d'));
@@ -477,6 +469,8 @@ class WebsiteController extends Controller
         $setting = Setting::first();
         $currency = $setting->currency_symbol;
         $insurers = Insurer::where('status', 1)->get();
+
+
         return view('website.appointment_booking', compact('doctor', 'patient_addressess', 'today_timeslots', 'currency', 'setting', 'insurers'));
     }
 
@@ -774,22 +768,26 @@ class WebsiteController extends Controller
     public function bookAppointment(Request $request)
     {
         $data = $request->all();
+
+        // echo '<echo>';
+        //     print_r($data);
+        // echo '</echo>';
         // return $data;
         $request->validate([
-            'appointment_for' => 'bail|required',
-            'illness_information' => 'bail|required',
-            'patient_name' => 'bail|required',
-            'age' => 'bail|required|numeric',
-            'patient_address' => 'bail|required',
-            'phone_no' => 'bail|required|numeric',
-            'drug_effect' => 'bail|required',
-            'note' => 'bail|required',
-            'date' => 'bail|required',
-            'time' => 'bail|required',
-            'hospital_id' => 'bail|required',
-            'time' => 'bail|required|date_format:h:i a',
-            'policy_insurer_name' => 'bail|required_if:is_insured,1',
-            'policy_number' => 'bail|required_if:is_insured,1'
+            'appointment_for' => 'bail',
+            'illness_information' => 'bail',
+            'patient_name' => 'bail',
+            'age' => 'bail|numeric',
+            'patient_address' => 'bail',
+            'phone_no' => 'bail|numeric',
+            'drug_effect' => 'bail',
+            'note' => 'bail',
+            'date' => 'bail',
+            'time' => 'bail',
+            'hospital_id' => 'bail',
+            'time' => 'bail|date_format:h:i a',
+            'policy_insurer_name' => 'bail',
+            'policy_number' => 'bail'
         ]);
         $data['appointment_id'] =  '#' . rand(100000, 999999);
         $data['user_id'] = auth()->user()->id;
@@ -815,6 +813,8 @@ class WebsiteController extends Controller
         $data = array_filter($data, function ($a) {
             return $a !== "";
         });
+
+
         $appointment = Appointment::create($data);
         // session()->forget('doctor_id');
         // session()->forget('time');

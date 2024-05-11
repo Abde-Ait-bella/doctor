@@ -174,8 +174,7 @@
                                 </div>
                             </div>
                             <div class="pt-3">
-                                <button type="submit"
-                                    class="font-fira-sans text-white bg-primary w-full text-sm font-normal py-3">{{ __('Submit') }}</button>
+                                <button type="submit" class="font-fira-sans text-white bg-primary w-full text-sm font-normal py-3">{{ __('Submit') }}</button>
                                 <h1 class="font-fira-sans font-medium text-sm leading-5 pt-4 text-center">
                                     {{ __('Already have an account?') }}
                                     <a href="{{ url('patient-login') }}"
@@ -312,6 +311,7 @@
             });
         });
         const phoneInputField = document.querySelector(".phone");
+        console.log('phoneInputField')
         const phoneInput = window.intlTelInput(phoneInputField, {
             preferredCountries: ["us", "co", "in", "de"],
             initialCountry: "in",

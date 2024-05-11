@@ -344,14 +344,17 @@ class DoctorController extends Controller
             'experience' => 'bail|required|numeric',
             'image' => 'bail|mimes:jpeg,png,jpg|max:1000',
             'custom_timeslot' => 'bail|required_if:timeslot,other',
-            'commission_amount' => 'bail|required_if:based_on,commission'
+            'commission_amount' => 'bail|required_if:based_on,commission',
+
         ],
         [
             'image.max' => 'The Image May Not Be Greater Than 1 MegaBytes.',
         ]);
         $doctor = Doctor::find($id);
         $data = $request->all();
-
+        if($data['commission_amount'] == ''){
+            $data['commission_amount'] = NULL;
+        }
         $data['start_time'] = Carbon::parse($data['start_time'])->format('h:i A');
         $data['end_time'] = Carbon::parse($data['end_time'])->format('h:i A');
         if($request->hasFile('image'))

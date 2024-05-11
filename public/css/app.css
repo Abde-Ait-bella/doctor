@@ -8773,11 +8773,6 @@ doctor-profile-widget.doc-grid .doc-pro-img .reviews-ratings {
     left: 25px;
 }
 
-.doctor-profile-widget.doc-grid .doc-pro-img .favourite-btn {
-    top: 15px;
-    right: 25px;
-}
-
 .doctor-profile-widget.doc-grid .favourite-btn {
     position: absolute;
     top: 8px;
@@ -8795,9 +8790,8 @@ doctor-profile-widget.doc-grid .doc-pro-img .reviews-ratings {
     left: 25px;
 }
 
-
 .doctor-profile-widget.doc-grid .doc-pro-img .favourite-btn {
-    left: 251px;
+    left: 228px;
     top: 14px;
 }
 
@@ -8817,7 +8811,6 @@ doctor-profile-widget.doc-grid .doc-pro-img .reviews-ratings {
     text-overflow: ellipsis;
     margin-right: 2px;
 }
-
 
 .doctor-profile-widget.doc-grid .doc-content .doc-pro-name h4 a {
     margin-right: 6px;

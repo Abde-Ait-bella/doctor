@@ -3,6 +3,7 @@
 const progress = document.getElementById("progress");
 const prev = document.getElementById("prev");
 const next = document.getElementById("next");
+const envoyer = document.getElementById("envoyer");
 const circles = document.querySelectorAll(".circle");
 
 var lat, lng, currency, amount;
@@ -321,13 +322,14 @@ let currentActive = 1;
 
 next.addEventListener("click", () => {
     if (currentActive == 1) {
+        console.log('clicked next')
         var response = checkFirstFormValidation();
         if (response == true) {
             currentActive++;
             if (currentActive > circles.length) currentActive = circles.length;
             update();
             shoeStep();
-            displayHospital();
+            // displayHospital();
         }
     } else if (currentActive == 2) {
         var response = checkSecondFormValidation();
@@ -363,6 +365,7 @@ const update = () => {
         prev.disabled = false;
         next.disabled = false;
     }
+    if (currentActive === circles.length) envoyer.classList.add("block");
 };
 
 function shoeStep() {

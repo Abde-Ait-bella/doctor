@@ -3,7 +3,7 @@
     echo ' <pre>';
     // foreach ($doctor as $doct) {
     // foreach ($doct['hospital'] as $hospital) {
-    print_r(@$mapsShow);
+    print_r($data['doc_lat']);
     // }
     // }
     echo '</pre>';
@@ -59,8 +59,8 @@
                     <input {{-- id="pac-input" --}} id="autocomplete" type="search" onFocus="geolocate()"
                         class="block p-2 pl-10 text-sm text-black-700 bg-white-50 border border-white-light 2xl:w-96 xmd:w-72 !sm:w-32 msm:w-40 h-12 ps-5 rounded"
                         placeholder="{{ __('Set your location') }}">
-                    <input type="hidden" name="doc_lat" id="doc_lat" value="{{ request()->get('doc_lat') }}">
-                    <input type="hidden" name="doc_lang" id="doc_lang" value="{{ request()->get('doc_lang') }}">
+                    <input type="hidden" name="doc_lat" id="doc_lat" value="{{ @$data['doc_lat'] }}">
+                    <input type="hidden" name="doc_lang" id="doc_lang" value="{{ @$data['doc_lang'] }}">
                 </div>
                 <button type="submit" {{-- onclick="searchDoctor()" --}} onclick="clearInput()" data-te-ripple-init data-te-ripple-color="light"
                     class="text-white bg-primary text-center px-6 py-2 text-base font-normal leading-5 font-fira-sans sm:w-32 msm:w-32 xsm:w-32 xxsm:w-32 h-12 rounded"><i
@@ -129,15 +129,15 @@
             <div class="w-full">
                 @if (count($doctors['data']) > 0)
                     <div
-                        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xlg:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-3 dispDoctor ms-1">
+                        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1  @if (@$mapsShow === true) xlg:grid-cols-2 ms-3 me-1 @elseif(@$mapsShow === false) xlg:grid-cols-3 @endif @isset($mapsShow) '' @else xlg:grid-cols-3 @endisset lg:grid-cols-3 2xl:grid-cols-3 dispDoctor ">
                         @include('website.display_doctors', ['doctor' => $doctors])
                     </div>
                     <div
-                        class="col-6 @if (@$mapsShow === true) d-block  @elseif(@$mapsShow === false) d-none @endif @isset($mapsShow) '' @else d-none @endisset">
+                        class="col-6 ps-1 @if (@$mapsShow === true) d-block  @elseif(@$mapsShow === false) d-none @endif @isset($mapsShow) '' @else d-none @endisset">
                         @include('website.display_maps', ['doctor' => $doctors])
                     </div>
                 @else
-                    <div class="flex justify-center mt-10 font-fira-sans font-normal text-base text-gray">
+                    <div class="flex justify-center mt-10 font-fira-sans font-normal text-base text-gray mb-5">
                         {{ __('No Data Avalaible') }}
                     </div>
                 @endif
@@ -167,9 +167,9 @@
         var markers = @json(@$markers);
         console.log(markers);
     </script>
-    <script src="{{ url('assets/js/doctor_list.js') }}"></script>
     <script src="{{ url('assets_admin/js/doctor_map.js') }}"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?key={{ App\Models\Setting::first()->map_key }}&callback=initAutocomplete&libraries=places&v=weekly"
-        async></script>
+    src="https://maps.googleapis.com/maps/api/js?key={{ App\Models\Setting::first()->map_key }}&callback=initAutocomplete&libraries=places&v=weekly"
+    async></script>
+    <script src="{{ url('assets/js/doctor_list.js') }}"></script>
 @endsection

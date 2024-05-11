@@ -2,7 +2,8 @@ var base_url = $('input[name=base_url]').val();
 
 $(document).ready(function () {
     var page = 1;
-    $("#more-doctor").click(function () {
+    $("#more-doctor").click(function ()
+    {
         page++;
         $.ajax({
             headers:
@@ -12,53 +13,58 @@ $(document).ready(function () {
             url: '?page=' + page,
             type: 'post',
         })
-            .done(function (data) {
-                if (data.meta.current_page == data.meta.last_page) {
-                    $('#more-doctor').hide();
-                } else {
-                    $('#more-doctor').show();
-                }
-                $('.dispDoctor').append(data.html);
-            })
-            .fail(function (jqXHR, ajaxOptions, throwError) {
-                alert('Server error');
-            })
+        .done(function(data){
+            if(data.meta.current_page == data.meta.last_page){
+                $('#more-doctor').hide();
+            } else{
+                $('#more-doctor').show();
+            }
+            $('.dispDoctor').append(data.html);
+        })
+        .fail(function(jqXHR, ajaxOptions, throwError){
+            alert('Server error');
+        })
     });
 
     $('#filter_form').change(function () {
         var categories = [];
         var gender = $('input[name="gender_type"]:checked').val();
         var sort_by = $('select[name=sort_by]').val();
-        $('input[name="select_specialist"]:checked').each(function (i) {
-            if (categories.indexOf(this.value) === -1) {
+        $('input[name="select_specialist"]:checked').each(function(i)
+        {
+            if(categories.indexOf(this.value) === -1) {
                 categories.push(this.value);
             }
         });
 
         $.ajax({
-            headers:
-            {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type: "POST",
-            data: {
-                category: categories,
-                gender_type: gender,
-                sort_by: sort_by,
-                from: 'js'
-            },
-            url: base_url + '/show-doctors',
-            success: function (result) {
-                $('.dispDoctor').html('');
-                $('.dispDoctor').append(result.html);
-                $(".myDrop").toggleClass("show");
-                $("#more-doctor").hide();
-                categories.length = 0;
-            },
-            error: function (err) {
 
-            }
-        });
+          headers:
+          {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: "POST",
+          data:{
+              category:categories,
+              gender_type:gender,
+              sort_by:sort_by,
+              from: 'js'
+          },
+          url: base_url + '/show-doctors',
+          success: function (result)
+          {
+              $('.dispDoctor').html('');
+              $('.dispDoctor').append(result.html);
+              $(".myDrop").toggleClass("show");
+              $("#more-doctor").hide();
+              categories.length = 0;
+          },
+          error: function (err) {
+              console.log('err')
+
+          }
+        }
+    );
     });
 });
 
@@ -80,16 +86,10 @@ function geolocate() {
         $('input[name=doc_lat]').val(lat);
         $('input[name=doc_lang]').val(lang);
     });
-
-    // setTimeout(() => {
-    //     document.getElementById('doc_lat').value = '';
-    //     document.getElementById('doc_lang').value = '';
-    // }, 10000);
 }
 
 function clearInput() {
     setTimeout(() => {
-         console.log('clear input')
         document.getElementById('doc_lat').value = '';
         document.getElementById('doc_lang').value = '';
     }, 1000);

@@ -1,6 +1,7 @@
 @extends('layout.mainlayout', ['activePage' => 'doctors'])
 
 @section('css')
+    <link rel="stylesheet" href="{{ url('assets/css/intlTelInput.css') }}" />
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css" />
     <style>
         .custom-error {
@@ -125,22 +126,22 @@
 @section('content')
     <div class="xl:w-3/4 mx-auto">
         <div class="xsm:mx-4 xxsm:mx-5 pt-10 mb-10 ">
-            <h1 class="font-fira-sans font-medium text-4xl text-left leading-10 pb-5">{{ __('Appointment Booking') }}</h1>
+            <h1 class="font-fira-sans font-medium text-4xl text-center leading-10 pb-5">{{ __('Appointment Booking') }}</h1>
 
             <div class="Appointment-detail border border-white-light">
-                {{-- <div class="progress-container">
+                <div class="progress-container">
                     <div class="progress" id="progress"></div>
                     <div class="circle progress_active">1</div>
                     <div class="circle">2</div>
                     <div class="circle">3</div>
-                </div> --}}
+                </div>
                 {{-- <form id="appointmentForm"> --}}
-                {{-- <input type="hidden" name="doctor_id" value="{{ $doctor->id }}">
-                    <input type="hidden" name="currency" value="{{ $setting->currency_code }}">
+                {{-- <input type="hidden" name="doctor_id" value="{{ $doctor->id }}"> --}}
+                {{-- <input type="hidden" name="currency" value="{{ $setting->currency_code }}">
                     <input type="hidden" name="company_name" value="{{ $setting->business_name }}">
                     <input type="hidden" name="user_name" value="{{ auth()->user()->name }}">
                     <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                    <input type="hidden" name="phone" value="{{ auth()->user()->phone }}">
+                    <input type="hidden" name="phone_no" value="{{ auth()->user()->phone }}">
                     <input type="hidden" name="payment_type" value="COD">
                     <input type="hidden" name="amount" step="any" value="{{ $doctor->appointment_fees }}">
                     <input type="hidden" name="payment_token">
@@ -314,99 +315,101 @@
                             </div>
                         </div>
                     </div> --}}
-                <div id="step2" class="hidden">
-                    <div class="flex xxsm:flex-col sm:flex-row">
-                        <div class="2xl:w-1/2 border-r xxsm:w-full">
-                            @php
-                                $date = Carbon\Carbon::now(env('timezone'));
-                            @endphp
-                            <input type="hidden" name="date" value="{{ $date->format('Y-m-d') }}">
-                            @if (Session::get('locale') === 'Arabic')
-                                <div id="datepickerId" onclick="dateChange()" data-date="{{ $date->format('Y-m-d') }}"
-                                    class="rtl"></div>
-                            @elseif(Session::get('locale') === 'English')
-                                <div id="datepickerId" onclick="dateChange()" data-date="{{ $date->format('Y-m-d') }}">
-                                </div>
-                            @endif
-                            <div class="p-5">
-                                <div class="mt-2 font-normal text-xl font-fira-sans">
-                                    <span class="currentDate">{{ $date->format('d M') }}</span>{{ __(' Availibility') }}
-                                </div>
-                                <div class="mt-2">
-                                    <div class="flex flex-wrap timeSlotRow">
-                                        @if (count($today_timeslots) > 0)
-                                            @foreach ($today_timeslots as $today_timeslot)
-                                                @if ($loop->first)
-                                                    <input type="hidden" name="time"
-                                                        value="{{ $today_timeslot['start_time'] }}">
-                                                @endif
-                                                <a href="javascript:void(0)" onclick="thisTime({{ $loop->iteration }})"
-                                                    class="time timing{{ $loop->iteration }} border border-gray text-center py-1 2xl:text-sm 2xl:px-2 sm:text-sm sm:px-2 msm:text-sm msm:px-2 leading-4 font-fira-sans font-normal xl:text-xs xl:px-1 xlg:text-xs xlg:px-1 xlg:w-28 lg:w-28 xsm:w-28 xxsm:w-28 text-black m-1 {{ $loop->first ? 'activeTimeslots' : '' }}">
-                                                    <svg width="12" height="13" viewBox="0 0 12 13" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M6 11.75C4.60761 11.75 3.27226 11.1969 2.28769 10.2123C1.30312 9.22774 0.75 7.89239 0.75 6.5C0.75 5.10761 1.30312 3.77226 2.28769 2.78769C3.27226 1.80312 4.60761 1.25 6 1.25C7.39239 1.25 8.72774 1.80312 9.71231 2.78769C10.6969 3.77226 11.25 5.10761 11.25 6.5C11.25 7.89239 10.6969 9.22774 9.71231 10.2123C8.72774 11.1969 7.39239 11.75 6 11.75ZM6 12.5C7.5913 12.5 9.11742 11.8679 10.2426 10.7426C11.3679 9.61742 12 8.0913 12 6.5C12 4.9087 11.3679 3.38258 10.2426 2.25736C9.11742 1.13214 7.5913 0.5 6 0.5C4.4087 0.5 2.88258 1.13214 1.75736 2.25736C0.632141 3.38258 0 4.9087 0 6.5C0 8.0913 0.632141 9.61742 1.75736 10.7426C2.88258 11.8679 4.4087 12.5 6 12.5V12.5Z"
-                                                            fill="white" />
-                                                        <path
-                                                            d="M8.22727 4.22747C8.22192 4.23264 8.21691 4.23816 8.21227 4.24397L5.60752 7.56272L4.03777 5.99222C3.93113 5.89286 3.7901 5.83876 3.64437 5.84134C3.49865 5.84391 3.35961 5.90294 3.25655 6.006C3.15349 6.10906 3.09446 6.2481 3.09188 6.39382C3.08931 6.53955 3.14341 6.68059 3.24277 6.78722L5.22727 8.77247C5.28073 8.82583 5.34439 8.86788 5.41445 8.89611C5.48452 8.92433 5.55955 8.93816 5.63507 8.93676C5.7106 8.93536 5.78507 8.91876 5.85404 8.88796C5.92301 8.85716 5.98507 8.81278 6.03652 8.75747L9.03052 5.01497C9.13246 4.90796 9.1882 4.76514 9.18568 4.61737C9.18317 4.4696 9.12259 4.32875 9.01706 4.22529C8.91152 4.12182 8.76951 4.06405 8.62171 4.06446C8.47392 4.06486 8.33223 4.12342 8.22727 4.22747Z"
-                                                            fill="white" />
-                                                    </svg>
-                                                    {{ $today_timeslot['start_time'] }}
-                                                </a>
-                                            @endforeach
-                                        @else
-                                            <strong
-                                                class="text-red-600 text-bs text-center w-100">{{ __('At this time doctor is not availabel please change the date.') }}</strong>
-                                        @endif
+                {{-- <div id="step2" class="hidden">
+                        <div class="flex xxsm:flex-col sm:flex-row">
+                            <div class="2xl:w-1/2 border-r xxsm:w-full">
+                                @php
+                                    $date = Carbon\Carbon::now(env('timezone'));
+                                @endphp
+                                <input type="hidden" name="date" value="{{ $date->format('Y-m-d') }}">
+                                @if (Session::get('locale') === 'Arabic')
+                                    <div id="datepickerId" onclick="dateChange()" data-date="{{ $date->format('Y-m-d') }}"
+                                        class="rtl"></div>
+                                @elseif(Session::get('locale') === 'English')
+                                    <div id="datepickerId" onclick="dateChange()" data-date="{{ $date->format('Y-m-d') }}">
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="2xl:w-2/5 p-8 xxsm:w-full">
-                            <div>
-                                <h4 class="font-fira-sans font-normal text-1xl text-left pb-5">
-                                    {{ __('Choose Clinic') }}</h4>
-                            </div>
-                            @foreach ($doctor->hospital as $hospital)
-                                @if ($loop->first)
-                                    @php
-                                        $hospital_name = $hospital->name;
-                                        $address = $hospital->address;
-                                    @endphp
-                                    <input type="hidden" name="hospital_id" value="{{ $hospital->id }}">
                                 @endif
-                                <div onclick="changeHospital({{ $loop->iteration }})" data-attribute="{{ $hospital->id }}"
-                                    class="border hospitals hospital{{ $loop->iteration }} border-1 border-gray-200 p-2 cursor-pointer {{ $loop->first ? 'activeAddress' : ' mt-4' }}">
-                                    <div>
-                                        <h5
-                                            class="font-fira-sans font-medium text-1xl text-left hospitalName{{ $loop->iteration }}">
-                                            {{ $hospital->name }}</h5>
+                                <div class="p-5">
+                                    <div class="mt-2 font-normal text-xl font-fira-sans">
+                                        <span
+                                            class="currentDate">{{ $date->format('d M') }}</span>{{ __(' Availibility') }}
                                     </div>
-                                    <div class="flex mt-1 items-center">
-                                        <i class="fa-solid fa-location-dot mr-3"></i>
-                                        <p class="font-fira-sans hospitalAddress{{ $loop->iteration }}">
-                                            {{ $hospital->address }}</p>
-                                    </div>
-                                    <div class="flex displayHospital justify-between mt-2">
-                                        <p class="text-gray font-fira-sans">
-                                            <span
-                                                class="font-fira-sans displayKm{{ $hospital->id }}"></span>{{ ' km away' }}
-                                        </p>
-                                        @php
-                                            $url =
-                                                'https://www.google.com/maps/dir/?api=1&destination=' .
-                                                $hospital->lat .
-                                                ',' .
-                                                $hospital->lng;
-                                        @endphp
-                                        <a href="{{ $url }}" target="_blank"
-                                            class="font-medium font-fira-sans">{{ __('View Details') }}</a>
+                                    <div class="mt-2">
+                                        <div class="flex flex-wrap timeSlotRow">
+                                            @if (count($today_timeslots) > 0)
+                                                @foreach ($today_timeslots as $today_timeslot)
+                                                    @if ($loop->first)
+                                                        <input type="hidden" name="time"
+                                                            value="{{ $today_timeslot['start_time'] }}">
+                                                    @endif
+                                                    <a href="javascript:void(0)" onclick="thisTime({{ $loop->iteration }})"
+                                                        class="time timing{{ $loop->iteration }} border border-gray text-center py-1 2xl:text-sm 2xl:px-2 sm:text-sm sm:px-2 msm:text-sm msm:px-2 leading-4 font-fira-sans font-normal xl:text-xs xl:px-1 xlg:text-xs xlg:px-1 xlg:w-28 lg:w-28 xsm:w-28 xxsm:w-28 text-black m-1 {{ $loop->first ? 'activeTimeslots' : '' }}">
+                                                        <svg width="12" height="13" viewBox="0 0 12 13"
+                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M6 11.75C4.60761 11.75 3.27226 11.1969 2.28769 10.2123C1.30312 9.22774 0.75 7.89239 0.75 6.5C0.75 5.10761 1.30312 3.77226 2.28769 2.78769C3.27226 1.80312 4.60761 1.25 6 1.25C7.39239 1.25 8.72774 1.80312 9.71231 2.78769C10.6969 3.77226 11.25 5.10761 11.25 6.5C11.25 7.89239 10.6969 9.22774 9.71231 10.2123C8.72774 11.1969 7.39239 11.75 6 11.75ZM6 12.5C7.5913 12.5 9.11742 11.8679 10.2426 10.7426C11.3679 9.61742 12 8.0913 12 6.5C12 4.9087 11.3679 3.38258 10.2426 2.25736C9.11742 1.13214 7.5913 0.5 6 0.5C4.4087 0.5 2.88258 1.13214 1.75736 2.25736C0.632141 3.38258 0 4.9087 0 6.5C0 8.0913 0.632141 9.61742 1.75736 10.7426C2.88258 11.8679 4.4087 12.5 6 12.5V12.5Z"
+                                                                fill="white" />
+                                                            <path
+                                                                d="M8.22727 4.22747C8.22192 4.23264 8.21691 4.23816 8.21227 4.24397L5.60752 7.56272L4.03777 5.99222C3.93113 5.89286 3.7901 5.83876 3.64437 5.84134C3.49865 5.84391 3.35961 5.90294 3.25655 6.006C3.15349 6.10906 3.09446 6.2481 3.09188 6.39382C3.08931 6.53955 3.14341 6.68059 3.24277 6.78722L5.22727 8.77247C5.28073 8.82583 5.34439 8.86788 5.41445 8.89611C5.48452 8.92433 5.55955 8.93816 5.63507 8.93676C5.7106 8.93536 5.78507 8.91876 5.85404 8.88796C5.92301 8.85716 5.98507 8.81278 6.03652 8.75747L9.03052 5.01497C9.13246 4.90796 9.1882 4.76514 9.18568 4.61737C9.18317 4.4696 9.12259 4.32875 9.01706 4.22529C8.91152 4.12182 8.76951 4.06405 8.62171 4.06446C8.47392 4.06486 8.33223 4.12342 8.22727 4.22747Z"
+                                                                fill="white" />
+                                                        </svg>
+                                                        {{ $today_timeslot['start_time'] }}
+                                                    </a>
+                                                @endforeach
+                                            @else
+                                                <strong
+                                                    class="text-red-600 text-bs text-center w-100">{{ __('At this time doctor is not availabel please change the date.') }}</strong>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            </div>
+                            <div class="2xl:w-2/5 p-8 xxsm:w-full">
+                                <div>
+                                    <h4 class="font-fira-sans font-normal text-1xl text-left pb-5">
+                                        {{ __('Choose Clinic') }}</h4>
+                                </div>
+                                @foreach ($doctor->hospital as $hospital)
+                                    @if ($loop->first)
+                                        @php
+                                            $hospital_name = $hospital->name;
+                                            $address = $hospital->address;
+                                        @endphp
+                                        <input type="hidden" name="hospital_id" value="{{ $hospital->id }}">
+                                    @endif
+                                    <div onclick="changeHospital({{ $loop->iteration }})"
+                                        data-attribute="{{ $hospital->id }}"
+                                        class="border hospitals hospital{{ $loop->iteration }} border-1 border-gray-200 p-2 cursor-pointer {{ $loop->first ? 'activeAddress' : ' mt-4' }}">
+                                        <div>
+                                            <h5
+                                                class="font-fira-sans font-medium text-1xl text-left hospitalName{{ $loop->iteration }}">
+                                                {{ $hospital->name }}</h5>
+                                        </div>
+                                        <div class="flex mt-1 items-center">
+                                            <i class="fa-solid fa-location-dot mr-3"></i>
+                                            <p class="font-fira-sans hospitalAddress{{ $loop->iteration }}">
+                                                {{ $hospital->address }}</p>
+                                        </div>
+                                        <div class="flex displayHospital justify-between mt-2">
+                                            <p class="text-gray font-fira-sans">
+                                                <span
+                                                    class="font-fira-sans displayKm{{ $hospital->id }}"></span>{{ ' km away' }}
+                                            </p>
+                                            @php
+                                                $url =
+                                                    'https://www.google.com/maps/dir/?api=1&destination=' .
+                                                    $hospital->lat .
+                                                    ',' .
+                                                    $hospital->lng;
+                                            @endphp
+                                            <a href="{{ $url }}" target="_blank"
+                                                class="font-medium font-fira-sans">{{ __('View Details') }}</a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </div> --}}
                 {{-- <div id="step3" class="hidden">
                         <div class="flex xlg:flex-row xxsm:flex-col">
                             <div class="col-span-5 p-5 w-full">
@@ -642,8 +645,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form> --}}
+                    </div> --}}
+                {{-- </form> --}}
             </div>
             {{-- <div class="Appointment-detail flex justify-between mt-3 mb-3">
                 <button type="button"
@@ -694,8 +697,7 @@
                     </div>
                     <div
                         class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-white-light rounded-b-md">
-                        <button type="button" data-modal-hide="exampleModalCenteredScrollable"
-                            data-te-ripple-color="light"
+                        <button type="button" data-modal-hide="exampleModalCenteredScrollable" data-te-ripple-color="light"
                             class="modelCloseBtn inline-block px-6 py-2.5 bg-white-50 text-gray font-medium text-xs leading-tight uppercase rounded shadow-md active:shadow-lg transition duration-150 ease-in-out">{{ __('Close') }}</button>
                         <button type="button" onclick="addAddress()"
                             class="inline-block px-6 py-2.5 !bg-primary text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">{{ __('Add Address') }}</button>
@@ -709,27 +711,34 @@
             <div class="card mb-5">
                 <div class="card-body">
                     <div class="doctor-profile-img d-flex">
-                        <img src="http://localhost/doctor_test/doctor/assets/image/ensemble-simple-dicône-de-tête-dhomme.webp"
-                            class="img-fluid" alt="John Doe">
-                            <div class="booking-info ms-2">
-                                <h4>Dr. Darren Elder</h4>
-                                <div class="rating mt-1 mb-1">
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star "></i>
-                                    <span class="d-inline-block average-rating">35</span>
-                                </div>
-                                <p class="text-muted mb-0">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    Newyork, USA
-                                </p>
+                        @php
+                            $date = Carbon\Carbon::now(env('timezone'));
+                        @endphp
+                        <img src="{{ url($doctor['fullImage']) }}" class="img-fluid" alt="John Doe">
+                        <div class="booking-info ms-3">
+                            <h4 class="fw-bold text-muted text-capitalize">{{ $doctor['name'] }}</h4>
+                            <div class="rating mt-1 mb-1">
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star filled"></i>
+                                <i class="fas fa-star "></i>
+                                <span class="d-inline-block average-rating">35</span>
                             </div>
+                            <p class="text-muted mb-0">
+                                @foreach ($doctor->hospital as $hospital)
+                                    @if ($loop->first)
+                                        <i class="fas fa-map-marker-alt me-2"></i>
+                                        {{ $hospital['address'] }}
+                                    @endif
+                                @endforeach
+
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row mb-5">
+            {{-- <div class="row mb-5">
                 <div class="col-12 col-sm-4 col-md-6">
                     <h4 class="mb-1">11 November 2023</h4>
                     <p class="text-muted">Monday</p>
@@ -740,12 +749,165 @@
                         <span>April 26, 2024 - May 2, 2024</span>
                     </div>
                 </div>
+            </div> --}}
+            <form id="appointmentForm">
+                <input type="hidden" name="doctor_id" value="{{ $doctor->id }}">
+                <input type="hidden" name="currency" value="{{ $setting->currency_code }}">
+                <input type="hidden" name="company_name" value="{{ $setting->business_name }}">
+                <input type="hidden" name="user_name" value="{{ auth()->user()->name }}">
+                <input type="hidden" name="patient_name" value="{{ auth()->user()->name }}">
+                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                {{-- <input type="hidden" name="phone_no" value="{{ auth()->user()->phone }}"> --}}
+                <input type="hidden" name="payment_type" value="COD">
+                <input type="hidden" name="amount" step="any" value="{{ $doctor->appointment_fees }}">
+                <input type="hidden" name="payment_token">
+                <input type="hidden" name="payment_status" value="0">
+                <input type="hidden" name="discount_price">
+                <input type="hidden" name="discount_id">
+                
+                @foreach ($doctor->hospital as $hospital)
+                    @if ($loop->first)
+                        @php
+                            $hospital_name = $hospital->name;
+                            $address = $hospital->address;
+                        @endphp
+                        <input type="hidden" name="hospital_id" value="{{ $hospital->id }}">
+                    @endif
+                @endforeach
+
+                <div id="step1" class="block">
+
+                    <div class="row border rounded mb-5">
+                        <ul class="header-booking-table d-flex justify-content-around fw-bold py-2 px-3 position-relative">
+                            <li class="arow-left" onclick="arrowLeft()">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </li>
+                            <li class="text-center">
+                                <label id="day_0" for=""></label>
+                                <p class="date" id="date_0"></p>
+                            </li>
+                            <li class="text-center">
+                                <label id="day_1" for=""></label>
+                                <p class="date" id="date_1">10 JUL 2023</p>
+                            </li>
+                            <li class="text-center">
+                                <label id="day_2" for=""></label>
+                                <p class="date" id="date_2">10 JUL 2023</p>
+                            </li>
+                            <li class="text-center">
+                                <label id="day_3" for=""></label>
+                                <p class="date" id="date_3">10 JUL 2023</p>
+                            </li>
+                            <li class="text-center">
+                                <label id="day_4" for=""></label>
+                                <p class="date" id="date_4">10 JUL 2023</p>
+                            </li>
+                            <li class="text-center">
+                                <label id="day_5" for=""></label>
+                                <p class="date" id="date_5">10 JUL 2023</p>
+                            </li>
+                            <li class="text-center">
+                                <label id="day_6" for=""></label>
+                                <p class="date" id="date_6">10 JUL 2023</p>
+                            </li>
+                            <li class="arow-right" onclick="arrowRight()">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </li>
+                        </ul>
+                        <hr>
+                        {{-- <div class="row"> --}}
+                        <div class="col-md-12">
+                            <div class="d-flex justify-content-around fw-bold py-3">
+                                <input type="hidden" name="time" id="time">
+                                <input type="hidden" name="date" id="date">
+                                <div id="times-btns_0">
+                                    {{-- <li class="timing border rounded d-flex align-items-center mb-2" onclick="Time(this)">
+                                            <input type="hidden" class="btn_time" id="btn_time" value="09:00">09:00 AM</input>
+                                        </li>
+                                        <li class="timing border rounded d-flex align-items-center mb-2" onclick="Time(this)">
+                                            <input type="hidden" class="btn_time" id="btn_time_1" value="90:00">09:00 AM</input>
+                                        </li>
+                                        <li class="timing border rounded d-flex align-items-center mb-2" onclick="Time(this)">
+                                            <input type="hidden" class="btn_time" id="btn_time_2" value="90:00">09:00 AM</input>
+                                        </li>
+                                        <li class="timing border rounded d-flex align-items-center mb-2" onclick="Time(this)">
+                                            <input type="hidden" class="btn_time" id="btn_time_3" value="90:00">09:00 AM</input>
+                                        </li>
+                                        <li class="timing border rounded d-flex align-items-center mb-2" onclick="Time(this)">
+                                            <input type="hidden" class="btn_time" id="btn_time_4" value="90:00">09:00 AM</input>
+                                        </li>
+                                        <li class="timing border rounded d-flex align-items-center mb-2" onclick="Time(this)">
+                                            <input type="hidden" class="btn_time" id="btn_time_5" value="90:00">09:00 AM</input>
+                                        </li>
+                                        <li class="timing border rounded d-flex align-items-center mb-2" onclick="Time(this)">
+                                            <input type="hidden" class="btn_time" id="btn_time_6" value="90:00">09:00 AM</input>
+                                        </li> --}}
+                                </div>
+                                <div id="times-btns_1">
+                                </div>
+                                <div id="times-btns_2">
+                                </div>
+                                <div id="times-btns_3">
+                                </div>
+                                <div id="times-btns_4">
+                                </div>
+                                <div id="times-btns_5">
+                                </div>
+                                <div id="times-btns_6">
+                                </div>
+                            </div>
+                        </div>
+                        {{-- </div> --}}
+                    </div>
+                </div>
+
+                <div id="step2" class="block">
+                    <div>
+                        <h2 class="text-center text-center fs-3 fw-bold">Saisissez vos informations</h2>
+                        <div class="d-flex flex-column align-items-center mt-4">
+                            <div>
+                                <input class="col-md-12 text-sm font-fira-sans text-gray block z-20 border border-white-light rounded mb-2"
+                                    type="text" placeholder="Nom / Prénom" onchange="infoPerso()" name="patient_name" >
+                                <input type="number" name="phone_no" value="{{ old('phone') }}" id="phone"
+                                    class="@error('phone') is-invalid @enderror w-full text-sm font-fira-sans text-gray block z-20 border border-white-light rounded phone"
+                                    placeholder="{{ __('Enter Phone Number') }}" onchange="infoPerso()">
+                                <input type="hidden" name="phone_code" value="" >
+                                @error('phone')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="step3" class="hidden"">
+                    <h1>step3</h1>
+                </div>
+
+            </form>
+
+            <div class="Appointment-detail flex justify-between mt-3 mb-3">
+                <button type="button"
+                    class="border !border-primary text-white !bg-primary text-center w-32 h-11 text-base font-normal leading-5 font-fira-sans"
+                    id="prev" disabled>{{ __('Previous') }}</button>
+                <button type="button"
+                    class="!text-white !bg-primary text-center text-base font-normal font-fira-sans w-32 h-11"
+                    id="next">{{ __('Next') }}</button>
+            </div>
+            <div class="codDiv text-center">
+                <input type="button" id="envoyer"
+                    class="font-fira-sans text-white !bg-primary p-2 text-sm font-normal w-40 h-11 cursor-pointer mb-5 rounded hidden"
+                    onclick="booking()" value="{{ __('Envoyer') }}">
             </div>
         </div>
+
     </div>
 @endsection
 
 @section('js')
+    <script src="{{ url('assets/js/boocking.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script src="https://unpkg.com/flowbite-datepicker@1.2.2/dist/js/datepicker-full.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
@@ -788,6 +950,51 @@
                 $('.custom_timeslot_text').prop('required', false);
                 $('.policy_insurer_name').prop('required', false);
             }
+        });
+    </script>
+
+    {{-- copy from signup.blade --}}
+
+    <script src="{{ url('assets/js/intlTelInput.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.signupDiv').click(function() {
+                $('.signupDiv').removeClass('active');
+                $(this).addClass('active');
+                $(this).children('input[type=radio]').prop('checked', true);
+                var radioVal = $(this).children('input[type=radio]').val();
+                $('.invalid-feedback').text('');
+                if (radioVal == 'doctor') {
+                    $('.doctorDiv').show();
+                    $('.patientDiv').hide();
+                }
+                if (radioVal == 'patient') {
+                    $('.doctorDiv').hide();
+                    $('.patientDiv').show();
+                }
+            });
+        });
+        const phoneInputField = document.querySelector(".phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            preferredCountries: ["us", "co", "in", "de"],
+            initialCountry: "ma",
+            separateDialCode: false,
+            utilsScript: "{{ url('assets/js/utils.js') }}",
+        });
+        phoneInputField.addEventListener("countrychange", function() {
+            var phone_code = $('.phone').find('.iti__selected-dial-code').text();
+            $('input[name=phone_code]').val('+' + phoneInput.getSelectedCountryData().dialCode);
+        });
+
+        const DocphoneInputField = document.querySelector(".doc_phone");
+        const docphoneInput = window.intlTelInput(DocphoneInputField, {
+            preferredCountries: ["us", "co", "in", "de"],
+            initialCountry: "ma",
+            separateDialCode: true,
+            utilsScript: "{{ url('assets/js/utils.js') }}",
+        });
+        DocphoneInputField.addEventListener("countrychange", function() {
+            $('input[name=phone_code]').val('+' + docphoneInput.getSelectedCountryData().dialCode);
         });
     </script>
 @endsection
