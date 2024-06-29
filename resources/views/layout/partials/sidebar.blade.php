@@ -22,7 +22,29 @@
                         <img src="{{ url('/images/upload/logo-docteur24-h40.png') }}" width="180" height="45"
                             alt="Logo" />
                     @endif
-                </a>
+                    </a>
+                        <div>
+                            <div>
+                                @php
+                                    $doctor = App\Models\Doctor::where('user_id', auth()->user()->id)
+                                        ->with('category')
+                                        ->first();
+                                @endphp
+                                <div class="div-img">
+                                    <img src="{{ url($doctor->fullImage) }}" alt="">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mt-3 text-dark">
+                                    <h4 class="mb-0">{{ $doctor->name }}</h4>
+                                </div>
+                                <div class="category">
+                                    <p class="mb-0">{{ $doctor['category']['name'] }}</p>
+                                </div>
+                                <div class="text-white d-inline-block">
+                                </div>
+                            </div>
+                        </div>
             @elseif(auth()->user()->hasRole('pharmacy'))
                 <a href="{{ url('/pharmacy_home') }}">
                     @if ($settings->company_logo)
@@ -72,13 +94,19 @@
                 </li>
             @endcan
 
-            {{-- Doctor --}}
+
             @if (auth()->user()->hasRole('doctor'))
                 @can('doctor_home')
                     <li class="{{ $activePage == 'home' ? 'active' : '' }}">
                         <a href="{{ url('doctor_home') }}">
-                            <i class="fas fe fe-home"></i>
+                            <i class="fas fa-home"></i>
                             <span>{{ __('Dashboard') }}</span>
+                        </a>
+                    </li>
+                    <li class="{{ $activePage == 'prescription' ? 'active' : '' }}">
+                        <a href="{{ url('prescriptionListe') }}">
+                            <i class="fa-solid fa-prescription me-2"></i>
+                            <span>{{ __('Prescription') }}</span>
                         </a>
                     </li>
                 @endcan

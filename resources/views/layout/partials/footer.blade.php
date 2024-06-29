@@ -50,9 +50,15 @@
                         </div>
                     </div>
                     <div>
+                        <a href="{{ url('contact-us') }}" style="cursor: pointer ; text-decoration: none">
                         <h1 class="text-primary font-medium text-lg leading-5 font-fira-sans msm:pt-5 sm:pt-0">
                             {{ __('Contact Us:') }}</h1>
-                        <div class="2xl:pt-10 xxsm:pt-5">
+                        </a>
+                        <div class="2xl:pt-10 xxsm:pt-5" >
+                            <a href="{{ url('contact-us') }}" style="cursor: pointer ;"
+                                class="text-white text-sm leading-4 font-fira-sans font-normal underline pt-2">{{ __('Contact Us') }}</a>
+                        </div>
+                        <div class="mt-2">
                             <a href="tel:{{ $setting->phone }}"
                                 class="text-white text-sm leading-4 font-fira-sans font-normal underline pt-2">{{ $setting->phone }}</a>
                         </div>
@@ -70,6 +76,10 @@
                     {{ Carbon\Carbon::now(env('timezone'))->year }}
                     {{ __($setting->business_name) }}{{ __(', All rights reserved') }} </p>
                 <div class="flex flex-row">
+                    <div>
+                        <a href="{{ url('terms-condition') }}"
+                            class="text-white text-sm font-normal leading-5 font-fira-sans mr-[80px]">{{ __('Terms Condition') }}</a>
+                    </div>
                     <div>
                         <a href="{{ url('about-us') }}"
                             class="text-white text-sm font-normal leading-5 font-fira-sans mr-[80px]">{{ __('About us') }}</a>

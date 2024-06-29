@@ -2,7 +2,14 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="{{ asset('css/commision.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/prescription.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/prescription_details.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/doctor_home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/add_medicine.css') }}">
+
     <script src="{{ url('assets_admin/js/jquery.min.js') }}"></script>
+    <script src="{{ url('assets_admin/js/prescription.js') }}"></script>
     @include('layout.partials.head_admin')
 </head>
 

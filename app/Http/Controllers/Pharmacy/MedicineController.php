@@ -22,7 +22,7 @@ class MedicineController extends Controller
 
     public function index()
     {
-        abort_if(Gate::denies('medicine_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('medicine_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $pharmacy = Pharmacy::where('user_id',auth()->user()->id)->first();
         $medicines = Medicine::where('pharmacy_id',$pharmacy->id)->orderBy('id','DESC')->get();
         $currency = Setting::first()->currency_symbol;

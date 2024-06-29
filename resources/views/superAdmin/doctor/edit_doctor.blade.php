@@ -11,7 +11,7 @@
     ])
     <form action="{{ url('doctor/'.$doctor->id) }}" method="post" enctype="multipart/form-data" class="myform">
     @csrf
-    @method('PUT')  
+    @method('PUT')
         <div class="card">
             <div class="card-header text-primary">
                 {{__('personal information')}}

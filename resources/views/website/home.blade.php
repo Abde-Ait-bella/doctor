@@ -1,9 +1,3 @@
-{{-- @foreach ($category as $categ)
-    echo '
-    <pre>'
-        print_r($category)
-    echo '</pre>'
-@endforeach --}}
 @extends('layout.mainlayout', ['activePage' => 'home'])
 
 @section('css')
@@ -125,66 +119,56 @@
     {{-- Skip Travelling --}}
     <div class="site-hero w-full relative banner-section">
         {{-- <div class="banner-section"> --}}
-        <div class="container position-relative">
+        <div class="container position-relative" id="banner-section">
             <div class="row align-items-center">
                 <div class="col-lg-6" style=" margin-top: -200px;">
                     <div class="banner-content aos" style="position: relative" data-aos="fade-up">
-                        <h1 style="font-weight: 600; font-size: 48px; margin-bottom: 25px;">Consult <span
+                        <h1 class="h1-home" style="">Consult <span
                                 style="color: #0E82FD">Best
                                 Doctors</span> Your Nearby Location.</h1>
                         <img style="position: absolute; right: -30px; top: -15px;"
                             src="{{ asset('assets/image/icons/header-icon.svg') }}" class="header-icon" alt="header-icon">
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
-                        <div class="d-flex mb-5">
+                        <div class="d-flex mb-5" id="make_appointment">
                             <div class="xxsm:relative xsm:relative">
                                 <a class="btn btn-link text-center mt-0 bg-primary text-white text-decoration-none py-2 px-3 fw-bold"
-                                    target="_blank" href="{{ url('/show-doctors') }}"
-                                    role="button">{{ __('Make Appointment') }}</a>
+                                    href="{{ url('/show-doctors') }}" role="button">{{ __('Make Appointment') }}</a>
                             </div>
-                            <div class="banner-arrow-img  ms-4">
+                            <div class="banner-arrow-img ms-4">
                                 <img src="https://doccure.dreamstechnologies.com/laravel/template/public/assets/img/down-arrow-img.png"
                                     class="img-fluid" alt="down-arrow">
                             </div>
                         </div>
                     </div>
-                    <form action="{{ url('show-doctors') }}" id="searchForm" method="post"
-                        class="search-box d-flex align-items-center bg-white p-3 rounded justify-content-between mb-5">
-                        @csrf
-                        <div class="ps-1">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="search" name="search_doctor" class="border border-0" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="{{ __('Search Doctor...') }}">
-                        </div>
-                        <div class="separat_search"></div>
-                        <div class="ps-2">
-                            <i class="fa-solid fa-location-dot"></i>
-                            {{-- <input type="hidden" name="from" value="js"> --}}
-                            <input type="search" onFocus="geolocate()" id="autocomplete" class="border border-0"
-                                aria-describedby="emailHelp" placeholder="{{ __('Set your location') }}">
-                            <input type="hidden" name="doc_lat" id="doc_lat">
-                            <input type="hidden" name="doc_lang" id="doc_lang">
-                        </div>
-                        {{-- <div class="">
-                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                <i class="fa-solid fa-location-dot"></i>
+                    <div class="d-flex justify-content-center">
+                        <form action="{{ url('show-doctors') }}" id="searchForm" method="post"
+                            class="search-box d-flex align-items-center bg-white p-3 rounded justify-content-between mb-5">
+                            @csrf
+                            <div class="ps-1 d-flex align-items-center">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="search" name="search_doctor" class="border border-0" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="{{ __('Search Doctor...') }}">
                             </div>
-                            <input type="hidden" name="from" value="js">
-                            <input type="search" onFocus="geolocate()" id="autocomplete"
-                                class="block p-2 pl-10 text-sm text-black-700 bg-white-50 border border-white-light 2xl:w-96 xmd:w-72 !sm:w-32 msm:w-40 h-12"
-                                placeholder="{{ __('Set your location') }}">
-                            <input type="hidden" name="doc_lat">
-                            <input type="hidden" name="doc_lang">
-                        </div> --}}
-                        <div class="separat_search"></div>
-                        <div class="ps-2">
-                            <i class="fa-solid fa-calendar-days"></i>
-                            <input type="date" class="border border-0" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Date" name="date">
-                        </div>
-                        <div class="">
-                            <button type="submit" onclick="clearInput()" class="btn btn-primary px-4 rounded-3">Searsh</button>
-                        </div>
-                    </form>
+                            <div class="separat_search"></div>
+                            <div class="ps-2 d-flex align-items-center">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <input type="search" onFocus="geolocate()" id="autocomplete" class="border border-0"
+                                    aria-describedby="emailHelp" placeholder="{{ __('Set your location') }}">
+                                <input type="hidden" name="doc_lat" id="doc_lat">
+                                <input type="hidden" name="doc_lang" id="doc_lang">
+                            </div>
+                            <div class="separat_search"></div>
+                            <div class="ps-2 d-flex align-items-center" style="width:100%">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                <input type="date" class="border border-0" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Date" name="date" class="border border-0" >
+                            </div>
+                            <div class="separat_search"></div>
+                            <div class="mt-1">
+                                <button type="submit" onclick="clearInput()" class="btn btn-primary px-4 rounded-3">Searsh</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
 
@@ -227,20 +211,14 @@
                 </div>
             </div>
         </div>
-
-        {{-- <div class="container">
-        </div> --}}
-        {{-- <h1 >Lorem ipsum dolor sit amet co nsectetur adipisicing elit. Accusantium illo nobis culpa ullam deserunt id inventore fugiat ut saepe dignissimos minima facilis, dolores modi sit nam, porro excepturi quam perferendis debitis numquam magnam, eaque ducimus architecto vel? Fugiat, maiores eos odio qui, reprehenderit fugit quo incidunt doloribus adipisci commodi labore, hic magni. Ipsa deserunt excepturi quam, ut quisquam repudiandae eos rerum animi. Eaque atque illo vero at quidem, sequi quis quia tenetur voluptas praesentium itaque. Minima repudiandae atque quidem voluptatibus veritatis nam vero quisquam maiores laudantium hic, culpa illum! Accusantium ipsum repudiandae, tempore qui minus nobis adipisci quam debitis atque odit itaque facere nemo consectetur ut aliquam incidunt ab. Voluptas consequuntur praesentium cumque eos debitis dolorem quis temporibus quibusdam hic reiciendis, alias neque perferendis, ipsum molestiae eligendi soluta. Suscipit quam, eligendi quae harum eveniet sit obcaecati error ea. Cum repellendus velit autem ex est eaque consequuntur illum tenetur, sequi laboriosam incidunt! Eum harum quod neque, sunt veritatis tempore ad, alias voluptas nemo et impedit, sint unde reprehenderit molestias nobis expedita architecto temporibus vero facere molestiae inventore. Laboriosam alias voluptatibus neque error nihil animi corrupti consequatur necessitatibus, eveniet culpa consequuntur eligendi odio, facere, aperiam ab repellendus reprehenderit architecto delectus est saepe. Qui consectetur, vero repudiandae omnis exercitationem adipisci tempore laboriosam natus sunt, nisi saepe recusandae veritatis eaque, explicabo sit tenetur. Tempora quo sint deleniti in laudantium, quia odit expedita ut molestias aliquid corrupti praesentium eaque quidem placeat totam labore autem facilis libero! Iste, sed accusamus fugiat rerum laboriosam similique molestiae nisi unde quos odit. Eaque nulla, veniam aperiam ipsa ea, nihil doloribus suscipit recusandae tempore iure necessitatibus laudantium, fugiat reprehenderit exercitationem fuga sapiente voluptate non? Neque quasi doloremque dicta natus, incidunt necessitatibus vel magni iusto voluptate voluptatum. Expedita soluta labore ducimus, rem velit repellendus dolorem quasi accusamus id perferendis, dolorum adipisci. Cumque quod reiciendis suscipit fuga modi eum itaque atque iure, provident beatae minus excepturi saepe aperiam alias illo maxime ullam culpa nemo ipsam nihil unde sed corrupti delectus. Iure distinctio maiores inventore aliquam, hic incidunt quo est facilis voluptatum rerum explicabo veniam soluta consequatur! Sint expedita tenetur ipsum. Explicabo quisquam natus sit consequatur voluptatem itaque placeat totam culpa similique dolorem autem cum illum sapiente necessitatibus sed temporibus dolore, unde dolor iure voluptatibus nostrum voluptatum optio vel eveniet. Tenetur culpa quisquam commodi in, alias necessitatibus? Autem reiciendis natus deserunt id quisquam eligendi quis itaque, iure fugiat nam. Cum eos, earum facilis soluta odio sequi explicabo quam voluptatem quaerat autem obcaecati voluptate incidunt placeat eveniet aspernatur laudantium aliquid maiores, illum totam ut. Ratione mollitia natus, atque voluptates doloremque hic architecto doloribus officiis quas consequuntur consectetur tenetur, alias culpa illo molestias repellendus itaque laborum aliquam ducimus. Consectetur eum itaque, adipisci, commodi quaerat amet, quas quis cum sapiente omnis rerum dolores. Cum quas esse, minus necessitatibus reprehenderit nisi. Consectetur, maiores esse rem tempore delectus excepturi velit repellendus temporibus! Enim explicabo recusandae quidem porro sed nobis minus inventore, officia commodi. Sapiente, voluptas cum? Saepe atque ratione doloremque qui! Asperiores unde recusandae nulla sit! Voluptates, voluptatum.</h1> --}}
-        {{-- </div> --}}
-
     </div>
     <!-- <div class="w-full bg-cover bg-no-repeat" style="height:1000px;background-image: url({{ asset('/assets/image/Banner.png') }})">
-                                                                                                                                                                                            <div class="xlg:mx-20 xxsm:mx-4 xsm:mx-5 pt-20">
-                                                                                                                                                                                                <h1 class="font-fira-sans text-black font-normal text-6xl !1xl:w-2/4 2xl:w-1/3 md:w-3/4 xxsm:w-full leading-snug mb-10">Skip Travelling Online <span class="text-blue-600/100">Consultation</span> is the Future</h1>
-                                                                                                                                                                                                <p class="font-fira-sans font-normal text-lg text-gray mb-10">Private consultation available on Audio & Video Call</p>
-                                                                                                                                                                                               <a class="btn btn-link text-center mt-0 rounded-none bg-primary px-6 py-3 md:px-3 md:py-3  text-white font-normal font-fira-sans text-sm" target="_blank" href="{{ $setting->banner_url }}" role="button">{{ __('Make Appointment') }}</a>
-                                                                                                                                                                                            </div>
-                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                <div class="xlg:mx-20 xxsm:mx-4 xsm:mx-5 pt-20">
+                                                                                                                                                                                                    <h1 class="font-fira-sans text-black font-normal text-6xl !1xl:w-2/4 2xl:w-1/3 md:w-3/4 xxsm:w-full leading-snug mb-10">Skip Travelling Online <span class="text-blue-600/100">Consultation</span> is the Future</h1>
+                                                                                                                                                                                                    <p class="font-fira-sans font-normal text-lg text-gray mb-10">Private consultation available on Audio & Video Call</p>
+                                                                                                                                                                                                   <a class="btn btn-link text-center mt-0 rounded-none bg-primary px-6 py-3 md:px-3 md:py-3  text-white font-normal font-fira-sans text-sm"  href="{{ $setting->banner_url }}" role="button">{{ __('Make Appointment') }}</a>
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                            </div> -->
     <div class="xxsm:mx-5 xl:mx-0 2xl:mx-0 mt-5">
         {{-- body --}}
         <div
@@ -249,11 +227,11 @@
                 class="grid xxsm:grid-cols-1 xsm:grid-cols-1 msm:grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 2xl:h-96 1xl:h-full xlg:h-full lg:h-72 xxmd:h-[250px] xxmd:w-full md:h-full md:w-full sm:h-full sm:w-full msm:h-full msm:w-full !xsm:w-full !xsm:h-full xxsm:w-full xxsm:h-full ">
                 @foreach ($banners as $banner)
                     <div
-                        class="mx-auto pt-20 pb-20 h-full w-full 1xl:h-96 1xl:w-full xl:h-full xxsm:h-96 xxsm:w-80 xsm:h-80 xsm:w-80 msm:h-80 msm:w-full sm:h-full sm:w-full md:h-full md:w-full align-items-center {{ $loop->iteration % 2 == 0 ? 'bg-primary text-white' : 'bg-white-50 text-black' }} shadow-2xl my-auto">
-                        <img class="lg:h-16 lg:w-16 xxmd:h-12 xxmd:w-12 md:h-10 md:w-10 sm:h-10 sm:w-10 xsm:h-14 xsm:w-14 xxsm:h-10 xxsm:w-10 mx-auto bg-cover object-cover mb-5"
+                        class="banners mx-auto pt-20 pb-20 h-full w-full 1xl:h-96 1xl:w-full xl:h-full xxsm:h-96 xxsm:w-80 xsm:h-80 xsm:w-80 msm:h-80 msm:w-full sm:h-full sm:w-full md:h-full md:w-full align-items-center {{ $loop->iteration % 2 == 0 ? 'bg-primary text-white' : 'bg-white-50 text-black' }} shadow-2xl my-auto">
+                        <img class="lg:h-16 lg:w-16 xxmd:h-12 xxmd:w-12 md:h-10 md:w-10 sm:h-10 sm:w-10 xsm:h-14 xsm:w-14 xxsm:h-10 xxsm:w-10 mx-auto bg-cover object-cover"
                             src="{{ asset($banner->fullImage) }}" alt="" />
                         <h4
-                            class="{{ $loop->iteration % 2 == 0 ? 'text-white' : 'text-black' }} text-center md:text-xl font-medium 1xl:mt-2 lg:mt-1 md:mt-2 xsm:mt-2 leading-8 font-fira-sans sm:text-xs xsm:text-lg xxsm:text-xs mb-5">
+                            class="{{ $loop->iteration % 2 == 0 ? 'text-white' : 'text-black' }} text-center md:text-xl font-medium 1xl:mt-2 lg:mt-1 md:mt-2 xsm:mt-2 leading-8 font-fira-sans sm:text-xs xsm:text-lg xxsm:text-xs">
                             {{ $banner->name }}
                         </h4>
                         <p class="font-fira-sans font-normal text-sm text-center mx-5">Lorem ipsum dolor sit amet, elit.
@@ -265,8 +243,8 @@
         </div>
 
         {{-- our doctor --}}
-        <div class="mt-20 xl:w-3/4 mx-auto mb-20">
-            <div class="justify-between flex sm:flex-row xxsm:flex-col 2xl:mt-28 mb-8 xxsm:mt-10 lg:mt-40">
+        <div class="container position-relative">
+            <div class="justify-around flex sm:flex-row xxsm:flex-col 2xl:mt-28 mb-8 xxsm:mt-10 lg:mt-40">
                 <div class="sm:py-3 md:py-0 msm:py-3 xsm:py-3 xxsm:py-3">
                     <h2
                         class="font-medium 2xl:text-4xl xl:text-4xl xlg:text-4xl lg:text-4xl xmd:text-4xl md:text-4xl msm:text-4xl sm:text-4xl xsm:text-4xl xxsm:text-2xl leading-10 font-fira-sans text-black">
@@ -276,110 +254,70 @@
                 @if (count($doctors) > 0)
                     <div class="sm:py-3 md:py-0 msm:py-3 xsm:py-3 xxsm:py-3">
                         <a href="{{ url('show-doctors') }}"
-                            class="text-sm font-normal font-fira-sans leading-4 text-primary border border-primary text-center md:text-sm py-3.5 px-7">{{ __('View All Doctors') }}</a>
+                            class="text-sm font-normal font-fira-sans leading-4 text-primary border rounded border-primary text-center md:text-sm py-3.5 px-7">{{ __('View All Doctors') }}</a>
                     </div>
                 @else
                 @endif
             </div>
             @if (count($doctors) > 0)
-                {{-- <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xlg:grid-cols-4 lg:grid-cols-3">
-                    @foreach ($doctors as $doctor)
-                        <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
-                            <div class="border border-white-light p-10">
-                                <div class="border-2 border-primary rounded-full w-36 h-36 mx-auto overflow-hidden">
-                                    <img class="w-36 h-36 object-cover rounded-full" src="{{ url($doctor->fullImage) }}"
-                                        alt="" />
-                                </div>
-
-                                <h5
-                                    class="font-fira-sans font-normal text-lg leading-6 text-black text-center md:text-md pt-5">
-                                    {{ $doctor->name }}
-                                </h5>
-                                <p
-                                    class="font-normal leading-4 text-sm text-primary text-center font-fira-sans md:text-md py-2">
-                                    {{ $doctor['expertise']['name'] }}
-                                </p>
-                                <p class="font-normal leading-4 text-sm text-gray text-center md:text-md"><i
-                                        class="fa-solid fa-star text-yellow"></i> {{ $doctor['rate'] }}
-                                    ({{ $doctor['review'] }} {{ __('reviews') }})
-                                </p>
-                            </div>
-
-                        </a>
-                    @endforeach
-                </div> --}}
-                <div class="row mt-4">
-                    @foreach ($doctors as $doctor)
-                        <div class="col-xl-3 col-lg-3 col-md-6 d-flex">
-                            <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
-                                <div class="doctor-profile-widget doc-grid">
-                                    <div class="doc-pro-img">
-                                        <a
-                                            href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
-                                            <div class="doctor-profile-img">
-                                                <img src="{{ url($doctor->fullImage) }}" class="img-fluid"
-                                                    alt="John Doe">
-                                            </div>
-                                        </a>
-                                        <div class="reviews-ratings">
-                                            <p>
-                                                <span><i class="fas fa-star"></i> {{ $doctor['rate'] }}
-                                                    ({{ $doctor['review'] }} {{ __('reviews') }})
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div class="favourite-btn">
-                                            <a href="javascript:void(0)" class="favourite-icon">
-                                                <i class="fas fa-heart"></i>
+                <div class="row doc-grid-slider position-absolute">
+                    <div class="slick-slider-doc" dir="ltr">
+                        @foreach ($doctors as $doctor)
+                            <div class="d-flex mx-2 card-doc">
+                                <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
+                                    <div class="doctor-profile-widget doc-grid w-full">
+                                        <div class="doc-pro-img">
+                                            <a
+                                                href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
+                                                <div class="doctor-profile-img d-flex justify-content-center w-md-full">
+                                                    <img src="{{ url($doctor->fullImage) }}"
+                                                        class="img-fluid" alt="John Doe">
+                                                </div>
                                             </a>
-                                        </div>
-                                    </div>
-                                    {{-- <div class="doc-content">
-                                        <div class="doc-pro-info">
-                                            <div class="doc-pro-name">
-                                                <h4><a href="">{{ $doctor->name }}</a><i
-                                                        class="fas fa-circle-check"></i></h4>
-                                                <p>{{ $doctor['expertise']['name'] }}</p>
+                                            <div class="d-flex justify-content-around reviews-favourite">
+                                                <div class="reviews-ratings">
+                                                    <p>
+                                                        <span><i class="fas fa-star"></i> {{ $doctor['rate'] }}
+                                                            ({{ $doctor['review'] }})
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <div class="favourite-btn">
+                                                    <a href="javascript:void(0)" class="favourite-icon">
+                                                        <i class="fas fa-heart"></i>
+                                                    </a>
+                                                </div>
                                             </div>
-                                            <div class="review-price ">
-                                                <p class="mt-2">$1100.00<span>/hr</span></p>
+                                        </div>
+                                        <div class="doc-content">
+                                            <div class="doc-pro-info">
+                                                <div class="doc-pro-name">
+                                                    <h4><a href="">{{ $doctor['name'] }}</a><i
+                                                            class="fas fa-circle-check"></i></h4>
+                                                    <p>{{ $doctor['category']['name'] }}</p>
+                                                </div>
+                                                <div class="review-price ">
+                                                    <p class="mt-2">$1100.00<span>/hr</span></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="doc-pro-location">
-                                            <p><i class="fa-solid fa-location-dot"></i> <span>0.9</span> mi - New York, USA
-                                            </p>
-                                            <p><i class="fa-solid fa-certificate"></i> <span>15</span> Years of Experience
-                                            </p>
-                                        </div>
-                                    </div> --}}
+                                            <div class="doc-pro-location text-wrap">
+                                                @foreach ($doctor['hospital'] as $hospital)
+                                                    <p class="text-wrap"><i
+                                                            class="fa-solid fa-location-dot"></i>
+                                                        {{ $hospital['address'] }}
+                                                    </p>
+                                                @endforeach
 
-                                    <div class="doc-content">
-                                        <div class="doc-pro-info">
-                                            <div class="doc-pro-name">
-                                                <h4><a href="">{{ $doctor['name'] }}</a><i
-                                                        class="fas fa-circle-check"></i></h4>
-                                                <p>{{ $doctor['category']['name'] }}</p>
-                                            </div>
-                                            <div class="review-price ">
-                                                <p class="mt-2">$1100.00<span>/hr</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="doc-pro-location text-wrap">
-                                            @foreach ($doctor['hospital'] as $hospital)
-                                                <p class="text-wrap" style="width: 202px;"><i
-                                                        class="fa-solid fa-location-dot"></i> {{ $hospital['address'] }}
+                                                <p><i class="fa-solid fa-certificate"></i>
+                                                    <span>{{ date('Y') - $doctor['experience'] }}</span> Ans d'expérience
                                                 </p>
-                                            @endforeach
-
-                                            <p><i class="fa-solid fa-certificate"></i>
-                                                <span>{{ date('Y') - $doctor['experience'] }}</span> Ans d'expérience
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             @else
                 <div class="flex justify-center mt-44 font-fira-sans font-normal text-base text-gray">
@@ -392,50 +330,50 @@
 
 
         <!-- {{-- our doctor --}}
-                                                                                                                                                                                            <div class="xsm:mx-5 xxsm:mx-5 justify-between flex sm:flex-row xxsm:flex-col 2xl:mt-28 mb-8 xxsm:mt-10">
-                                                                                                                                                                                                <div class="sm:py-3 md:py-0 msm:py-3 xsm:py-3 xxsm:py-3">
-                                                                                                                                                                                                    <h2 class="font-medium 2xl:text-4xl xl:text-4xl xlg:text-4xl lg:text-4xl xmd:text-4xl md:text-4xl msm:text-4xl sm:text-4xl xsm:text-4xl xxsm:text-2xl leading-10 font-fira-sans text-black">
-                                                                                                                                                                                                        {{ __('Our Doctors') }}
-                                                                                                                                                                                                    </h2>
-                                                                                                                                                                                                </div>
-                                                                                                                                                                                                @if (count($doctors) > 0)
+                                                                                                                                                                                                <div class="xsm:mx-5 xxsm:mx-5 justify-between flex sm:flex-row xxsm:flex-col 2xl:mt-28 mb-8 xxsm:mt-10">
+                                                                                                                                                                                                    <div class="sm:py-3 md:py-0 msm:py-3 xsm:py-3 xxsm:py-3">
+                                                                                                                                                                                                        <h2 class="font-medium 2xl:text-4xl xl:text-4xl xlg:text-4xl lg:text-4xl xmd:text-4xl md:text-4xl msm:text-4xl sm:text-4xl xsm:text-4xl xxsm:text-2xl leading-10 font-fira-sans text-black">
+                                                                                                                                                                                                            {{ __('Our Doctors') }}
+                                                                                                                                                                                                        </h2>
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                    @if (count($doctors) > 0)
     <div class="sm:py-3 md:py-0 msm:py-3 xsm:py-3 xxsm:py-3">
-                                                                                                                                                                                                    <a href="{{ url('show-doctors') }}" class="lg:px-4 text-sm font-normal font-fira-sans leading-4 lg:py-2 md:text-sm xmd:py-2 xmd:px-3 md:px-3 md:py-2 sm:py-2 sm:px-3 msm:px-3 msm:py-2 xsm:px-3 xsm:py-2 xxsm:px-3 xxsm:py-2 text-primary border border-primary text-center">{{ __('View
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        All Doctors') }}</a>
-                                                                                                                                                                                                </div>
+                                                                                                                                                                                                        <a href="{{ url('show-doctors') }}" class="lg:px-4 text-sm font-normal font-fira-sans leading-4 lg:py-2 md:text-sm xmd:py-2 xmd:px-3 md:px-3 md:py-2 sm:py-2 sm:px-3 msm:px-3 msm:py-2 xsm:px-3 xsm:py-2 xxsm:px-3 xxsm:py-2 text-primary border border-primary text-center">{{ __('View
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                All Doctors') }}</a>
+                                                                                                                                                                                                    </div>
 @else
     @endif
-                                                                                                                                                                                            </div>
-
-                                                                                                                                                                                            <div class="xsm:mx-5 xxsm:mx-5">
-                                                                                                                                                                                                @if (count($doctors) > 0)
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xlg:grid-cols-4 lg:grid-cols-3">
-                                                                                                                                                                                                    @foreach ($doctors as $doctor)
-    <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
-                                                                                                                                                                                                        <div class="border border-white-light p-10 1xl:h-[350px] xxmd:h-[300px] xmd:h-[300px] msm:h-[300px]">
-                                                                                                                                                                                                            <img class="2xl:w-28 2xl:h-28 xlg:h-24 xlg:w-24 xl:h-24 xl:w-24 lg:h-24 lg:w-24 xxmd:w-24 xxmd:h-24 md:h-20 md:w-20 sm:h-20 sm:w-20 xsm:h-16 xsm:w-16 msm:h-24
-                msm:w-24 xxsm:h-14 xxsm:w-14 1xl:mt-8 msm:mt-2 xsm:mt-0 xxsm:mt-0 border border-primary rounded-full p-0.5 m-auto mt-12 object-cover bg-cover" src="{{ url($doctor->fullImage) }}" alt="" />
-                                                                                                                                                                                                            <h5 class="font-fira-sans font-normal text-lg leading-6 text-black text-center md:text-md pt-5">
-                                                                                                                                                                                                                {{ $doctor->name }}
-                                                                                                                                                                                                            </h5>
-                                                                                                                                                                                                            <p class="font-normal leading-4 text-sm text-primary text-center font-fira-sans md:text-md py-2">
-                                                                                                                                                                                                                {{ $doctor['expertise']['name'] }}
-                                                                                                                                                                                                            </p>
-                                                                                                                                                                                                            <p class="font-normal leading-4 text-sm text-gray text-center md:text-md"><i class="fa-solid fa-star text-yellow"></i> {{ $doctor['rate'] }} ({{ $doctor['review'] }} {{ __('reviews') }})</p>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </a>
-    @endforeach
                                                                                                                                                                                                 </div>
+
+                                                                                                                                                                                                <div class="xsm:mx-5 xxsm:mx-5">
+                                                                                                                                                                                                    @if (count($doctors) > 0)
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xlg:grid-cols-4 lg:grid-cols-3">
+                                                                                                                                                                                                        @foreach ($doctors as $doctor)
+    <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
+                                                                                                                                                                                                            <div class="border border-white-light p-10 1xl:h-[350px] xxmd:h-[300px] xmd:h-[300px] msm:h-[300px]">
+                                                                                                                                                                                                                <img class="2xl:w-28 2xl:h-28 xlg:h-24 xlg:w-24 xl:h-24 xl:w-24 lg:h-24 lg:w-24 xxmd:w-24 xxmd:h-24 md:h-20 md:w-20 sm:h-20 sm:w-20 xsm:h-16 xsm:w-16 msm:h-24
+                msm:w-24 xxsm:h-14 xxsm:w-14 1xl:mt-8 msm:mt-2 xsm:mt-0 xxsm:mt-0 border border-primary rounded-full p-0.5 m-auto mt-12 object-cover bg-cover" src="{{ url($doctor->fullImage) }}" alt="" />
+                                                                                                                                                                                                                <h5 class="font-fira-sans font-normal text-lg leading-6 text-black text-center md:text-md pt-5">
+                                                                                                                                                                                                                    {{ $doctor->name }}
+                                                                                                                                                                                                                </h5>
+                                                                                                                                                                                                                <p class="font-normal leading-4 text-sm text-primary text-center font-fira-sans md:text-md py-2">
+                                                                                                                                                                                                                    {{ $doctor['expertise']['name'] }}
+                                                                                                                                                                                                                </p>
+                                                                                                                                                                                                                <p class="font-normal leading-4 text-sm text-gray text-center md:text-md"><i class="fa-solid fa-star text-yellow"></i> {{ $doctor['rate'] }} ({{ $doctor['review'] }} {{ __('reviews') }})</p>
+                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                        </a>
+    @endforeach
+                                                                                                                                                                                                    </div>
 @else
     <div class="flex justify-center mt-44 font-fira-sans font-normal text-base text-gray">
-                                                                                                                                                                                                    {{ __('No Data Avalaible') }}
-                                                                                                                                                                                                </div>
+                                                                                                                                                                                                        {{ __('No Data Avalaible') }}
+                                                                                                                                                                                                    </div>
     @endif
-                                                                                                                                                                                            </div> -->
+                                                                                                                                                                                                </div> -->
         {{-- Browse by Specialities --}}
 
 
-        <div class="p-5 w-full mb-10" style="background-color: aliceblue;">
+        <div class="p-5 w-full mb-10 background-card-doc" style="background-color: aliceblue; height: 478px">
             <div class="xl:w-3/4 mx-auto pt-20 pb-20">
                 <div
                     class="grid xlg:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 msm:grid-cols-1 xsm:grid-cols-1 xxsm:grid-cols-1">
@@ -493,7 +431,7 @@
         </div>
 
         {{-- Read top articles from health experts --}}
-        <div class="py-10 xl:w-3/4 mx-auto 2xl:mb-20">
+        <div class="py-20 xl:w-3/4 mx-auto 2xl:mb-20">
             <div class="flex justify-between md:flex-row sm:flex-row xxsm:flex-col">
                 <div class="sm:py-3 md:py-0 msm:py-3 xsm:py-3 xxsm:py-3">
                     <h2
@@ -757,7 +695,7 @@
         });
 
         $('.slick-slider-spec').slick({
-            infinite: false,
+            infinite: true,
             // arrows: true,
             prevArrow: '<span class="arrow-prev"><i class="fa-solid fa-chevron-left"></i></span>',
             nextArrow: '<span class="arrow-next"><i class="fa-solid fa-chevron-right"></i></span>',
@@ -786,13 +724,49 @@
                 {
                     breakpoint: 480,
                     settings: {
-                        slidesToShow: 1,
+                        slidesToShow: 2,
                         slidesToScroll: 1
                     }
                 }
             ]
         });
 
+        $('.slick-slider-doc').slick({
+            infinite: false,
+            // arrows: true,
+            prevArrow: '<span class="arrow-prev-doc"><i class="fa-solid fa-chevron-left"></i></span>',
+            nextArrow: '<span class="arrow-next-doc"><i class="fa-solid fa-chevron-right"></i></span>',
+            autoplay: false,
+            autoplaySpeed: 1000,
+            slidesToShow: 3,
+            lidesToScroll: 1,
+            accessibility: true,
+            dots: true,
+            ltr: true,
+            // centerMode: true,
+            slidesToShow: 4, // Shows a three slides at a time
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    },
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                    },
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
 
 
         $('.autoplay').slick({
@@ -820,5 +794,4 @@
     </script>
     <script src="{{ url('assets/js/doctor_list.js') }}"></script>
     <script src="{{ url('assets_admin/js/doctor_map.js') }}"></script>
-
 @endsection

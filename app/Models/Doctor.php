@@ -45,6 +45,16 @@ class Doctor extends Model
         return $this->hasOne('App\Models\Doctor');
     }
 
+    public function hospital()
+    {
+        return $this->belongsTo('App\Models\Hospital');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
     public function getRateAttribute()
     {
         $review = Review::where('doctor_id',$this->attributes['id'])->get();

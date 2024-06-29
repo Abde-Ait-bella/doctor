@@ -1,23 +1,3 @@
-@php
-    echo '<pre>';
-    // $doctors = $doctor->toArray();
-    // print_r($treatments);
-
-    // foreach ($treatments as $treatment)
-    //     foreach ($hospital->hospital_gallery as $hospital_gallery) {
-    // print_r($treatment)
-    // }
-    // }
-    // endforeach
-
-    // foreach ($doctors['hospital'] as $hospital) {
-    //     foreach ($hospital->hospital_gallery as $hospital_gallery) {
-    //         print_r($hospital_gallery['image']);
-    //     }
-    // }
-    echo '</pre>';
-@endphp
-
 @extends('layout.mainlayout', ['activePage' => 'doctors'])
 
 @if (App\Models\Setting::first()->map_key)
@@ -28,7 +8,7 @@
 
 @section('content')
     {{-- Doctor Profile --}}
-    <div class="container">
+    <div>
         <div class="xxsm:mx-5 xl:mx-0 2xl:mx-0">
             <div
                 class="xl:w-3/4 mx-auto flex justify-center 2xl:flex-row xl:flex-row xlg:flex-row lg:flex-row xmd:flex-row md:flex-row sm:flex-row msm:flex-col xsm:flex-col xxsm:flex-col msm:pt-5 mt-10">
@@ -128,12 +108,12 @@
 
                 <div class="card mb-3 w-100">
                     <div class="card-body">
-                        <div class="doctor-widget justify-content-between">
-                            <div class="doc-info-left">
-                                <div class="doctor-img">
-                                    <img src="{{ $doctor->full_image }}" class="img-fluid" alt="User Image">
-                                </div>
-                                <div class="doc-info-cont">
+                        <div class="d-flex card_doc_profile">
+                            <div class="doc-info-left d-flex">
+                                    <div class="doctor-img">
+                                        <img src="{{ $doctor->full_image }}" class="img-fluid" alt="User Image">
+                                    </div>
+                                <div class="doc-info-cont mt-2">
                                     <h4 class="doc-name">{{ $doctor->name }}</h4>
                                     @foreach ($treatments as $treatment)
                                         <p class="doc-speciality">{{ $treatment->name }}</p>
@@ -194,7 +174,7 @@
                                     <a href="mailto:{{ $doctor->user['email'] }}" class="btn btn-white msg-btn">
                                         <i class="far fa-comment-alt"></i>
                                     </a>
-                                    <a href="tel:{{ $doctor->phone }}" class="btn btn-white call-btn"
+                                    <a href="tel:{{ $doctor->user->phone }}" class="btn btn-white call-btn"
                                         data-bs-toggle="modal" data-bs-target="#voice_call">
                                         <i class="fas fa-phone"></i>
                                     </a>
@@ -286,14 +266,14 @@
                                     @else
                                         <strong
                                             class="text-red-600 text-bs text-center w-100">{{ __('At this time doctor is not
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    availabel') }}</strong>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            availabel') }}</strong>
                                     @endif
                                 </div>
                             </div>
 
                             <h1 class="font-fira-sans leading-5 text-base font-medium text-black pt-4 mt-2">
                                 {{ __('Tomorrow’s
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Available Slots') }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Available Slots') }}
                             </h1>
                             <div class="flex flex-wrap h-48 overflow-hidden	overflow-y-scroll mt-5">
                                 <div class="flex flex-wrap">
@@ -379,7 +359,7 @@
 
                                     <a href="{{ $url }}" target="_blank"
                                         class="font-fira-sans text-sm font-medium text-primary leading-5 py-2">{{ __('Get
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Directions') }}</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Directions') }}</a>
 
                                     <div class="flex space-x-1 mb-5">
                                         @foreach ($hospital->hospital_gallery as $gallery)

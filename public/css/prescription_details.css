@@ -1,0 +1,49 @@
+.pres-details-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.pres-details-header .btn-success{
+    margin-right: 10px;
+}
+
+.pres-details-header .btn-success:hover{
+    background-color: #0ac074;
+}
+
+.pres-details-content{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 35px;
+    margin-bottom: 25px;
+}
+
+.info-header .address{
+    max-width: 30%;
+}
+
+.table-1 table{
+    width: 100%;
+}
+
+.table-1 table th{
+    background-color: #fff !important;
+    font-weight: 500 !important;
+}
+
+.table-2 table{
+    width: 100%;
+}
+
+.table-2 table th{
+    background-color: #f8f9fa !important;
+    padding: 8px 21px;
+    font-weight: 400 !important;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.table-2 table td{
+    padding: 1rem 0px;
+}

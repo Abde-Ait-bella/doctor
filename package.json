@@ -31,6 +31,7 @@
         "bootstrap": "^5.2.3",
         "flowbite-datepicker": "^1.2.2",
         "jquery": "^3.6.3",
+        "nexmo": "^2.9.1",
         "node-notifier": "^10.0.1",
         "popper.js": "^1.16.1",
         "tw-elements": "^1.0.0-alpha13",

@@ -345,7 +345,6 @@ class DoctorController extends Controller
             'image' => 'bail|mimes:jpeg,png,jpg|max:1000',
             'custom_timeslot' => 'bail|required_if:timeslot,other',
             'commission_amount' => 'bail|required_if:based_on,commission',
-
         ],
         [
             'image.max' => 'The Image May Not Be Greater Than 1 MegaBytes.',

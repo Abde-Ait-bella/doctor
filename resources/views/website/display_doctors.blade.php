@@ -86,56 +86,155 @@
             </div>
         </div> --}}
 
+    {{-- <div class="px-2"> --}}
     @foreach ($data as $doctor)
-        <div class="col-xl-12 col-lg-3 col-md-6 d-flex px-2">
-            <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
-                <div class="doctor-profile-widget doc-grid">
-                    <div class="doc-pro-img">
-                        <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
-                            <div class="doctor-profile-img">
-                                <img src="{{ url($doctor['fullImage']) }}" class="img-fluid" alt="John Doe">
-                            </div>
-                        </a>
-                        <div class="reviews-ratings">
-                            <p>
-                                <span><i class="fas fa-star"></i> {{ $doctor['rate'] }}
-                                    {{-- ({{ $doctor['review'] }}{{ __(' reviews') }}) --}}
-                                </span>
-                            </p>
-                        </div>
-                        <div class="favourite-btn">
-                            <a href="javascript:void(0)" class="favourite-icon">
-                                <i class="fas fa-heart"></i>
+        <div class="hidden col-md-4 px-2" id="doc-grid">
+            <div class="">
+                <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
+                    <div class="doctor-profile-widget doc-grid">
+                        <div class="doc-pro-img">
+                            <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
+                                <div class="doctor-profile-img">
+                                    <img src="{{ url($doctor['fullImage']) }}" class="img-fluid" alt="John Doe">
+                                </div>
                             </a>
+                            <div class="d-flex justify-content-around reviews-favourite">
+                                <div class="reviews-ratings">
+                                    <p>
+                                        <span><i class="fas fa-star"></i> {{ $doctor['rate'] }}
+                                            ({{ $doctor['review'] }})
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="favourite-btn">
+                                    <a href="javascript:void(0)" class="favourite-icon">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="doc-content" style="max-width: 303px;">
+                            <div class="doc-pro-info">
+                                <div class="doc-pro-name">
+                                    <h4 class="text-capitalize"><a
+                                            href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">{{ $doctor['name'] }}</a><i
+                                            class="fas fa-circle-check"></i></h4>
+                                    <p class="text-capitalize">{{ $doctor['category']['name'] }}</p>
+                                </div>
+                                <div class="review-price ">
+                                    <p class="mt-2">$1100.00<span>/hr</span></p>
+                                </div>
+                            </div>
+                            <div class="doc-pro-location text-wrap">
+                                @foreach ($doctor['hospital'] as $hospital)
+                                    <div class="d-flex">
+                                        <i class="fa-solid fa-location-dot pt-1"></i>
+                                        <p class="text-capitalize ms-2" class="text-wrap">
+                                            {{ $hospital['address'] }}</p>
+                                    </div>
+                                @endforeach
+                                <p class="text-capitalize"><i class="fa-solid fa-certificate"></i>
+                                    <span>{{ date('Y') - $doctor['experience'] }}</span> Ans d'expérience
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <div class="doc-content" style="max-width: 303px;">
-                        <div class="doc-pro-info">
-                            <div class="doc-pro-name">
-                                <h4 class="text-capitalize"><a
-                                        href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">{{ $doctor['name'] }}</a><i
-                                        class="fas fa-circle-check"></i></h4>
-                                <p class="text-capitalize">{{ $doctor['category']['name'] }}</p>
-                            </div>
-                            <div class="review-price ">
-                                <p class="mt-2">$1100.00<span>/hr</span></p>
-                            </div>
-                        </div>
-                        <div class="doc-pro-location text-wrap">
-                            @foreach ($doctor['hospital'] as $hospital)
-                                <div class="d-flex">
-                                    <i class="fa-solid fa-location-dot pt-1"></i>
-                                    <p class="text-capitalize ms-2" class="text-wrap"> {{ $hospital['address'] }}</p>
+                </a>
+            </div>
+        </div>
+        <div id="doc-liste">
+            <div class="card mb-3 w-100">
+                <div class="card-body">
+                    <div class="d-flex card_doc_profile">
+                        <div class="doc-info-left d-flex">
+                            <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
+                                <div class="doctor-img">
+                                    <img src="{{ url($doctor['fullImage']) }}" class="img-fluid" alt="User Image">
                                 </div>
-                            @endforeach
-                            <p class="text-capitalize"><i class="fa-solid fa-certificate"></i>
-                                <span>{{ date('Y') - $doctor['experience'] }}</span> Ans d'expérience
-                            </p>
+                            </a>
+                            <a href="{{ url('doctor-profile/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">
+
+                                <div class="doc-info-cont mt-2">
+                                    <h4 class="doc-name">{{ $doctor['name'] }}</h4>
+                                    {{-- @foreach ($treatments as $treatment) --}}
+                                    <p class="doc-speciality">{{ $doctor['treatment']['name'] }}</p>
+                                    {{-- @endforeach --}}
+                                    <p class="doc-department"><img src="{{ $doctor['category']['fullImage'] }}"
+                                            class="img-fluid" alt="Speciality">{{ $doctor['category']['name'] }}</p>
+                                    <div class="rating">
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star"></i>
+                                        <span class="d-inline-block average-rating">(35)</span>
+                                    </div>
+                                    <div class="clinic-details">
+                                        @foreach ($doctor['hospital'] as $hospital)
+                                            <p class="doc-location"><i class="fas fa-map-marker-alt"></i>
+                                                {{ $hospital->address }}
+                                                <a href="javascript:void(0);" style="color: #09e5ab;">Get Directions</a>
+                                            </p>
+                                        @endforeach
+                                        <ul class="clinic-gallery">
+                                            {{-- $doctors = $doctor->toArray(); --}}
+                                            {{-- @foreach ($doctors['hospital'] as $hospital)
+                                            @foreach ($hospital->hospital_gallery as $hospital_gallery)
+                                                <li>
+                                                    <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery">
+                                                        <img src="{{ asset('/images/upload/' . $hospital_gallery['image']) }}"
+                                                            alt="Feature">
+                                                    </a>
+                                                </li>
+                                            @endforeach --}}
+                                            {{-- @endforeach --}}
+                                        </ul>
+                                    </div>
+                                    <div class="clinic-services">
+                                        <span>Dental Fillings</span>
+                                        <span>Teeth Whitneing</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="doc-info-right">
+                            <div class="clini-infos">
+                                <ul>
+                                    {{-- <li><i class="far fa-thumbs-up"></i> 99%</li>
+                                    <li><i class="far fa-comment"></i> 35 Feedback</li> --}}
+                                    @foreach ($doctor['hospital'] as $hospital)
+                                        <li><i class="fas fa-map-marker-alt"></i> {{ $hospital->address }}</li>
+                                    @endforeach
+                                    <li><i class="far fa-money-bill-alt"></i>
+                                        {{ $currency }}{{ $doctor['appointment_fees'] }} </li>
+                                </ul>
+                            </div>
+                            <div class="doctor-action">
+                                <a href="javascript:void(0)" class="btn btn-white fav-btn">
+                                    <i class="far fa-bookmark"></i>
+                                </a>
+                                <a href="mailto:{{ $doctor['user']['email'] }}" class="btn btn-white msg-btn">
+                                    <i class="far fa-comment-alt"></i>
+                                </a>
+                                <a href="tel:{{ $doctor['user']['phone'] }}" class="btn btn-white call-btn"
+                                    data-bs-toggle="modal" data-bs-target="#voice_call">
+                                    <i class="fas fa-phone"></i>
+                                </a>
+                                <a href="javascript:void(0)" class="btn btn-white call-btn" data-bs-toggle="modal"
+                                    data-bs-target="#video_call">
+                                    <i class="fas fa-video"></i>
+                                </a>
+                            </div>
+                            <div class="clinic-booking">
+                                <a class="apt-btn"
+                                    href="{{ url('booking/' . $doctor['id'] . '/' . Str::slug($doctor['name'])) }}">{{ __('Make Appointment') }}</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </a>
+            </div>
         </div>
     @endforeach
+    {{-- </div> --}}
     </div>
 @endif

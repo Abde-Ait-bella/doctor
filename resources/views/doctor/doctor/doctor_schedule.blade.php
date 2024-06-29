@@ -70,7 +70,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="cursor-pointer">
-                                    <input type="checkbox" id="status_1" class="custom-switch-input" name="status" checked>
+                                       <input type="checkbox" id="status_1" class="custom-switch-input" name="status" checked>
                                     <span class="custom-switch-indicator"></span>
                                 </label>
                             </div>

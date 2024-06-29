@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/appointment_booking.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/terms_condition.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/about_us.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/contact_us.css') }}">
     <link rel="stylesheet" type="text/css" href="slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
 
@@ -76,10 +79,11 @@
 @endif
 <div class="main_content">
     @yield('content')
+    @yield('verify_code')
 </div>
 @include('layout.partials.footer')
 
-
+<script src="https://cdn.jsdelivr.net/npm/vonage-client@2.14.1/dist/vonage.min.js"></script>
 <script src="{{ url('assets/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ url('assets_admin/js/datatables.min.js') }}"></script>
 <script src="{{ url('assets_admin/js/select2.min.js') }}"></script>

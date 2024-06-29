@@ -1,64 +1,64 @@
-@extends('layout.mainlayout_admin',['activePage' => 'appointment'])
+@extends('layout.mainlayout_admin', ['activePage' => 'appointment'])
 
-@section('title',__('Appointment'))
+@section('title', __('Appointment'))
 <style>
-#button-16 .knobs:before
-{
-    content: 'YES';
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 20px;
-    height: 10px;
-    color: #fff;
-    font-size: 10px;
-    font-weight: bold;
-    text-align: center;
-    line-height: 1;
-    padding: 9px 4px;
-    background-color: #03A9F4;
-    border-radius: 2px;
-    transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
-}
+    #button-16 .knobs:before {
+        content: 'YES';
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 20px;
+        height: 10px;
+        color: #fff;
+        font-size: 10px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 1;
+        padding: 9px 4px;
+        background-color: #03A9F4;
+        border-radius: 2px;
+        transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+    }
 
-#button-16 .checkbox:active + .knobs:before
-{
-    width: 46px;
-}
+    #button-16 .checkbox:active+.knobs:before {
+        width: 46px;
+    }
 
-#button-16 .checkbox:checked:active + .knobs:before
-{
-    margin-left: -26px;
-}
+    #button-16 .checkbox:checked:active+.knobs:before {
+        margin-left: -26px;
+    }
 
-#button-16 .checkbox:checked + .knobs:before
-{
-    content: 'NO';
-    left: 42px;
-    background-color: #F44336;
-}
+    #button-16 .checkbox:checked+.knobs:before {
+        content: 'NO';
+        left: 42px;
+        background-color: #F44336;
+    }
 
-#button-16 .checkbox:checked ~ .layer
-{
-    background-color: #fcebeb;
-}
+    #button-16 .checkbox:checked~.layer {
+        background-color: #fcebeb;
+    }
+
+    .fa-trash:hover {
+                color: rgb(248, 0, 0);
+                cursor: pointer;
+            }
 </style>
 @section('content')
-<section class="section">
-    @include('layout.breadcrumb',[
-        'title' => __('Appointment'),
-    ])
-    <div class="section-body">
-        @if (session('status'))
-            @include('superAdmin.auth.status',['status' => session('status')])
-        @endif
+    <section class="section">
+        @include('layout.breadcrumb', [
+            'title' => __('Appointment'),
+        ])
+        <div class="section-body">
+            @if (session('status'))
+                @include('superAdmin.auth.status', ['status' => session('status')])
+            @endif
 
-        <div class="card">
-            <div class="card-header w-100 text-right d-flex justify-content-between">
-                @include('superAdmin.auth.exportButtons')
-            </div>
+            <div class="card">
+                {{-- <div class="card-header w-100 text-right d-flex justify-content-between">
+                    @include('superAdmin.auth.exportButtons')
+                </div> --}}
 
-            <div class="card-body">
+                {{-- <div class="card-body">
                 <div class="table-responsive">
                     <table class="w-100 display table datatable">
                         <thead>
@@ -122,22 +122,22 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if($appointment->appointment_status == 'pending' || $appointment->appointment_status == 'PENDING')
+                                        @if ($appointment->appointment_status == 'pending' || $appointment->appointment_status == 'PENDING')
                                             <span class="badge badge-pill bg-warning-light">{{__('Pending')}}</span>
                                         @endif
-                                        @if($appointment->appointment_status == 'approved' || $appointment->appointment_status == 'APPROVED' ||$appointment->appointment_status == 'approve' )
+                                        @if ($appointment->appointment_status == 'approved' || $appointment->appointment_status == 'APPROVED' || $appointment->appointment_status == 'approve')
                                             <span class="badge badge-pill bg-success-light">{{__('Approved')}}</span>
                                         @endif
-                                        @if($appointment->appointment_status == 'canceled' || $appointment->appointment_status == 'CANCELED' || $appointment->appointment_status == 'cancel')
+                                        @if ($appointment->appointment_status == 'canceled' || $appointment->appointment_status == 'CANCELED' || $appointment->appointment_status == 'cancel')
                                             <span class="badge badge-pill bg-danger-light">{{__('Cancelled')}}</span>
                                         @endif
-                                        @if($appointment->appointment_status == 'completed' || $appointment->appointment_status == 'COMPLETED' || $appointment->appointment_status == 'complete')
+                                        @if ($appointment->appointment_status == 'completed' || $appointment->appointment_status == 'COMPLETED' || $appointment->appointment_status == 'complete')
                                             <span class="badge badge-pill bg-default-light">{{__('Completed')}}</span>
                                         @endif
                                     </td>
                                     @if (auth()->user()->hasRole('doctor'))
                                     <td class="d-flex w-100">
-                                        @if ($appointment->appointment_status == 'approve' ||  $appointment->appointment_status == 'complete')
+                                        @if ($appointment->appointment_status == 'approve' || $appointment->appointment_status == 'complete')
                                             <a href="{{ url('completeAppointment/'.$appointment->id) }}" class="btn btn-sm bg-info-light {{ $appointment->appointment_status == 'complete' ? 'disabled' : '' }}">
                                                 <i class="fas fa-check"></i> {{__('Complete')}}
                                             </a>
@@ -151,7 +151,7 @@
                                         @endif
                                     </td>
                                     @endif
-                                    @if(auth()->user()->hasRole('doctor') && $appointment->is_from == 1)
+                                    @if (auth()->user()->hasRole('doctor') && $appointment->is_from == 1)
                                         <td>
                                             <a href="#edit_specialities_details" onclick="show_appointment({{$appointment->id}})" data-toggle="modal" class="text-info">
                                                 <i class="far fa-eye"></i>
@@ -195,58 +195,133 @@
                         </tbody>
                     </table>
                 </div>
+            </div> --}}
+
+                @if (count($appointments) > 0)
+                    <div class="card card mb-0">
+                        <div class="card-body p-0">
+                            <div class=" table-responsive">
+                                <table class="table mb-0" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>{{ __('Patient') }}</th>
+                                            <th>{{ __('Appointment Date	') }}</th>
+                                            <th>{{ __('Booked on') }}</th>
+                                            <th>{{ __('Amount') }}</th>
+                                            <th>{{ __('Action') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="">
+                                        @foreach ($appointments as $appoint)
+                                            <tr class="border-bottom">
+                                                <td><a href="">#{{ $appoint['id'] }}</a></td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="#edit_specialities_details"
+                                                            onclick="show_appointment({{ $appoint->id }})"
+                                                            data-toggle="modal">
+                                                            <img src="@isset($appoint['user']['image']) {{ asset('images/upload/' . @$appoint['user']['image']) }} @else {{ asset('images/upload/638fa33b52fe2.png') }} @endisset" alt="">
+                                                        </a>
+                                                        <a href="#edit_specialities_details"
+                                                            onclick="show_appointment({{ $appoint->id }})"
+                                                            data-toggle="modal">{{ $appoint['patient_name'] }}</a>
+                                                    </h2>
+                                                </td>
+                                                @php
+                                                    $createdAt = \Carbon\Carbon::parse($appoint['created_at']);
+                                                    $date = \Carbon\Carbon::parse($appoint['date']);
+                                                @endphp
+                                                <td>{{ $date->format('d M Y') }}</td>
+                                                <td>{{ $createdAt->format('d M Y') }}</td>
+                                                <td>$ {{ $appoint['amount'] }}</td>
+                                                <td>
+                                                    <div class="d-flex justify-content-center">
+                                                        {{-- <a href="" class="icon icon_link">
+                                                            <i class="fa-solid fa-link"></i>
+                                                        </a> --}}
+                                                        {{-- <a href="" class="icon icon_print">
+                                                            <i class="fa-solid fa-print"></i>
+                                                        </a> --}}
+
+                                                        <form class="mb-0"
+                                                        action="{{ route('delete_appointment', $appoint->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn p-0 px-1 fa-tras">
+                                                            <i class="fa-solid fa-trash icon"
+                                                                style="font-size: 20px; margin-left: 5px;"></i>
+                                                        </button>
+                                                    </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-4 d-flex justify-content-center">
+                        {{ $appointments->links('pagination::bootstrap-4') }}
+                    </div>
+                @else
+                    <div class="d-flex justify-content-center">
+                        <p class="mt-3">No Data Avalaible</p>
+                    </div>
+                @endif
+
             </div>
         </div>
-    </div>
-</section>
-<div class="modal fade" id="edit_specialities_details" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{{__("Appointment")}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table class="table">
-                    <tr>
-                        <td>{{__('appointment Id')}}</td>
-                        <td class="appointment_id"></td>
-                    </tr>
-                    <tr>
-                        <td>{{__('Doctor name')}}</td>
-                        <td class="doctor_name"></td>
-                    </tr>
-                    <tr>
-                        <td>{{__('Hospital')}}</td>
-                        <td class="hospital"></td>
-                    </tr>
-                    <tr>
-                        <td>{{__('patient name')}}</td>
-                        <td class="patient_name"></td>
-                    </tr>
-                    <tr>
+    </section>
+    <div class="modal fade" id="edit_specialities_details" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ __('Appointment') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0">
+                    <table class="table">
+                        <tr>
+                            <td>{{ __('appointment Id') }}</td>
+                            <td class="appointment_id"></td>
+                        </tr>
+                        <tr>
+                            <td>{{ __('Doctor name') }}</td>
+                            <td class="doctor_name"></td>
+                        </tr>
+                        <tr>
+                            <td>{{ __('Hospital') }}</td>
+                            <td class="hospital"></td>
+                        </tr>
+                        <tr>
+                            <td>{{ __('patient name') }}</td>
+                            <td class="patient_name"></td>
+                        </tr>
+                        {{-- <tr>
                         <td>{{__('patient address')}}</td>
                         <td class="patient_address"></td>
-                    </tr>
-                    <tr>
+                    </tr> --}}
+                        {{-- <tr>
                         <td>{{__('patient age')}}</td>
                         <td class="patient_age"></td>
-                    </tr>
-                    <tr>
-                        <td>{{__('amount')}}</td>
-                        <td class="amount"></td>
-                    </tr>
-                    <tr>
-                        <td>{{__('date')}}</td>
-                        <td class="date"></td>
-                    </tr>
-                    <tr>
-                        <td>{{__('time')}}</td>
-                        <td class="time"></td>
-                    </tr>
-                    <tr>
+                    </tr> --}}
+                        <tr>
+                            <td>{{ __('amount') }}</td>
+                            <td class="amount"></td>
+                        </tr>
+                        <tr>
+                            <td>{{ __('date') }}</td>
+                            <td class="date"></td>
+                        </tr>
+                        <tr>
+                            <td>{{ __('time') }}</td>
+                            <td class="time"></td>
+                        </tr>
+                        {{-- <tr>
                         <td>{{__('Drug Effects')}}</td>
                         <td class="drug_effect"></td>
                     </tr>
@@ -257,8 +332,8 @@
                     <tr>
                         <td>{{__('payment status')}}</td>
                         <td class="payment_status"></td>
-                    </tr>
-                    <tr>
+                    </tr> --}}
+                        {{-- <tr>
                         <td>{{__('payment type')}}</td>
                         <td class="payment_type"></td>
                     </tr>
@@ -277,14 +352,14 @@
                     <tr class="policy_number_row">
                         <td>{{__('Policy Number')}}</td>
                         <td class="policy_number"></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('Close')}}</button>
+                    </tr> --}}
+                    </table>
+                </div>
+                <div class="modal-footer pt-0">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('Close') }}</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 @endsection

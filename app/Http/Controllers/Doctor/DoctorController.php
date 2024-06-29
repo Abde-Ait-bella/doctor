@@ -204,8 +204,8 @@ class DoctorController extends Controller
         $categories = Category::whereStatus(1)->get();
         $expertieses = Expertise::whereStatus(1)->get();
         $hospitals = Hospital::whereStatus(1)->get();
-        $doctor['start_time'] = Carbon::parse($doctor['start_time'])->format('H:i');
-        $doctor['end_time'] = Carbon::parse($doctor['end_time'])->format('H:i');
+        // $doctor['start_time'] = Carbon::parse($doctor['start_time'])->format('H:i');
+        // $doctor['end_time'] = Carbon::parse($doctor['end_time'])->format('H:i');
         $doctor['hospital_id'] = explode(',', $doctor->hospital_id);
         $languages = Language::whereStatus(1)->get();
         return view('doctor.doctor.doctor_profile', compact('doctor', 'countries', 'treatments', 'hospitals', 'categories', 'expertieses', 'languages'));
@@ -239,8 +239,8 @@ class DoctorController extends Controller
         );
         $doctor = Doctor::where('user_id', auth()->user()->id)->first();
         $data = $request->all();
-        $data['start_time'] = Carbon::parse($data['start_time'])->format('h:i A');
-        $data['end_time'] = Carbon::parse($data['end_time'])->format('h:i A');
+        // $data['start_time'] = Carbon::parse($data['start_time'])->format('h:i');
+        // $data['end_time'] = Carbon::parse($data['end_time'])->format('h:i');
         if ($request->hasFile('image')) {
             (new CustomController)->deleteFile($doctor->image);
             $data['image'] = (new CustomController)->imageUpload($request->image);

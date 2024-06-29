@@ -4,6 +4,15 @@
     <link rel="stylesheet" href="{{ url('assets/css/intlTelInput.css') }}" />
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css" />
     <style>
+        .text-danger {
+            color: red;
+        }
+
+        .error-message {
+            display: none;
+        }
+    </style>
+    <style>
         .custom-error {
             font-size: 12px;
             color: #d20f0f;
@@ -125,537 +134,25 @@
 
 @section('content')
     <div class="xl:w-3/4 mx-auto">
-        <div class="xsm:mx-4 xxsm:mx-5 pt-10 mb-10 ">
-            <h1 class="font-fira-sans font-medium text-4xl text-center leading-10 pb-5">{{ __('Appointment Booking') }}</h1>
+        <div class="xsm:mx-4 xxsm:mx-5 pt-10 mb-3">
+            <h1 class="font-fira-sans font-medium text-4xl text-center leading-10 pb-5">{{ __('Prise de rendez-vous') }}</h1>
 
-            <div class="Appointment-detail border border-white-light">
-                <div class="progress-container">
+            <div class="Appointment-detail position-relative">
+                <div class="progress">
                     <div class="progress" id="progress"></div>
-                    <div class="circle progress_active">1</div>
+                </div>
+                <div class="d-flex justify-content-around w-full position-absolute" style="top: -6px;">
+                    <div class="circle progress_active ">1</div>
                     <div class="circle">2</div>
                     <div class="circle">3</div>
                 </div>
-                {{-- <form id="appointmentForm"> --}}
-                {{-- <input type="hidden" name="doctor_id" value="{{ $doctor->id }}"> --}}
-                {{-- <input type="hidden" name="currency" value="{{ $setting->currency_code }}">
-                    <input type="hidden" name="company_name" value="{{ $setting->business_name }}">
-                    <input type="hidden" name="user_name" value="{{ auth()->user()->name }}">
-                    <input type="hidden" name="email" value="{{ auth()->user()->email }}">
-                    <input type="hidden" name="phone_no" value="{{ auth()->user()->phone }}">
-                    <input type="hidden" name="payment_type" value="COD">
-                    <input type="hidden" name="amount" step="any" value="{{ $doctor->appointment_fees }}">
-                    <input type="hidden" name="payment_token">
-                    <input type="hidden" name="payment_status" value="0">
-                    <input type="hidden" name="discount_price">
-                    <input type="hidden" name="discount_id"> --}}
-
-                {{-- <div id="step1" class="block p-5">
-                        <h1 class="font-fira-sans leading-6 text-xl font-medium pb-6">{{ __('Patient Details') }}</h1>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-                            <div>
-                                <label for="appointment_for"
-                                    class="text-base font-normal font-fira-sans pb-2">{{ __('Appointment For') }}</label>
-                                <select id="appointment_for" aria-placeholder="appointment for" name="appointment_for"
-                                    class="border border-white-light text-gray text-sm bg-white-50 focus:ring-primary focus:border-primary block w-full p-1.5 mt-2">
-                                    <option value="" disabled selected>{{ __('Appointment for') }}</option>
-                                    <option value="my_self">{{ __('For me') }}</option>
-                                    <option value="other">{{ __('Other') }}</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="text-base font-normal font-fira-sans leading-5 pb-2"
-                                    for="illness_information">{{ __('Illness Information') }}</label>
-                                <input type="text" name="illness_information"
-                                    class="block p-2 w-full text-sm bg-white-50 border font-normal font-fira-sans leading-5 !border-white-light mt-2"
-                                    required>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-5">
-                            <div>
-                                <label class="text-base font-normal font-fira-sans leading-5 pb-2"
-                                    for="patient_name">{{ __('Patient Name') }}</label>
-                                <input name="patient_name" type="text"
-                                    class="block p-2 w-full text-sm bg-white-50 border font-normal font-fira-sans leading-5 !border-white-light mt-2"
-                                    required>
-                            </div>
-                            <div>
-                                <label class="text-base font-normal font-fira-sans leading-5 pb-2"
-                                    for="patient_age">{{ __('Patient Age') }}</label>
-                                <input type="number" min="1" name="age"
-                                    class="block p-2 w-full text-sm bg-white-50 border font-normal font-fira-sans leading-5 !border-white-light mt-2"
-                                    required>
-                            </div>
-                            <div>
-                                <label class="text-base font-normal font-fira-sans leading-5 pb-2"
-                                    for="phone_number">{{ __('Phone Number') }}</label>
-                                <input type="number" min="1" name="phone_no"
-                                    class="block p-2 w-full text-sm bg-white-50 border font-normal font-fira-sans leading-5 !border-white-light mt-2"
-                                    required>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-1 md:gap-1 lg:gap-1 mt-5">
-                            <div class="flex justify-between">
-                                <label class="text-base font-normal font-fira-sans leading-5"
-                                    for="patient_address">{{ __('Address') }}</label>
-                                <button type="button"
-                                    class="inline-block py-2.5 font-medium text-xs leading-tight uppercase rounded text-primary transition duration-150 ease-in-out"
-                                    data-modal-target="exampleModalCenteredScrollable"
-                                    data-modal-toggle="exampleModalCenteredScrollable" data-te-ripple-color="light"
-                                    role="dialog">
-                                    {{ __('Add Address') }}
-                                </button>
-                            </div>
-                            <select name="patient_address" id="patient_address"
-                                class="select2 w-full border !border-white-light text-gray text-sm bg-white-50 focus:border-primary block p-2.5 mt-2">
-                                <option class="text-sm" value="" disabled selected>
-                                    {{ __('Please Select The Address') }}</option>
-                                @foreach ($patient_addressess as $patient_address)
-                                    <option class="text-sm" value="{{ $patient_address->id }}">
-                                        {{ $patient_address->address }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8 mt-5">
-                            <div>
-                                <label class="text-base font-normal font-fira-sans leading-5 pb-2"
-                                    for="drug_effect">{{ __('Any Side Effects Of The Drug?') }}</label>
-                                <input name="drug_effect" type="text" id="search-dropdown"
-                                    class="block p-2 w-full text-sm bg-white-50 border font-normal font-fira-sans leading-5 !border-white-light mt-2"
-                                    required>
-                            </div>
-                            <div>
-                                <label class="text-base font-normal font-fira-sans leading-5 pb-2"
-                                    for="note">{{ __('Any Note For Doctor ??') }}</label>
-                                <input name="note" type="text" id="search-dropdown"
-                                    class="block p-2 w-full text-sm bg-white-50 border font-normal font-fira-sans leading-5 !border-white-light mt-2"
-                                    required>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-5">
-                            <div>
-                                <label for="is_insured"
-                                    class="text-base font-normal font-fira-sans pb-2">{{ __('Patient Insured?') }}</label>
-                                <select id="is_insured" aria-placeholder="is_insured" name="is_insured"
-                                    class="border border-white-light text-gray text-sm bg-white-50 focus:ring-primary focus:border-primary block w-full p-1.5 mt-2">
-                                    <option value="0" selected>{{ __('No') }}</option>
-                                    <option value="1">{{ __('Yes') }}</option>
-                                </select>
-                            </div>
-                            <div class="policy_insurer hidden">
-                                <label class="text-base font-normal font-fira-sans leading-5 pb-2"
-                                    for="policy_provider">{{ __('Choose Policy Provider') }}</label>
-                                <select name="policy_insurer_name" id="policy_insurer_name"
-                                    class="policy_insurer_name border border-white-light text-gray text-sm bg-white-50 focus:ring-primary focus:border-primary block w-full p-1.5 mt-2">
-                                    <option value="" disabled selected>{{ __('Please select the policy provider') }}
-                                    </option>
-                                    @foreach ($insurers as $insurer)
-                                        <option value="{{ $insurer->name }}">{{ $insurer->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="policy_insurer hidden">
-                                <label class="text-base font-normal font-fira-sans leading-5 pb-2"
-                                    for="policy_number">{{ __('Policy Number') }}</label>
-                                <input type="number" min="1" maxlength="20" name="policy_number"
-                                    class="policy_number block p-2 w-full text-sm bg-white-50 border font-normal font-fira-sans leading-5 !border-white-light mt-2"
-                                    required>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-5">
-                            <label
-                                class="text-base font-normal font-fira-sans leading-5 pb-2">{{ __('Upload Patient Image & Report') }}</label>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-                            <div>
-                                <div class="drop-zone">
-                                    <h1 class="drop-zone__prompt text-center text-2xl"><i class="fa-solid fa-images"></i>
-                                    </h1>
-                                    <input type="file" name="report_image[]" class="drop-zone__input">
-                                    <h1
-                                        class="drop-zone__prompt font-fira-sans font-normal text-center text-xs leading-3 py-2">
-                                        {{ __('Drop your image or') }} <span
-                                            class="text-primary">{{ __('Browse') }}</span></h1>
-                                    <p
-                                        class="drop-zone__prompt font-fira-sans font-normal text-center text-xs leading-3 text-gray">
-                                        {{ __('Support: JPEG, PNG') }}</p>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="drop-zone">
-                                    <h1 class="drop-zone__prompt text-center text-2xl"><i class="fa-solid fa-images"></i>
-                                    </h1>
-                                    <input type="file" name="report_image[]" class="drop-zone__input">
-                                    <h1
-                                        class="drop-zone__prompt font-fira-sans font-normal text-center text-xs leading-3 py-2">
-                                        {{ __('Drop your image or') }} <span
-                                            class="text-primary">{{ __('Browse') }}</span></h1>
-                                    <p
-                                        class="drop-zone__prompt font-fira-sans font-normal text-center text-xs leading-3 text-gray">
-                                        {{ __('Support: JPEG, PNG') }}</p>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="drop-zone">
-                                    <h1 class="drop-zone__prompt text-center text-2xl"><i class="fa-solid fa-images"></i>
-                                    </h1>
-                                    <input type="file" name="report_image[]" class="drop-zone__input">
-                                    <h1
-                                        class="drop-zone__prompt font-fira-sans font-normal text-center text-xs leading-3 py-2">
-                                        {{ __('Drop your image or') }} <span
-                                            class="text-primary">{{ __('Browse') }}</span></h1>
-                                    <p
-                                        class="drop-zone__prompt font-fira-sans font-normal text-center text-xs leading-3 text-gray">
-                                        {{ __('Support: JPEG, PNG') }}</p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
-                {{-- <div id="step2" class="hidden">
-                        <div class="flex xxsm:flex-col sm:flex-row">
-                            <div class="2xl:w-1/2 border-r xxsm:w-full">
-                                @php
-                                    $date = Carbon\Carbon::now(env('timezone'));
-                                @endphp
-                                <input type="hidden" name="date" value="{{ $date->format('Y-m-d') }}">
-                                @if (Session::get('locale') === 'Arabic')
-                                    <div id="datepickerId" onclick="dateChange()" data-date="{{ $date->format('Y-m-d') }}"
-                                        class="rtl"></div>
-                                @elseif(Session::get('locale') === 'English')
-                                    <div id="datepickerId" onclick="dateChange()" data-date="{{ $date->format('Y-m-d') }}">
-                                    </div>
-                                @endif
-                                <div class="p-5">
-                                    <div class="mt-2 font-normal text-xl font-fira-sans">
-                                        <span
-                                            class="currentDate">{{ $date->format('d M') }}</span>{{ __(' Availibility') }}
-                                    </div>
-                                    <div class="mt-2">
-                                        <div class="flex flex-wrap timeSlotRow">
-                                            @if (count($today_timeslots) > 0)
-                                                @foreach ($today_timeslots as $today_timeslot)
-                                                    @if ($loop->first)
-                                                        <input type="hidden" name="time"
-                                                            value="{{ $today_timeslot['start_time'] }}">
-                                                    @endif
-                                                    <a href="javascript:void(0)" onclick="thisTime({{ $loop->iteration }})"
-                                                        class="time timing{{ $loop->iteration }} border border-gray text-center py-1 2xl:text-sm 2xl:px-2 sm:text-sm sm:px-2 msm:text-sm msm:px-2 leading-4 font-fira-sans font-normal xl:text-xs xl:px-1 xlg:text-xs xlg:px-1 xlg:w-28 lg:w-28 xsm:w-28 xxsm:w-28 text-black m-1 {{ $loop->first ? 'activeTimeslots' : '' }}">
-                                                        <svg width="12" height="13" viewBox="0 0 12 13"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M6 11.75C4.60761 11.75 3.27226 11.1969 2.28769 10.2123C1.30312 9.22774 0.75 7.89239 0.75 6.5C0.75 5.10761 1.30312 3.77226 2.28769 2.78769C3.27226 1.80312 4.60761 1.25 6 1.25C7.39239 1.25 8.72774 1.80312 9.71231 2.78769C10.6969 3.77226 11.25 5.10761 11.25 6.5C11.25 7.89239 10.6969 9.22774 9.71231 10.2123C8.72774 11.1969 7.39239 11.75 6 11.75ZM6 12.5C7.5913 12.5 9.11742 11.8679 10.2426 10.7426C11.3679 9.61742 12 8.0913 12 6.5C12 4.9087 11.3679 3.38258 10.2426 2.25736C9.11742 1.13214 7.5913 0.5 6 0.5C4.4087 0.5 2.88258 1.13214 1.75736 2.25736C0.632141 3.38258 0 4.9087 0 6.5C0 8.0913 0.632141 9.61742 1.75736 10.7426C2.88258 11.8679 4.4087 12.5 6 12.5V12.5Z"
-                                                                fill="white" />
-                                                            <path
-                                                                d="M8.22727 4.22747C8.22192 4.23264 8.21691 4.23816 8.21227 4.24397L5.60752 7.56272L4.03777 5.99222C3.93113 5.89286 3.7901 5.83876 3.64437 5.84134C3.49865 5.84391 3.35961 5.90294 3.25655 6.006C3.15349 6.10906 3.09446 6.2481 3.09188 6.39382C3.08931 6.53955 3.14341 6.68059 3.24277 6.78722L5.22727 8.77247C5.28073 8.82583 5.34439 8.86788 5.41445 8.89611C5.48452 8.92433 5.55955 8.93816 5.63507 8.93676C5.7106 8.93536 5.78507 8.91876 5.85404 8.88796C5.92301 8.85716 5.98507 8.81278 6.03652 8.75747L9.03052 5.01497C9.13246 4.90796 9.1882 4.76514 9.18568 4.61737C9.18317 4.4696 9.12259 4.32875 9.01706 4.22529C8.91152 4.12182 8.76951 4.06405 8.62171 4.06446C8.47392 4.06486 8.33223 4.12342 8.22727 4.22747Z"
-                                                                fill="white" />
-                                                        </svg>
-                                                        {{ $today_timeslot['start_time'] }}
-                                                    </a>
-                                                @endforeach
-                                            @else
-                                                <strong
-                                                    class="text-red-600 text-bs text-center w-100">{{ __('At this time doctor is not availabel please change the date.') }}</strong>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="2xl:w-2/5 p-8 xxsm:w-full">
-                                <div>
-                                    <h4 class="font-fira-sans font-normal text-1xl text-left pb-5">
-                                        {{ __('Choose Clinic') }}</h4>
-                                </div>
-                                @foreach ($doctor->hospital as $hospital)
-                                    @if ($loop->first)
-                                        @php
-                                            $hospital_name = $hospital->name;
-                                            $address = $hospital->address;
-                                        @endphp
-                                        <input type="hidden" name="hospital_id" value="{{ $hospital->id }}">
-                                    @endif
-                                    <div onclick="changeHospital({{ $loop->iteration }})"
-                                        data-attribute="{{ $hospital->id }}"
-                                        class="border hospitals hospital{{ $loop->iteration }} border-1 border-gray-200 p-2 cursor-pointer {{ $loop->first ? 'activeAddress' : ' mt-4' }}">
-                                        <div>
-                                            <h5
-                                                class="font-fira-sans font-medium text-1xl text-left hospitalName{{ $loop->iteration }}">
-                                                {{ $hospital->name }}</h5>
-                                        </div>
-                                        <div class="flex mt-1 items-center">
-                                            <i class="fa-solid fa-location-dot mr-3"></i>
-                                            <p class="font-fira-sans hospitalAddress{{ $loop->iteration }}">
-                                                {{ $hospital->address }}</p>
-                                        </div>
-                                        <div class="flex displayHospital justify-between mt-2">
-                                            <p class="text-gray font-fira-sans">
-                                                <span
-                                                    class="font-fira-sans displayKm{{ $hospital->id }}"></span>{{ ' km away' }}
-                                            </p>
-                                            @php
-                                                $url =
-                                                    'https://www.google.com/maps/dir/?api=1&destination=' .
-                                                    $hospital->lat .
-                                                    ',' .
-                                                    $hospital->lng;
-                                            @endphp
-                                            <a href="{{ $url }}" target="_blank"
-                                                class="font-medium font-fira-sans">{{ __('View Details') }}</a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div> --}}
-                {{-- <div id="step3" class="hidden">
-                        <div class="flex xlg:flex-row xxsm:flex-col">
-                            <div class="col-span-5 p-5 w-full">
-                                <label for="search"
-                                    class="mb-2 text-sm font-medium text-gray dark:text-white mt-4 font-fira-sans">{{ __('Offer code') }}</label>
-                                <div class="relative">
-                                    <input type="text" name="coupon_code" id="coupon_code"
-                                        class="block font-fira-sans w-full p-2 text-sm text-gray border !border-white-light rounded-sm focus:ring-primary focus:border-primary"
-                                        placeholder="{{ __('Enter coupon code') }}">
-                                    <button type="button"
-                                        class="text-primary absolute right-2.5 bottom-2.5 font-medium rounded-lg text-sm dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary applyCoupon">{{ __('Apply') }}</button>
-                                </div>
-
-                                <h2 class="font-fira-sans font-medium mt-4 text-2xl">{{ __('Payment Method') }}</h2>
-                                <div class="grid grid-cols-1 gap-1 md:grid-cols-4 msm:grid-cols-2">
-                                    <div>
-                                        @if ($setting->cod)
-                                            <div class="border border-1 border-white-light font-fira-sans paymentDiv text-center p-5 activePayment"
-                                                data-attribute="cod">
-                                                <img class="m-auto" width="50px" height="20px"
-                                                    src="{{ url('assets/image/cod.png') }}" alt="">
-                                                <p class="mt-3 overflow-hidden">{{ __('COD') }}</p>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div>
-                                        @if ($setting->paypal)
-                                            <div class="border border-1 border-white-light font-fira-sans paymentDiv text-center p-5"
-                                                data-attribute="paypal">
-                                                <img class="m-auto" width="16px" height="18px"
-                                                    src="{{ url('assets/image/logos_paypal.png') }}" alt="">
-                                                <p class="mt-3 overflow-hidden">{{ __('Paypal') }}</p>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div>
-                                        @if ($setting->stripe)
-                                            <div class="border border-1 border-white-light font-fira-sans paymentDiv text-center p-5"
-                                                data-attribute="stripe">
-                                                <img class="m-auto" width="48px" height="20px"
-                                                    src="{{ url('assets/image/logos_stripe.png') }}" alt="">
-                                                <p class="mt-3 overflow-hidden">{{ __('Stripe') }}</p>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div>
-                                        @if ($setting->paystack)
-                                            <div class="border border-1 border-white-light font-fira-sans paymentDiv text-center p-5"
-                                                data-attribute="paystack">
-                                                <img class="m-auto" width="87px" height="15px"
-                                                    src="{{ url('assets/image/paystack.png') }}" alt="">
-                                                <p class="mt-3 overflow-hidden">{{ __('Paystack') }}</p>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div>
-                                        @if ($setting->flutterwave)
-                                            <div class="border border-1 border-white-light font-fira-sans paymentDiv text-center p-4"
-                                                data-attribute="flutterwave">
-                                                <img class="m-auto" width="89px" height="24px"
-                                                    src="{{ url('assets/image/flutterwave.png') }}" alt="">
-                                                <p class="mt-3 overflow-hidden">{{ __('Flutterwave') }}</p>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div>
-                                        @if ($setting->razor)
-                                            <div class="border border-1 border-white-light font-fira-sans paymentDiv text-center p-4"
-                                                data-attribute="razorpay">
-                                                <img class="m-auto" width="29px" height="29px"
-                                                    src="{{ url('assets/image/razorpay.png') }}" alt="">
-                                                <p class="mt-3 overflow-hidden">{{ __('Razorpay') }}</p>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="codDiv text-center">
-                                    <input type="button"
-                                        class="font-fira-sans text-white !bg-primary p-3 text-sm font-normal w-40 h-11 cursor-pointer mt-10"
-                                        onclick="booking()" value="{{ __('Pay Cash on Delivery') }}">
-                                </div>
-                                <div class="paypalDiv hidden">
-                                    <div class="paypal_row_body justify-center">
-
-                                    </div>
-                                </div>
-                                <div class="stripDiv hidden">
-                                    <div class="bg-red-100 stripe_alert hidden rounded-lg py-5 px-6 mb-3 text-base text-red-700 inline-flex items-center w-full"
-                                        role="alert">
-                                        <svg aria-hidden="true" focusable="false" data-prefix="fas"
-                                            data-icon="times-circle" class="w-4 h-4 mr-2 fill-current" role="img"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path fill="currentColor"
-                                                d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z">
-                                            </path>
-                                        </svg>
-                                        <div class="stripeText"></div>
-                                    </div>
-                                    <input type="hidden" name="stripe_publish_key"
-                                        value="{{ $setting->stripe_public_key }}">
-                                    <form role="form" method="post" class="require-validation customform"
-                                        data-cc-on-file="false" id="stripe-payment-form">
-                                        @csrf
-                                        <div class="row p-4">
-                                            <div class="form-group">
-                                                <label
-                                                    class="font-fira-sans font-medium text-bs">{{ __('Email') }}</label>
-                                                <input type="email"
-                                                    class="mt-3 font-fira-sans required block p-2 w-full z-20 text-sm border font-normal leading-5 !border-white-light"
-                                                    title="Enter Your Email" name="email" required />
-                                            </div>
-                                            <div class="mt-3">
-                                                <label
-                                                    class="font-fira-sans font-medium text-bs">{{ __('Card Information') }}</label>
-                                                <input type="number" step="1"
-                                                    class="card-number font-fira-sans mt-3 required block p-2 w-full z-20 text-sm border font-normal leading-5 !border-white-light"
-                                                    title="please input only number." pattern="[0-9]{16}"
-                                                    name="card-number" placeholder="1234 1234 1234 1234"
-                                                    title="Card Number" required />
-                                            </div>
-                                            <div class="flex" class="mt-1">
-                                                <div class="w-1/2">
-                                                    <input type="text"
-                                                        class="mt-3 mr-1 font-fira-sans expiry-date required block p-2 w-full z-20 text-sm border font-normal leading-5 !border-white-light"
-                                                        name="expiry-date" title="Expiration date"
-                                                        title="please Enter data in MM/YY format."
-                                                        pattern="(0[1-9]|10|11|12)/[0-9]{2}$" placeholder="MM/YY"
-                                                        required />
-                                                    <input type="hidden" class="card-expiry-month required form-control"
-                                                        name="card-expiry-month" />
-                                                    <input type="hidden" class="card-expiry-year required form-control"
-                                                        name="card-expiry-year" />
-                                                </div>
-                                                <div class="w-1/2">
-                                                    <input type="text"
-                                                        class="card-cvc font-fira-sans mt-3 ml-1 required block p-2 w-full z-20 text-sm border font-normal leading-5 !border-white-light"
-                                                        title="please input only number." pattern="[0-9]{3}"
-                                                        name="card-cvc" placeholder="CVC" title="CVC" required />
-                                                </div>
-                                            </div>
-                                            <div class="mt-3">
-                                                <div class="form-group">
-                                                    <label
-                                                        class="font-fira-sans font-medium text-bs">{{ __('Name on card') }}</label>
-                                                    <input type="text"
-                                                        class="mt-3 font-fira-sans required block p-2 w-full z-20 text-sm border font-normal leading-5 !border-white-light"
-                                                        name="name" title="Name on Card" required />
-                                                </div>
-                                            </div>
-                                            <div class="mt-3">
-                                                <div class="form-group text-center">
-                                                    <input type="button"
-                                                        class="btn-submit font-fira-sans !text-white !bg-primary w-full text-sm font-normal py-3 cursor-pointer"
-                                                        value="{{ __('Pay with stripe') }}" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="paystackDiv hidden mt-5">
-                                    <form id="paymentForm">
-                                        <input type="hidden" id="paystack-public-key"
-                                            value="{{ $setting->paystack_public_key }}">
-                                        <input type="hidden" id="email-address" value="{{ auth()->user()->email }}"
-                                            required />
-                                        <div class="form-submit text-center">
-                                            <input type="button" onclick="payStack()"
-                                                class="font-fira-sans text-white !bg-primary p-3 text-sm font-normal py-3 cursor-pointer"
-                                                onclick="payWithPaystack()" value="{{ __('Pay with paystack') }}">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="flutterwaveDiv hidden">
-                                    <form>
-                                        <input type="hidden" name="flutterwave_key"
-                                            value="{{ $setting->flutterwave_key }}">
-                                        <div
-                                            class="w-full px-4 flex gap-3 items-center mt-5 rounded-md h-auto justify-center">
-                                            <input type="button" onclick="makePayment(event)"
-                                                class="font-fira-sans text-white !bg-primary
-                                    p-3 text-sm font-normal py-3 cursor-pointer"
-                                                value="{{ __('Pay With Flutterwave') }}">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="razorpayDiv text-center mt-5 hidden">
-                                    <input type="hidden" id="RAZORPAY_KEY" value="{{ $setting->razor_key }}">
-                                    <input type="button" id="paybtn" onclick="RazorPayPayment()"
-                                        value="{{ __('Pay with Razorpay') }}"
-                                        class="font-fira-sans text-white !bg-primary p-3 text-sm font-normal py-3 cursor-pointer">
-                                </div>
-                            </div>
-                            <div class="xxsm:w-full lg:w-[33%]">
-                                <div class="border xxsm:border-t lg:!border-t-0 !border-white-light p-10">
-                                    <img class="2xl:w-28 2xl:h-28 1xl:w-28 1xl:h-28 xlg:h-24 xlg:w-24 xl:h-24 xl:w-24 lg:h-24 lg:w-24 xxmd:w-24 xxmd:h-24 md:h-20 md:w-20 sm:h-20 sm:w-20 xsm:h-16 xsm:w-16 msm:h-24 msm:w-24 xxsm:h-14 xxsm:w-14 border border-primary rounded-full p-0.5 m-auto"
-                                        src="{{ url($doctor->fullImage) }}" alt="" />
-                                    <h5
-                                        class="font-fira-sans font-normal text-lg leading-6 text-black text-center md:text-md pt-5">
-                                        {{ $doctor->name }}</h5>
-                                    <p
-                                        class="font-normal leading-4 text-sm text-primary text-center font-fira-sans md:text-md py-2">
-                                        {{ $doctor['category']['name'] }}</p>
-                                    <p
-                                        class="font-fira-sans font-normal leading-4 text-sm text-gray text-center md:text-md">
-                                        <i class="fa-solid fa-star text-yellow"></i>
-                                        {{ $doctor['rate'] }}&nbsp;({{ $doctor['review'] }}{{ __(' reviews') }})
-                                    </p>
-                                </div>
-                                <div class="border !border-t-0 border-white-light p-5">
-                                    <div>
-                                        <h5 class="font-fira-sans font-medium text-1xl text-left displayHospitalName">
-                                            {{ $hospital_name }}</h5>
-                                    </div>
-                                    <div class="flex mt-1 items-center">
-                                        <i class="fa-solid fa-location-dot mr-3"></i>
-                                        <p class="displayAddress font-fira-sans ">{{ $address }}</p>
-                                    </div>
-                                    <div class="font-fira-sans mt-4">
-                                        {{ __('Appointment Fees : ') }} <span
-                                            class="text-base font-medium text-primary">{{ $currency }}<span
-                                                class="appointmentFees">{{ $doctor->appointment_fees }}</span></span>
-                                    </div>
-                                    <div class="font-fira-sans mt-4">
-                                        {{ __('Discount Amount : ') }}<span
-                                            class="text-base font-medium text-primary">{{ $currency }}<span
-                                                class="discountAmount">00</span></span>
-                                    </div>
-                                    <div class="font-fira-sans mt-4">
-                                        {{ __('Final Amount : ') }}<span
-                                            class="text-base font-medium text-primary">{{ $currency }}<span
-                                                class="finalAmount">{{ $doctor->appointment_fees }}</span></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
-                {{-- </form> --}}
             </div>
-            {{-- <div class="Appointment-detail flex justify-between mt-3 mb-3">
-                <button type="button"
-                    class="border !border-primary text-white !bg-primary text-center w-32 h-11 text-base font-normal leading-5 font-fira-sans"
-                    id="prev" disabled>{{ __('Previous') }}</button>
-                <button type="button"
-                    class="!text-white !bg-primary text-center text-base font-normal font-fira-sans w-32 h-11"
-                    id="next">{{ __('Next') }}</button>
-            </div> --}}
+
+            <div class=" d-flex justify-content-around mt-3 fw-bold text-secondary">
+                <div class="progress_text progress_active">Date/Heure</div>
+                <div class="progress_text">Vérification</div>
+                <div class="progress_text">Confirmation</div>
+            </div>
         </div>
 
         <div class="fixed top-0 left-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
@@ -687,7 +184,7 @@
                                 {{ __('Rajkot') }}</div>
                             <input type="hidden" name="lat" id="lat" value="{{ $setting->lat }}">
                             <input type="hidden" name="lang" id="lng" value="{{ $setting->lang }}">
-                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                            {{-- <input type="hidden" name="user_id" value="{{ auth()->user()->id }}"> --}}
                             <textarea name="address"
                                 class="mt-2 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white-50 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 id="exampleFormControlTextarea1" rows="3" placeholder="Your message"></textarea>
@@ -708,7 +205,7 @@
 
 
         <div class="container">
-            <div class="card mb-5">
+            <div class="card mb-3">
                 <div class="card-body">
                     <div class="doctor-profile-img d-flex">
                         @php
@@ -738,25 +235,14 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="row mb-5">
-                <div class="col-12 col-sm-4 col-md-6">
-                    <h4 class="mb-1">11 November 2023</h4>
-                    <p class="text-muted">Monday</p>
-                </div>
-                <div class="col-12 col-sm-8 col-md-6 text-sm-end">
-                    <div class="bookingrange btn btn-white btn-sm mb-3">
-                        <i class="far fa-calendar-alt me-2"></i>
-                        <span>April 26, 2024 - May 2, 2024</span>
-                    </div>
-                </div>
-            </div> --}}
             <form id="appointmentForm">
                 <input type="hidden" name="doctor_id" value="{{ $doctor->id }}">
+                <input type="hidden" id="doctor_name" value="{{ $doctor['name'] }}">
                 <input type="hidden" name="currency" value="{{ $setting->currency_code }}">
                 <input type="hidden" name="company_name" value="{{ $setting->business_name }}">
-                <input type="hidden" name="user_name" value="{{ auth()->user()->name }}">
-                <input type="hidden" name="patient_name" value="{{ auth()->user()->name }}">
-                <input type="hidden" name="email" value="{{ auth()->user()->email }}">
+                {{-- <input type="hidden" name="user_name" value="{{ auth()->user()->name }}"> --}}
+                {{-- <input type="hidden" name="patient_name" value="{{ auth()->user()->name }}"> --}}
+                {{-- <input type="hidden" name="email" value="{{ auth()->user()->email }}"> --}}
                 {{-- <input type="hidden" name="phone_no" value="{{ auth()->user()->phone }}"> --}}
                 <input type="hidden" name="payment_type" value="COD">
                 <input type="hidden" name="amount" step="any" value="{{ $doctor->appointment_fees }}">
@@ -764,7 +250,7 @@
                 <input type="hidden" name="payment_status" value="0">
                 <input type="hidden" name="discount_price">
                 <input type="hidden" name="discount_id">
-                
+
                 @foreach ($doctor->hospital as $hospital)
                     @if ($loop->first)
                         @php
@@ -777,7 +263,7 @@
 
                 <div id="step1" class="block">
 
-                    <div class="row border rounded mb-5">
+                    <div class="header-booking row border rounded mb-5">
                         <ul class="header-booking-table d-flex justify-content-around fw-bold py-2 px-3 position-relative">
                             <li class="arow-left" onclick="arrowLeft()">
                                 <i class="fa-solid fa-chevron-left"></i>
@@ -788,35 +274,34 @@
                             </li>
                             <li class="text-center">
                                 <label id="day_1" for=""></label>
-                                <p class="date" id="date_1">10 JUL 2023</p>
+                                <p class="date" id="date_1"></p>
                             </li>
                             <li class="text-center">
                                 <label id="day_2" for=""></label>
-                                <p class="date" id="date_2">10 JUL 2023</p>
+                                <p class="date" id="date_2"></p>
                             </li>
                             <li class="text-center">
                                 <label id="day_3" for=""></label>
-                                <p class="date" id="date_3">10 JUL 2023</p>
+                                <p class="date" id="date_3"></p>
                             </li>
                             <li class="text-center">
                                 <label id="day_4" for=""></label>
-                                <p class="date" id="date_4">10 JUL 2023</p>
+                                <p class="date" id="date_4"></p>
                             </li>
                             <li class="text-center">
                                 <label id="day_5" for=""></label>
-                                <p class="date" id="date_5">10 JUL 2023</p>
+                                <p class="date" id="date_5"></p>
                             </li>
                             <li class="text-center">
                                 <label id="day_6" for=""></label>
-                                <p class="date" id="date_6">10 JUL 2023</p>
+                                <p class="date" id="date_6"></p>
                             </li>
                             <li class="arow-right" onclick="arrowRight()">
                                 <i class="fa-solid fa-chevron-right"></i>
                             </li>
                         </ul>
                         <hr>
-                        {{-- <div class="row"> --}}
-                        <div class="col-md-12">
+                        <div class="col-md-12 bg-white">
                             <div class="d-flex justify-content-around fw-bold py-3">
                                 <input type="hidden" name="time" id="time">
                                 <input type="hidden" name="date" id="date">
@@ -857,56 +342,104 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- </div> --}}
                     </div>
                 </div>
 
-                <div id="step2" class="block">
-                    <div>
-                        <h2 class="text-center text-center fs-3 fw-bold">Saisissez vos informations</h2>
-                        <div class="d-flex flex-column align-items-center mt-4">
-                            <div>
-                                <input class="col-md-12 text-sm font-fira-sans text-gray block z-20 border border-white-light rounded mb-2"
-                                    type="text" placeholder="Nom / Prénom" onchange="infoPerso()" name="patient_name" >
-                                <input type="number" name="phone_no" value="{{ old('phone') }}" id="phone"
-                                    class="@error('phone') is-invalid @enderror w-full text-sm font-fira-sans text-gray block z-20 border border-white-light rounded phone"
-                                    placeholder="{{ __('Enter Phone Number') }}" onchange="infoPerso()">
-                                <input type="hidden" name="phone_code" value="" >
-                                @error('phone')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                <div id="step2" class="hidden">
+                    <div class="border rounded d-flex flex-column justify-content-center mb-5"
+                        style="min-height: 213px; background-color: #e9e9e9;">
+                        <h2 class="text-center text-center fs-4 fw-bold" style="color: rgb(37, 150, 190)">Saisissez vos
+                            informations</h2>
+                        <div class="d-flex flex-column align-items-center mt-3">
+                            <div class="col-md-5">
+                                <input
+                                    class="col-md-12 text-sm font-fira-sans text-gray block z-20 border border-white-light rounded mb-2"
+                                    type="text" placeholder="Nom / Prénom" name="patient_name" id="patient_name">
+                                <div class="w-full mb-2">
+                                    <input type="text" name="phone_no" value="{{ old('phone') }}" id="phone"
+                                        class="w-full text-sm font-fira-sans text-gray block z-20 border border-white-light rounded phone mb-1 mt-1"
+                                        placeholder="{{ __('Enter Phone Number') }}">
+                                </div>
+                                <p class="text-info text-center">Un code va vous être envoyé sur ce numéro pour valider
+                                    votre RDV.</p>
+                                <input type="hidden" value="+212" id="phone_code">
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div id="step3" class="hidden"">
-                    <h1>step3</h1>
+                    <div class="border rounded d-flex flex-column justify-content-center mb-5"
+                        style="min-height: 213px; background-color: #e9e9e9;">
+                        <h2 class="text-center text-center fs-4 fw-bold" style="color: rgb(37, 150, 190)">Confirmation
+                        </h2>
+                        <div class="d-flex flex-column align-items-center mt-3">
+                            <p class="text-info mt-2" id="confirmation_code"></p>
+
+                            <div class="col-md-5">
+                                <input class="col-md-6 rounded b-2 mt-4 w-full" type="text"
+                                    placeholder="Code Confirmation" id="codeVerify">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </form>
 
             <div class="Appointment-detail flex justify-between mt-3 mb-3">
                 <button type="button"
-                    class="border !border-primary text-white !bg-primary text-center w-32 h-11 text-base font-normal leading-5 font-fira-sans"
-                    id="prev" disabled>{{ __('Previous') }}</button>
+                    class="border !border-primary text-white !bg-primary text-center w-32 h-11 text-base font-normal leading-5 font-fira-sans rounded"
+                    id="prev" disabled><i class="fa-solid fa-chevron-left"></i> {{ __('Précédent') }}</button>
                 <button type="button"
-                    class="!text-white !bg-primary text-center text-base font-normal font-fira-sans w-32 h-11"
-                    id="next">{{ __('Next') }}</button>
+                    class="!text-white !bg-primary text-center text-base font-normal font-fira-sans w-32 h-11 rounded"
+                    id="next">{{ __('Suivant') }} <i class="fa-solid fa-chevron-right"></i></button>
+                <button type="button" id="valid" onclick="checkCode()"
+                    class="!text-white !bg-primary text-center text-base font-normal font-fira-sans w-32 h-11 rounded hidden">{{ __('Confirmer') }}</button>
             </div>
-            <div class="codDiv text-center">
+            {{-- <div class="codDiv d-flex justify-content-center">
                 <input type="button" id="envoyer"
-                    class="font-fira-sans text-white !bg-primary p-2 text-sm font-normal w-40 h-11 cursor-pointer mb-5 rounded hidden"
-                    onclick="booking()" value="{{ __('Envoyer') }}">
-            </div>
+                    class="font-fira-sans text-white bg-success p-2 text-lg font-normal w-40 h-11 cursor-pointer mb-5 rounded hidden"
+                    onclick="booking()" value="{{ __('Valider') }}">
+            </div> --}}
+
         </div>
 
     </div>
 @endsection
 
 @section('js')
+    <script>
+        const doctorWorkHour = @json(@$doctorWorkHour);
+    </script>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import {
+            getAnalytics
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyBMvkLWMkGrXDLEeo6XonHGVs0e5g7AhAo",
+            authDomain: "docteur-421318.firebaseapp.com",
+            projectId: "docteur-421318",
+            storageBucket: "docteur-421318.appspot.com",
+            messagingSenderId: "941892394125",
+            appId: "1:941892394125:web:6529cb8c4534c1de0c16c4",
+            measurementId: "G-BJ1WRZ6TE5"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
     <script src="{{ url('assets/js/boocking.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script src="https://unpkg.com/flowbite-datepicker@1.2.2/dist/js/datepicker-full.js"></script>
@@ -957,38 +490,39 @@
 
     <script src="{{ url('assets/js/intlTelInput.min.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            $('.signupDiv').click(function() {
-                $('.signupDiv').removeClass('active');
-                $(this).addClass('active');
-                $(this).children('input[type=radio]').prop('checked', true);
-                var radioVal = $(this).children('input[type=radio]').val();
-                $('.invalid-feedback').text('');
-                if (radioVal == 'doctor') {
-                    $('.doctorDiv').show();
-                    $('.patientDiv').hide();
-                }
-                if (radioVal == 'patient') {
-                    $('.doctorDiv').hide();
-                    $('.patientDiv').show();
-                }
-            });
-        });
+        // $(document).ready(function() {
+        //     $('.signupDiv').click(function() {
+        //         $('.signupDiv').removeClass('active');
+        //         $(this).addClass('active');
+        //         $(this).children('input[type=radio]').prop('checked', true);
+        //         var radioVal = $(this).children('input[type=radio]').val();
+        //         $('.invalid-feedback').text('');
+        //         if (radioVal == 'doctor') {
+        //             $('.doctorDiv').show();
+        //             $('.patientDiv').hide();
+        //         }
+        //         if (radioVal == 'patient') {
+        //             $('.doctorDiv').hide();
+        //             $('.patientDiv').show();
+        //         }
+        //     });
+        // });
         const phoneInputField = document.querySelector(".phone");
         const phoneInput = window.intlTelInput(phoneInputField, {
-            preferredCountries: ["us", "co", "in", "de"],
+            preferredCountries: ["ma", "us", "in", "de"],
             initialCountry: "ma",
-            separateDialCode: false,
+            separateDialCode: true,
             utilsScript: "{{ url('assets/js/utils.js') }}",
         });
         phoneInputField.addEventListener("countrychange", function() {
-            var phone_code = $('.phone').find('.iti__selected-dial-code').text();
+            var phone_code = $('.phone').find('.iti__selected-flag').text();
+            // console.log(phone_code);
             $('input[name=phone_code]').val('+' + phoneInput.getSelectedCountryData().dialCode);
         });
 
         const DocphoneInputField = document.querySelector(".doc_phone");
         const docphoneInput = window.intlTelInput(DocphoneInputField, {
-            preferredCountries: ["us", "co", "in", "de"],
+            preferredCountries: ["ma", "us", "in", "de"],
             initialCountry: "ma",
             separateDialCode: true,
             utilsScript: "{{ url('assets/js/utils.js') }}",

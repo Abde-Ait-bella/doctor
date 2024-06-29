@@ -55,4 +55,6 @@ $app->singleton(
 |
 */
 
+$app->register(Nexmo\Laravel\NexmoServiceProvider::class);
+
 return $app;

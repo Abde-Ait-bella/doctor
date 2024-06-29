@@ -66,3 +66,180 @@
 #map-doc{
     position: sticky !important;
 }
+
+/* .doc-grid{
+    top: 50px;
+    width: 100%;
+} */
+
+.doc-grid-slider{
+    top: 105px;
+    width: 100%;
+}
+
+/* .slick-list.draggable{
+    height: 432px !important;
+} */
+
+/* .card-doc{
+    min-height: 450px !important;
+    } */
+
+    .h1-home{
+        font-weight: 600;
+        font-size: 48px;
+        margin-bottom: 25px;
+        }
+
+        .banners{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        @media (min-width: 900px) {
+        .search-box{
+            left: 26.5%;
+        }
+        }
+
+        @media (max-width: 900px) {
+            .bar-nav{
+                padding: 10px;
+                width: 100% !important;
+                }
+                .h1-home{
+                    display: none;
+                    }
+
+            .search-box{
+                background-color: red !important;
+                position: absolute !important;
+                top: 5% !important;
+                display: flex !important;
+                flex-direction: column;
+                min-width: auto !important;
+                align-items: center !important;
+                /* left: 0% !important; */
+
+            }
+            .separat_search{
+                color: white !important;
+                background-color: white !important;
+            }
+            .icons_categoey{
+                top: 373px !important;
+            }
+
+            .arrow-next {
+                top: 133px !important;
+                right: 35% !important;
+                font-size: xxx-large !important;
+            }
+
+            .arrow-prev {
+                top: 133px !important;
+                left: 35% !important;
+                font-size: xxx-large !important;
+                z-index: 99;
+            }
+            .specialities{
+                margin: 0 15px !important;
+                width: auto !important;
+            }
+            .doc-grid-slider {
+                top: 178px !important;
+            }
+            .arrow-prev-doc{
+                font-size: xxx-large !important;
+                top: -100px !important;
+            right: 20% !important;
+            }
+            .arrow-next-doc{
+                font-size: xxx-large !important;
+                top: -100px !important;
+                right: 5% !important;
+            }
+        }
+
+
+@media (max-width: 900px) {
+    .elem_menu{
+        display: none !important;
+    }
+        .doc-grid-slider{
+            top: 137px;
+            width: 100%;
+            }
+        .slick-list.draggable{
+            height: 500px !important;
+        }
+        .background-card-doc{
+            background-color: #ffff !important;
+        }
+        #banner-section{
+            margin-top: 142px;
+        }
+
+        .banner-arrow-img{
+            width: 108px;
+            transform: rotate(35deg);
+            margin-top: 33px;
+        }
+
+        #make_appointment{
+            margin-top: 30px;
+        }
+
+        .doctor-profile-widget.doc-grid .doc-content .doc-pro-location p.text-wrap {
+            min-height: 0px ;
+        }
+
+    }
+
+
+@media (max-width: 360px) {
+    .banner-section{
+        padding: 5px 0 130px 0 !important;
+    }
+    .elem_menu{
+        display: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-section{
+        padding: 5px 0 90px 0 !important;
+    }
+    .elem_menu{
+        display: none !important;
+    }
+}
+
+/* .doctor-profile-img-slider img{
+    width: 273px;
+    border-radius: 10px;
+    height: 197px;
+    object-fit: cover;
+} */
+
+.arrow-prev-doc{
+    position: absolute;
+    top: -80px;
+    right: 33px;
+    font-size: x-large;
+    color: #1084fc;
+    cursor: pointer;
+    z-index: 99;
+}
+
+.arrow-next-doc{
+    position: absolute;
+    top: -80px;
+    right: 0px;
+    font-size: x-large;
+    color: #1084fc;
+    cursor: pointer;
+    z-index: 99;
+}
+

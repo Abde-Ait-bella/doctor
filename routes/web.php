@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Doctor\DoctorSubscriptionController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\lab\PathologyController;
 use App\Http\Controllers\lab\RadiologyController;
 use App\Http\Controllers\LabSettingController;
 use App\Http\Controllers\MultiDeleteController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\SuperAdmin\AdminController;
 use App\Http\Controllers\SuperAdmin\AdminUserController;
 use App\Http\Controllers\SuperAdmin\AppointmentController;
@@ -96,20 +98,34 @@ Route::group(['middleware' => ['XssSanitizer']], function () {
     Route::get('/about-us', [WebsiteController::class, 'aboutUs']);
     Route::get('/privacy-policy', [WebsiteController::class, 'privacy']);
     Route::get('/select_language/{id}', [WebsiteController::class, 'selectLanguage']);
+    Route::get('/contact-us', [WebsiteController::class, 'contactUs']);
+    Route::post('/email', [EmailController::class, 'sendEmail'])->name('send.email');
+
 
     Route::get('/forgot_password', [WebsiteController::class, 'forgotPassword']);
     Route::post('/user_forget_password', [WebsiteController::class, 'userForgotPassword']);
 
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/user_profile', [WebsiteController::class, 'user_profile']);
-        Route::get('/lab_test/{id}/{name}', [WebsiteController::class, 'labTest']);
-        Route::get('/booking/{id}/{name}', [WebsiteController::class, 'booking']);
-        Route::post('/bookAppointment', [WebsiteController::class, 'bookAppointment']);
-        Route::post('cancelAppointment', [WebsiteController::class, 'cancelAppointment']);
-        Route::post('checkCoupen', [WebsiteController::class, 'checkCoupon']);
-        Route::get('/checkout', [WebsiteController::class, 'checkout']);
-        Route::post('addReview', [WebsiteController::class, 'addReview']);
 
+    // route of view terms condition
+
+    Route::get('terms-condition', function () {
+        return view('website.terms_condition');
+    });
+
+    // Route::get('terms-condition', function () {
+    //     return view('website.about_us');
+    // });
+
+    Route::get('/user_profile', [WebsiteController::class, 'user_profile']);
+    Route::get('/lab_test/{id}/{name}', [WebsiteController::class, 'labTest']);
+    Route::get('/booking/{id}/{name}', [WebsiteController::class, 'booking']);
+    Route::post('/bookAppointment', [WebsiteController::class, 'bookAppointment']);
+    Route::post('cancelAppointment', [WebsiteController::class, 'cancelAppointment']);
+    Route::post('checkCoupen', [WebsiteController::class, 'checkCoupon']);
+    Route::get('/checkout', [WebsiteController::class, 'checkout']);
+    Route::post('addReview', [WebsiteController::class, 'addReview']);
+
+    Route::middleware(['auth'])->group(function () {
         // Lab
         Route::get('/pathology_category_wise/{id}/{lab_id}', [WebsiteController::class, 'pathology_category_wise']);
         Route::post('/single_pathology_details', [WebsiteController::class, 'single_pathology_details']);
@@ -213,7 +229,7 @@ Route::group(['middleware' => ['XssSanitizer']], function () {
         Route::post('/store_appointment/{store_id}', [AppointmentController::class, 'storeAppointment']);
         Route::get('/edit_appointment/{edit_id}', [AppointmentController::class, 'editAppointment']);
         Route::post('/update_appointment/{update_id}', [AppointmentController::class, 'updateAppointment']);
-        Route::get('/delete_appointment/{delete_id}', [AppointmentController::class, 'deleteAppointment']);
+        Route::delete('/delete_appointment/{delete_id}', [AppointmentController::class, 'deleteAppointment'])->name('delete_appointment');
         Route::post('/changeTimeslot', [AppointmentController::class, 'changeTimeslot']);
         Route::post('/add-address', [AppointmentController::class, 'addAddr']);
 
@@ -288,6 +304,7 @@ Route::group(['middleware' => ['XssSanitizer']], function () {
         Route::post('pathology_cat_all_delete', [MultiDeleteController::class, 'pathology_cat_all_delete']);
         Route::post('radiology_cat_all_delete', [MultiDeleteController::class, 'radiology_cat_all_delete']);
         Route::post('insurer_all_delete', [InsurerController::class, 'insurer_all_delete']);
+
     });
 
     /******* DOCTOR PANEL */
@@ -320,9 +337,17 @@ Route::group(['middleware' => ['XssSanitizer']], function () {
         // change subscriptiom payment status changePaymentStatus
         Route::get('subscription/changePaymentStatus/{id}', [SubscriptionController::class, 'changePaymentStatus']);
 
-        Route::get('prescription/{appointment_id}', [AppointmentController::class, 'prescription']);
+        Route::get('prescriptionListe', [AppointmentController::class, 'prescriptionListe']);
+        Route::get('prescription', [AppointmentController::class, 'prescription']);
         Route::get('allMedicine', [AppointmentController::class, 'all_medicine']);
         Route::post('addPrescription', [AppointmentController::class, 'addPrescription']);
+        Route::get('editPrescription/{id}', [AppointmentController::class, 'editPrescription'])->name('editPresc');
+        Route::put('updatePrescription/{id}', [AppointmentController::class, 'updatePrescription'])->name('updatePresc');
+        Route::delete('deletePrescription/{id}', [AppointmentController::class, 'deletePrescription'])->name('deletePresc');
+        Route::get('showPrescription/{id}', [AppointmentController::class, 'showPrescription'])->name('showPresc');
+        Route::get('grneratePdf/{id}', [PdfController::class, 'generate_pdf'])->name('pdf');
+        Route::get('addMedicines', [AppointmentController::class, 'medicine'])->name('medicine');
+        Route::post('addMedicines', [AppointmentController::class, 'add_medicine']);
 
         Route::get('commission', [AppointmentController::class, 'commission']);
         Route::post('show_settalement', [AppointmentController::class, 'show_settlement']);

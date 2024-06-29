@@ -20,8 +20,8 @@
     </head>
     <body>
         <table>
-            @foreach (json_decode($medicineName) as $item)
-                <tr>
+            {{-- @foreach (json_decode($medicineName) as $item) --}}
+                {{-- <tr>
                     <td>{{ $item->medicine }}</td>
                     <td>{{ $item->days }}</td>
                     <td>
@@ -29,8 +29,15 @@
                         {{$item->afternoon == 1 ? 1 : 0}}&nbsp;&nbsp;
                         {{$item->night == 1 ? 1 : 0}}
                     </td>
-                </tr>
-            @endforeach
+                </tr> --}}
+            {{-- @endforeach --}}
+
+            <tr>
+                <td>medicine</td>
+                <td>days</td>
+                <td>&nbsp;&nbsp;
+                </td>
+            </tr>
             <tr>
                 <th>Medicine name</th>
                 <th>Days</th>

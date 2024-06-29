@@ -353,8 +353,8 @@ class CustomController extends Controller
         $data['status'] = 1;
         $data['name'] = $user->name;
         $data['dob'] = $data['dob'];
-        $data['start_time'] = '08:00 am';
-        $data['end_time'] = '08:00 pm';
+        $data['start_time'] = '08:00';
+        $data['end_time'] = '20:00';
         $data['timeslot'] = 15;
         $data['gender'] = $data['gender'];
         $data['subscription_status'] = 1;
@@ -374,8 +374,8 @@ class CustomController extends Controller
             }
         }
         $data['status'] = 1;
-        $start_time = strtolower('08:00 am');
-        $end_time = strtolower('08:00 pm');
+        $start_time = strtolower('08:00');
+        $end_time = strtolower('20:00');
         $days = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
         for ($i = 0; $i < count($days); $i++) {
             $master = array();

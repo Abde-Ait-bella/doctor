@@ -3,8 +3,10 @@
 const progress = document.getElementById("progress");
 const prev = document.getElementById("prev");
 const next = document.getElementById("next");
-const envoyer = document.getElementById("envoyer");
+const doctor_name = document.getElementById("doctor_name").value;
+const valide = document.getElementById("valid");
 const circles = document.querySelectorAll(".circle");
+const progress_text = document.querySelectorAll(".progress_text");
 
 var lat, lng, currency, amount;
 var base_url = $("input[name=base_url]").val();
@@ -78,65 +80,6 @@ $(document).ready(function () {
 
     currency = $("input[name=currency]").val();
     amount = $("input[name=amount]").val();
-    // $('input[name=payment]').change(function ()
-    // {
-    //     if(this.value == 'paypal')
-    //     {
-    //         $('.paypal_row').show();
-    //         $('.razor_row').hide();
-    //         $('.stripe_row').hide();
-    //         $('.cod_card').hide();
-    //         $('.paystack_row').hide();
-    //         $('.flutterwave_row').hide();
-    //         paypalPayment();
-    //     }
-    //     if(this.value == 'razor')
-    //     {
-    //         $('.paypal_row').hide();
-    //         $('.razor_row').show();
-    //         $('.stripe_row').hide();
-    //         $('.cod_card').hide();
-    //         $('.paystack_row').hide();
-    //         $('.flutterwave_row').hide();
-    //         RazorPayPayment();
-    //     }
-    //     if(this.value == 'cod')
-    //     {
-    //         $('.paypal_row').hide();
-    //         $('.razor_row').hide();
-    //         $('.stripe_row').hide();
-    //         $('.paystack_row').hide();
-    //         $('.flutterwave_row').hide();
-    //     }
-    //     if(this.value == 'stripe')
-    //     {
-    //         $('.paypal_row').hide();
-    //         $('.razor_row').hide();
-    //         $('.stripe_row').show();
-    //         $('.cod_card').hide();
-    //         $('.paystack_row').hide();
-    //         $('.flutterwave_row').hide();
-    //         StripPayment();
-    //     }
-    //     if(this.value == 'paystack')
-    //     {
-    //         $('.paypal_row').hide();
-    //         $('.razor_row').hide();
-    //         $('.stripe_row').hide();
-    //         $('.cod_card').hide();
-    //         $('.paystack_row').show();
-    //         $('.flutterwave_row').hide();
-    //     }
-    //     if(this.value == 'flutterwave')
-    //     {
-    //         $('.paypal_row').hide();
-    //         $('.razor_row').hide();
-    //         $('.stripe_row').hide();
-    //         $('.cod_card').hide();
-    //         $('.paystack_row').hide();
-    //         $('.flutterwave_row').show();
-    //     }
-    // });
 
     $(".paymentDiv").on("click", function () {
         $(".paymentDiv").removeClass("activePayment");
@@ -319,53 +262,125 @@ function updateThumbnail(dropZoneElement, file) {
 }
 
 let currentActive = 1;
+var success;
 
 next.addEventListener("click", () => {
     if (currentActive == 1) {
-        console.log('clicked next')
         var response = checkFirstFormValidation();
         if (response == true) {
             currentActive++;
             if (currentActive > circles.length) currentActive = circles.length;
             update();
             shoeStep();
-            // displayHospital();
+            prev.classList.add("block");
+        } else {
+            Swal.fire({
+                icon: "warning",
+                title: "Attention",
+                text: "Veuillez sélectionner le champ obligatoire",
+                confirmButtonText: "OK",
+            });
         }
     } else if (currentActive == 2) {
         var response = checkSecondFormValidation();
         if (response == true) {
+            sendSMS();
             currentActive++;
             if (currentActive > circles.length) currentActive = circles.length;
             update();
             shoeStep();
         } else {
-            alert("Please select mandotaroy field");
+            Swal.fire({
+                icon: "warning",
+                title: "Attention",
+                text: "Veuillez sélectionner le champ obligatoire",
+                confirmButtonText: "OK",
+            });
         }
     }
 });
 
+function sendSMS() {
+    let phoneNumber = document.getElementById("phone").value;
+    let phoneCode = document.getElementById("phone_code").value;
+
+    window.randomNumber = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+
+    // this Swal of show Verify code until workin nexmo (paying off);
+    Swal.fire({
+        title:`Verify Code : ${window.randomNumber}`,
+    });
+
+    const apiKey = "ab7b8ea4";
+    const apiSecret = "jVwLh8BvuRT25wu2";
+    const from = "Vonage APIs";
+    const to = phoneCode + phoneNumber;
+    const text = `Docteur Code verify : ${window.randomNumber}`;
+
+    document.getElementById(
+        "confirmation_code"
+    ).innerHTML = `<span class="p-1 px-3 rounded text-white" style="background-color: rgb(37, 150, 190)">Veuillez saisir le code à 4 chiffres que nous venons de vous envoyer par SMS : </span><span class="fw-bold bg-success rounded p-1 px-3 text-white ms-2" style="background-color: rgb(37, 150, 190)">${phoneCode}${phoneNumber}</span>`;
+
+    const url = `https://rest.nexmo.com/sms/json?api_key=${apiKey}&api_secret=${apiSecret}&from=${from}&to=${to}&text=${text}`;
+
+    fetch(url, { method: "POST" })
+        .then((response) => {
+            console.log("response", response);
+            if (!response.ok) {
+                console.log("error");
+            } else {
+                return response.json();
+            }
+        })
+        .then((data) => {
+            console.log("SMS envoyé avec succès.", data);
+        })
+        .catch((error) => {
+            console.error("Erreur lors de l'envoi du SMS:", error);
+        });
+}
+
 prev.addEventListener("click", () => {
+    valide.classList.remove("block");
+
     currentActive--;
-    if (currentActive < 1) currentActive = 1;
+    if (currentActive < 1) {
+        currentActive = 1;
+    }
     update();
     shoeStep();
 });
 
 const update = () => {
     circles.forEach((circle, index) => {
-        if (index < currentActive) circle.classList.add("progress_active");
-        else circle.classList.remove("progress_active");
+
+        if (index === currentActive - 2) {
+            circle.innerHTML = `<i class="fa fa-check"></i>`;
+        }
+        if (index === currentActive - 1) {
+            circle.innerHTML = currentActive;
+        }
+        if (index < currentActive) {
+            circle.classList.add("progress_active");
+        } else {
+            circle.classList.remove("progress_active");
+        }
     });
-    const actives = document.querySelectorAll(".progress_active");
-    progress.style.width =
-        ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
-    if (currentActive === 1) prev.disabled = true;
-    else if (currentActive === circles.length) next.disabled = true;
-    else {
+    progress_text.forEach((text, index) => {
+        if (index < currentActive) {
+            text.classList.add("progress_active");
+        } else {
+            text.classList.remove("progress_active");
+        }
+    });
+
+    if (currentActive === 2) {
         prev.disabled = false;
-        next.disabled = false;
     }
-    if (currentActive === circles.length) envoyer.classList.add("block");
+    if (currentActive === 1) {
+        prev.disabled = true;
+    }
+    if (currentActive === circles.length) valide.classList.add("block");
 };
 
 function shoeStep() {
@@ -384,6 +399,43 @@ function shoeStep() {
         $("#payment").removeClass("block");
         $("#payment").addClass("hidden");
         $("#next").removeClass("hidden");
+    }
+}
+
+function checkCode() {
+    var codeVerify = document.getElementById("codeVerify").value;
+    if (parseInt(codeVerify) === window.randomNumber) {
+        valide.classList.remove("block");
+        prev.classList.add("hidden");
+        Swal.fire({
+            title: "Confirmé avec succès",
+            // text: "Rendez-vous pris avec Dr" + doctor_name + "le"  + window.dateValue + "à" + window.timeValue ,
+            html: `Rendez-vous pris avec Dr <span class="fw-bold">${doctor_name}</span> le <span class="fw-bold">${window.dateValue}</span> à <span class="fw-bold">${window.timeValue}</span>`,
+            inputValue: 1,
+            confirmButtonText: `
+              Valider le rendez-vous
+            `,
+            preConfirm: (value) => {
+                if (!value) {
+                    Swal.showValidationMessage(
+                        "You must agree with the terms and conditions"
+                    );
+                    return false;
+                }
+                return true;
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                booking();
+            }
+        });
+    } else {
+        Swal.fire({
+            icon: "warning",
+            title: "Desolé...",
+            text: "La confirmation n'a pas réussi",
+        });
+        $("#prev").trigger("click");
     }
 }
 
@@ -787,13 +839,22 @@ function booking() {
         contentType: false,
         processData: false,
         success: function (result) {
+            console.log("result", result);
             if (result.success == true) {
-                location.replace(base_url + "/user_profile");
+                Swal.fire({
+                    icon: "success",
+                    title: "Rendez-vous avec succès",
+                    showConfirmButton: false, // Hide the "OK" button
+                    timer: 2000,
+                });
+                location.replace(
+                    base_url +
+                        `/doctor-profile/${parseInt(result.id)}/${result.name}`
+                );
             } else {
                 Swal.fire({
-                    icon: "error",
                     title: "Oops...",
-                    text: "Payment not complete",
+                    text: "Something is wrong",
                 });
             }
         },
@@ -909,34 +970,29 @@ function geocodePosition(pos) {
     );
 }
 
-function checkFirstFormValidation() {
-    // return true;
-    $("#appointmentForm").validate({
-        errorElement: "span",
-        errorClass: "custom-error",
-        rules: {
-            patient_name: {
-                required: true,
-            },
-            age: {
-                required: true,
-            },
-            phone_no: {
-                required: true,
-            },
-            patient_address: {
-                required: true,
-            },
-            appointment_for: {
-                required: true,
-            },
-        },
-    });
-    var $form = $("#appointmentForm");
-    return $form.valid();
+function checkSecondFormValidation() {
+    var phone_no = $("input[name=phone_no]").val();
+    var patient_name = $("input[name=patient_name]").val();
+
+    if (
+        phone_no == "" ||
+        phone_no == undefined ||
+        phone_no == "" ||
+        phone_no == null
+    ) {
+        return false;
+    } else if (
+        patient_name == "" ||
+        patient_name == undefined ||
+        patient_name == "" ||
+        patient_name == null
+    ) {
+        return false;
+    }
+    return true;
 }
 
-function checkSecondFormValidation() {
+function checkFirstFormValidation() {
     var hospital_id = $("input[name=hospital_id]").val();
     var date = $("input[name=date]").val();
     var time = $("input[name=time]").val();

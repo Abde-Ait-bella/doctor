@@ -62,7 +62,10 @@
   }
 
   .Appointment-detail .circle.progress_active {
-    border-color: var(--site_color);
+    /* border-color: var(--site_color); */
+    background-color: rgb(37, 150, 190);
+    color: white;
+
   }
 
   .Appointment-detail .btn {

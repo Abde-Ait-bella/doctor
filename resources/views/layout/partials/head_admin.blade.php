@@ -32,6 +32,8 @@
 
 <link rel="stylesheet" type="text/css" href="{{ asset('assets_admin/css/flatpickr.min.css') }}">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
 <script type="text/javascript" src="{{ url('assets_admin/js/sweetalert2@10.js') }}"></script>
 
 @yield('css')

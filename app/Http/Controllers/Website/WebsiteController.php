@@ -49,6 +49,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
+use PhpParser\Node\Stmt\Foreach_;
 use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php;
 use Spatie\Permission\Models\Role;
 
@@ -84,14 +85,19 @@ class WebsiteController extends Controller
         $request->validate(
             [
                 'name' => 'bail|required',
-                'email' => 'bail|required|email|unique:users',
-                'dob' => 'bail|required|before_or_equal:today|date_format:Y-m-d',
-                'gender' => 'bail|required',
+                // 'email' => 'bail|required|email|unique:users',
+                // 'dob' => 'bail|required|before_or_equal:today|date_format:Y-m-d',
+                // 'gender' => 'bail|required',
                 'phone' => 'bail|required|numeric',
-                'password' => 'bail|required|min:6',
+                // 'password' => 'bail|required|min:6',
             ]
         );
         $data = $request->all();
+
+        echo '<pre>';
+            print_r($data);
+        echo '</pre>';
+
         $verification = Setting::first()->verification;
         $verify = $verification == 1 ? 0 : 1;
         $user = User::create([
@@ -194,21 +200,35 @@ class WebsiteController extends Controller
         $setting = Setting::first();
         $currency = $setting->currency_symbol;
         $categories = Category::whereStatus(1)->get();
-        $doctor = Doctor::with(['treatment', 'category', 'expertise'])->whereStatus(1)->where('is_filled', 1)->whereSubscriptionStatus(1);
+        $doctor = Doctor::with(['treatment', 'category', 'expertise', 'hospital', 'user'])->whereStatus(1)->where('is_filled', 1)->whereSubscriptionStatus(1);
         $data = $request->all();
+
 
         if ($id !== null) {
 
             $doctor->where('category_id', $id);
+
+            $markers = [];
+
             $doctors = $doctor->paginate(5);
             $doctors = $doctors->toArray();
 
             foreach ($doctors['data'] as &$doctor) {
                 $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
                 $doctor['hospital'] = (new CustomController)->getHospital($doctor['id']);
+                foreach ($doctor['hospital'] as $hospital) {
+                    $markers[] = [
+                        "name" => $doctor['name'],
+                        "hpitalName" => $hospital->name,
+                        "image" => $doctor['fullImage'],
+                        "address" => $hospital->address,
+                        "lng" => $hospital->lng,
+                        "lat" => $hospital->lat,
+                    ];
+                };
             }
 
-            return view('website.find_doctor', compact('doctors', 'currency', 'categories'));
+            return view('website.find_doctor', compact('doctors', 'currency', 'categories', 'markers'));
         } else {
             $getSet = 0;
             $mapsShow = false;
@@ -218,20 +238,15 @@ class WebsiteController extends Controller
                 $doctor->whereIn('hospital_id', $hospital);
                 $doctors = $doctor->get()->values()->all();
                 $mapsShow = true;
-
-                // foreach ($doctors as $doctor) {
-                //     $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
-                //     $doctor->hospital = (new CustomController)->getHospital($doctor['id']);
-                // }
-
-
-            } if (isset($data['search_doctor']) && $data['search_doctor'] != '') {
+            }
+            if (isset($data['search_doctor']) && $data['search_doctor'] != '') {
                 $doctor->where('name', 'LIKE', '%' . $data['search_doctor'] . "%");
             } elseif (isset($data['gender_type']) && $data['gender_type'] != '') {
-                $doctor->where('gender', $data['gender_type']);
+                $doctor->where('gender', $data['gender_type'])->with(['category']);
             } elseif (isset($data['category'])) {
                 $doctor->whereIn('category_id', $data['category']);
-            } if (isset($data['date'])) {
+            }
+            if (isset($data['date']) && ($data['date'] != '')) {
                 $date = Carbon::parse($data['date'])->dayName;
                 $doctorWorkHour = WorkingHour::where('day_index', $date)->where('status', 1)->get();
                 foreach ($doctorWorkHour as $workinghour) {
@@ -241,7 +256,8 @@ class WebsiteController extends Controller
             }
             if (isset($data['treatment_id'])) {
                 $doctor->where('treatment_id', $data['treatment_id']);
-            } if (isset($data['sort_by']) && $data['sort_by'] != '') {
+            }
+            if (isset($data['sort_by']) && $data['sort_by'] != '') {
                 $reqData = $request->all();
                 if ($reqData['sort_by'] == 'rating') {
                     $doctor = $doctor->get();
@@ -258,20 +274,22 @@ class WebsiteController extends Controller
 
             $markers = [];
 
-
             if (isset($data['from'])) {
                 if (!$getSet) {
                     $doctors = $doctor->get()->values()->all();
                 }
+
 
                 foreach ($doctors as $doctor) {
                     $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
                     $doctor->hospital = (new CustomController)->getHospital($doctor['id']);
                     foreach ($doctor->hospital as $hospital) {
                         $markers[] = [
+                            "id" => $doctor['id'],
                             "name" => $doctor['name'],
                             "hpitalName" => $hospital->name,
                             "image" => $doctor['fullImage'],
+                            "category" => $doctor['category']['name'],
                             "address" => $hospital->address,
                             "lng" => $hospital->lng,
                             "lat" => $hospital->lat,
@@ -279,8 +297,9 @@ class WebsiteController extends Controller
                     };
                 }
 
+
                 $view = view('website.display_doctors', compact('doctors', 'currency', 'categories', 'markers'))->render();
-                return response()->json(['html' => $view, 'count' => count($doctors), 'meta' => $doctors, 'success' => true]);
+                return response()->json(['html' => $view, 'count' => count($doctors), 'meta' => $doctors, 'success' => true, 'markers' => $markers]);
             }
             $doctors = $doctor->paginate(5);
             $doctors = $doctors->toArray();
@@ -302,11 +321,26 @@ class WebsiteController extends Controller
                     ];
                 }
             }
+
             if ($request->ajax()) {
 
+                foreach ($doctors['data'] as &$doctor) {
+                    $doctor['is_fav'] = $this->checkFavourite($doctor['id']);
+                    $doctor['hospital'] = (new CustomController)->getHospital($doctor['id']);
+                    foreach ($doctor['hospital'] as $hospital) {
+                        $markers[] = [
+                            "name" => $doctor['name'],
+                            "hpitalName" => $hospital->name,
+                            "image" => $doctor['fullImage'],
+                            "address" => $hospital->address,
+                            "lng" => $hospital->lng,
+                            "lat" => $hospital->lat,
+                        ];
+                    };
+                }
 
                 $view = view('website.display_doctors', compact('doctors', 'currency', 'categories', 'markers'))->render();
-                return response()->json(['html' => $view, 'count' => count($doctors), 'meta' => $doctors, 'success' => true]);
+                return response()->json(['html' => $view, 'count' => count($doctors), 'meta' => $doctors, 'success' => true, 'markers' => $markers]);
             }
             return view('website.find_doctor', compact('doctors', 'currency', 'categories', 'markers', 'mapsShow', 'data'));
         }
@@ -373,12 +407,6 @@ class WebsiteController extends Controller
         $rating_five_pr = $this->calculateRate(5, $id);
         $treatments = Treatments::where('id', $doctor->treatment_id)->get();
 
-        // echo '<pre>';
-        // // print_r($treatments);
-        // foreach ($treatments as $treatment) {
-        //     print_r($treatment);
-        // }
-        // echo '</pre>';
 
         foreach ($doctor->hospital as $hospital) {
             $hospital->hospital_gallery = HospitalGallery::where('hospital_id', $hospital->id)->get();
@@ -463,15 +491,15 @@ class WebsiteController extends Controller
     {
 
         $doctor = Doctor::with(['category', 'expertise'])->find($id);
-        $patient_addressess = UserAddress::where('user_id', auth()->user()->id)->get();
         $today_timeslots = (new CustomController)->timeSlot($id, Carbon::today(env('timezone'))->format('Y-m-d'));
         $doctor->hospital = (new CustomController)->getHospital($id);
         $setting = Setting::first();
         $currency = $setting->currency_symbol;
         $insurers = Insurer::where('status', 1)->get();
+        $doctorWorkHour = WorkingHour::where('doctor_id', $id)->where('status', 1)->get();
 
 
-        return view('website.appointment_booking', compact('doctor', 'patient_addressess', 'today_timeslots', 'currency', 'setting', 'insurers'));
+        return view('website.appointment_booking', compact('doctor', 'today_timeslots', 'currency', 'setting', 'insurers', 'doctorWorkHour'));
     }
 
     public function pharmacy(Request $request)
@@ -769,28 +797,43 @@ class WebsiteController extends Controller
     {
         $data = $request->all();
 
-        // echo '<echo>';
-        //     print_r($data);
-        // echo '</echo>';
-        // return $data;
         $request->validate([
             'appointment_for' => 'bail',
             'illness_information' => 'bail',
             'patient_name' => 'bail',
             'age' => 'bail|numeric',
-            'patient_address' => 'bail',
+            'patient_address' => '',
             'phone_no' => 'bail|numeric',
-            'drug_effect' => 'bail',
-            'note' => 'bail',
-            'date' => 'bail',
-            'time' => 'bail',
-            'hospital_id' => 'bail',
-            'time' => 'bail|date_format:h:i a',
-            'policy_insurer_name' => 'bail',
-            'policy_number' => 'bail'
+            'drug_effect' => '',
+            'note' => '',
+            'date' => '',
+            'time' => '',
+            'hospital_id' => '',
+            // 'time' => 'bail|date_format:h:i a',
+            'policy_insurer_name' => '',
+            'policy_number' => ''
         ]);
         $data['appointment_id'] =  '#' . rand(100000, 999999);
-        $data['user_id'] = auth()->user()->id;
+        if (isset(auth()->user()->id)) {
+            $user_id = auth()->user()->id;
+        } else {
+            $user_id = '';
+
+            $verification = Setting::first()->verification;
+            $verify = $verification == 1 ? 0 : 1;
+            $user = User::create([
+                'name' => $data['patient_name'],
+                'verify' => $verify,
+                'phone' => $data['phone_no'],
+                'email' => 'patient@example.com',
+                'password' => '',
+                'image' => 'defaultUser.png',
+                'status' => 1,
+            ]);
+            Auth::loginUsingId($user->id);
+
+        }
+        $data['user_id'] = $user_id;
         $data['appointment_status'] = 'pending';
         $data['is_from'] = '0';
         if ($request->hasFile('report_image')) {
@@ -814,12 +857,16 @@ class WebsiteController extends Controller
             return $a !== "";
         });
 
+        $data['appointment_for']  = "";
+        $data['age']  = 0;
+        $data['drug_effect']  = "";
+        $data['patient_address']  = "";
+        $data['illness_information']  = "";
+        $data['note']  = "";
 
         $appointment = Appointment::create($data);
-        // session()->forget('doctor_id');
-        // session()->forget('time');
-        // session()->forget('date');
-        return response(['success' => true]);
+
+        return response(['success' => true, 'id' => $data['doctor_id'], 'name' => $doctor->name]);
     }
 
     // Check Coupon
@@ -1188,7 +1235,16 @@ class WebsiteController extends Controller
     public function aboutUs()
     {
         $aboutUs = Setting::first()->about_us;
-        return view('website.about', compact('aboutUs'));
+        $phone = Setting::first()->phone;
+        return view('website.about', compact('aboutUs', 'phone'));
+    }
+
+
+    public function contactUs()
+    {
+        $aboutUs = Setting::first()->about_us;
+        $phone = Setting::first()->phone;
+        return view('website.contact_us', compact('aboutUs', 'phone'));
     }
 
     public function privacy()

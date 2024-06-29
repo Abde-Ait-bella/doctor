@@ -1,6 +1,6 @@
-<nav class="border-gray-200 sm:px-4 rounded border-b border-slate">
+<nav class="bar-nav border-gray-200 sm:px-4 rounded border-b border-slate">
     <div class="msm:mx-0 xsm:mx-0 xxsm:mx-0 xlg:mx-20 2xl:mx-20">
-        <div class="flex flex-wrap items-center justify-between mx-auto">
+        <div class="flex flex-wrap items-center justify-around mx-auto">
             <a href="{{ url('/') }}" class="flex items-center ml-2">
                 @if (!isset($setting->logo))
                     <img src="{{ $setting->logo }}" class="h-6 mr-3 sm:h-9" alt="Doctro Logo" />
@@ -9,7 +9,48 @@
                         alt="Doctro Logo" />
                 @endif
             </a>
-            <div class="flex items-center md:order-2 d-flex justify-content-between" style="width: 30%">
+
+            <button onclick="btnMenu()" data-collapse-toggle="mobile-menu-language-select" type="button"
+                class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden xxsm:block hover:bg-gray-100"
+                aria-controls="mobile-menu-language-select" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-6 h-6" fill="currentColor" aria-hidden="true" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </button>
+
+            <div class="hidden items-center justify-between w-full md:flex md:w-auto md:order-0"
+                id="mobile-menu-language-select">
+                <ul
+                    class="flex flex-col mt-0 mb-0 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 ps-0">
+                    <li>
+                        <a href="{{ url('/show-doctors') }}"
+                            class="{{ $activePage == 'doctors' ? 'text-primary' : 'text-black' }} font-fira-sans block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-decoration-none"
+                            aria-current="page">{{ __('Find Doctors') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/all-pharmacies') }}"
+                            class="{{ $activePage == 'pharmacy' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 text-decoration-none">{{ __('Pharmacy') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/all-labs') }}"
+                            class="{{ $activePage == 'labs' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 text-decoration-none">{{ __('Lab Tests') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/our-offers') }}"
+                            class="{{ $activePage == 'offers' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 text-decoration-none">{{ __('Offers') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/our_blogs') }}"
+                            class="{{ $activePage == 'ourblogs' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 text-decoration-none">{{ __('Blog') }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="flex items-center md:order-1 justify-content-between elem_menu" id="elem_menu">
                 @php
                     if (Auth::check()) {
                         if (auth()->user()->language) {
@@ -31,7 +72,7 @@
                     }
                     $languages = App\Models\Language::where('status', 1)->get();
                 @endphp
-                <button type="button" data-dropdown-toggle="language-dropdown-menu"
+                <button id="elem_menu" type="button" data-dropdown-toggle="language-dropdown-menu"
                     class="inline-flex items-center justify-center text-sm text-gray-500 rounded-lg cursor-pointer">
                     <img src="{{ asset('images/upload/' . $lang_image) }}" class="w-5 h-5 mr-2 rounded-full"
                         alt="">
@@ -56,7 +97,7 @@
                         @endforeach
                     </ul>
                 </div>
-                <div class="my-auto cart">
+                <div id="elem_menu" class="my-auto cart ms-3">
                     <a class="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 flex relative"
                         href="{{ url('view-cart') }}">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -69,87 +110,72 @@
                             {{ Session::has('cart') ? count(Session::get('cart')) : 0 }}</p>
                     </a>
                 </div>
-                <div class="flex items-center relative">
-                    @if (auth()->check())
-                        <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName"
-                            class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 dark:text-white"
-                            type="button">
-                            <span class="sr-only">Open user menu</span>
-                            <img class="w-8 h-8 mr-2 rounded-full"
-                                src="{{ url('images/upload/' . auth()->user()->image) }}" alt="user photo">
-                            <div class="text-gray-500">{{ auth()->user()->name }}</div>
-                            <svg class="w-4 h-4 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
 
-                        <div id="dropdownAvatarName"
-                            class="bg-white z-10 hidden divide-y divide-gray-100 rounded-lg shadow w-44  dark:divide-gray-600">
-                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
-                                <li>
-                                    <a href="{{ url('user_profile') }}"
-                                        class="block px-4 py-2 font-fira-sans">{{ __('Dashboard') }}</a>
-                                </li>
-                            </ul>
-                            <div class="py-2">
-                                <a href="javascript:void(0)"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                    class="block px-4 py-2 text-sm font-fira-sans">{{ __('Sign out') }}</a>
-                            </div>
-                        </div>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    @else
-                        <div class="mt-auto mb-auto ml-3 xxsm:ml-0">
-                            <a href="{{ url('/patient-login') }}"
-                                class="bg-primary tracking-wide px-3 py-2 text-white font-fira-sans font-normal rounded text-decoration-none">{{ __('Sign In') }}</a>
-                        </div>
-                    @endif
-                </div>
-                <button data-collapse-toggle="mobile-menu-language-select" type="button"
-                    class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden xxsm:block hover:bg-gray-100"
-                    aria-controls="mobile-menu-language-select" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
-                    <svg class="w-6 h-6" fill="currentColor" aria-hidden="true" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
             </div>
-            <div class="hidden items-center justify-between w-full md:flex md:w-auto md:order-1"
-                id="mobile-menu-language-select">
-                <ul
-                    class="flex flex-col mt-3 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 ps-0">
-                    <li>
-                        <a href="{{ url('/show-doctors') }}"
-                            class="{{ $activePage == 'doctors' ? 'text-primary' : 'text-black' }} font-fira-sans block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-decoration-none"
-                            aria-current="page">{{ __('Find Doctors') }}</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/all-pharmacies') }}"
-                            class="{{ $activePage == 'pharmacy' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 text-decoration-none">{{ __('Pharmacy') }}</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/all-labs') }}"
-                            class="{{ $activePage == 'labs' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 text-decoration-none">{{ __('Lab Tests') }}</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/our-offers') }}"
-                            class="{{ $activePage == 'offers' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 text-decoration-none">{{ __('Offers') }}</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/our_blogs') }}"
-                            class="{{ $activePage == 'ourblogs' ? 'text-primary' : 'text-black' }} block py-2 font-fira-sans pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 text-decoration-none">{{ __('Blog') }}</a>
-                    </li>
-                </ul>
+
+            {{-- <button data-collapse-toggle="mobile-menu-language-select" type="button"
+                class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden xxsm:block hover:bg-gray-100"
+                aria-controls="mobile-menu-language-select" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-6 h-6" fill="currentColor" aria-hidden="true" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </button> --}}
+
+            <div class="flex items-center relative order-2" id="elem_menu">
+                @if (auth()->check())
+                    <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName"
+                        class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 dark:text-white"
+                        type="button">
+                        <span class="sr-only">Open user menu</span>
+                        <img class="w-8 h-8 mr-2 rounded-full"
+                            src="{{ url('images/upload/' . auth()->user()->image) }}" alt="user photo">
+                        <div class="text-gray-500">{{ auth()->user()->name }}</div>
+                        <svg class="w-4 h-4 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+
+                    <div id="dropdownAvatarName"
+                        class="bg-white z-10 hidden divide-y divide-gray-100 rounded-lg shadow w-44  dark:divide-gray-600">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                            <li>
+                                <a href="{{ url('user_profile') }}"
+                                    class="block px-4 py-2 font-fira-sans">{{ __('Dashboard') }}</a>
+                            </li>
+                        </ul>
+                        <div class="py-2">
+                            <a href="javascript:void(0)"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                class="block px-4 py-2 text-sm font-fira-sans">{{ __('Sign out') }}</a>
+                        </div>
+                    </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                @else
+                    <div class="mt-auto mb-auto ml-3 xxsm:ml-0">
+                        <a href="{{ url('/patient-login') }}"
+                            class="bg-primary tracking-wide px-3 py-2 text-white font-fira-sans font-normal rounded text-decoration-none">{{ __('Sign In') }}</a>
+                    </div>
+                @endif
             </div>
+
         </div>
     </div>
 </nav>
+<script>
+    const btnMenu = () => {
+        var elems_menu = document.querySelectorAll('#elem_menu');
+        elems_menu.forEach(element => {
+            element.classList.toggle('hidden');
+        });
+    }
+</script>

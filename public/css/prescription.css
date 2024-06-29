@@ -1,0 +1,16 @@
+.medicines {
+    width: 68vw;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    /* width: 300px;
+    height: 100px; */
+    /* scrollbar-color: rebeccapurple green; */
+    scrollbar-width: thin;
+
+}
+
+.label-prescription{
+    /* color: #000; */
+    font-weight: bold;
+}

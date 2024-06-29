@@ -11,7 +11,7 @@ class Prescription extends Model
 
     protected $table = 'prescription';
 
-    protected $fillable = ['appointment_id','medicines','doctor_id','user_id','pdf'];
+    protected $fillable = ['appointment_id','medicines','doctor_id','user_id', 'health_insurance', 'status', 'low_income', 'reference', 'high_blood_pressure', 'food_allergies', 'tendency_bleed', 'heart_disease', 'diabetic', 'added_at', 'female_pregnancy', 'breast_feeding', 'current_medication', 'surgery', 'accident', 'others', 'pulse_rate', 'temperature', 'problem_description', 'test', 'advice', 'next_visit' ,'pdf'];
 
     public function doctor()
     {
